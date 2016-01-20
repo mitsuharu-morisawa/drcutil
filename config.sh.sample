@@ -11,7 +11,7 @@ then
     export HAVE_ATOM_ACCESS=0
 fi
 
-if [ "$(uname -m)" == "i686" ]
+if [ "$(lsb_release -is)" == "Debian" ]
 then
     export INTERNAL_MACHINE=1
 fi
