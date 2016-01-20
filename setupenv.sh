@@ -14,4 +14,5 @@ cd $SRC_DIR/choreonoid/misc/script
 
 #hrpcnoid
 sudo apt-get -y install libdecodeqr-dev
+sudo apt-get -y install libzbar-dev
 

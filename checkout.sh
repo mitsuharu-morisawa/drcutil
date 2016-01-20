@@ -21,11 +21,6 @@ then
     # cd robot/HRP2SH
     # svn update 
     # cd ../..
-
-    cd HRP2JVRC
-    git pull
-    cd ..
-
 fi
 
 
@@ -55,8 +50,6 @@ cd choreonoid
 GIT_SSL_NO_VERIFY=1 git pull
 cd ext/hrpcnoid
 git pull
-cd ../jvrc
-GIT_SSL_NO_VERIFY=1 git pull
 cd ../../..
 
 

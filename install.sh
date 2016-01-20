@@ -18,7 +18,7 @@ cmake_install_with_option() {
     $SUDO make -j2 install
 }
 
-cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF"
+cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST=ON"
 cmake_install_with_option "octomap-1.6.8"
 cmake_install_with_option "hrpsys-base" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_KALMAN_FILTER=OFF -DBUILD_STABILIZER=OFF"
 
