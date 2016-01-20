@@ -56,9 +56,9 @@ GIT_SSL_NO_VERIFY=1 git pull
 cd ext/hrpcnoid
 git pull
 cd ../JVRCPlugin
-GIT_SSL_NO_VERIFY=1 git pull
-cd ../jvrc-hrg
 git pull
+cd ../jvrc-hrg
+GIT_SSL_NO_VERIFY=1 git pull
 cd ../../..
 
 
