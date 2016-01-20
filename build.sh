@@ -18,16 +18,22 @@ build_install() {
 
 build_install "openhrp3" "hrpsys-base"
 
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
     build_install "HRP2"
     # build_install "robot/HRP2SH"
 fi
+fi
 
 build_install "HRP2DRC" "hmc2" "hrpsys-humanoid"
 
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
     build_install "hrpsys-private"
 fi
+fi
 
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 build_install "choreonoid"
+fi
 

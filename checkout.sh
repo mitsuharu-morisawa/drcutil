@@ -12,6 +12,7 @@ git pull
 cd ..
 
 
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]
 then
     cd HRP2
@@ -21,6 +22,7 @@ then
     # cd robot/HRP2SH
     # svn update 
     # cd ../..
+fi
 fi
 
 
@@ -38,19 +40,23 @@ git pull
 cd ..
 
 
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]
 then
     cd hrpsys-private
     svn update
     cd ..
 fi
+fi
 
 
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 cd choreonoid
 GIT_SSL_NO_VERIFY=1 git pull
 cd ext/hrpcnoid
 git pull
 cd ../../..
+fi
 
 
 
