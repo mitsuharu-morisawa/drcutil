@@ -1,12 +1,14 @@
 cp config.sh.sample config.sh
 sed -i -e "s/HOME/WORKSPACE/g" config.sh
 
-./getsource.sh
+source ./getsource.sh
 
-./setupenv.sh
+source ./setupenv.sh
 
-./install.sh
+source ./install.sh
 
 source env
 
-./update.sh
+#source ./update.sh
+source ./checkout.sh
+source ./build.sh
