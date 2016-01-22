@@ -15,7 +15,13 @@ cmake_install_with_option() {
         cmake -DCMAKE_INSTALL_PREFIX=$PREFIX $2 ..
     fi
 
-    $SUDO make -j2 install
+    $SUDO make -j2 install > $SRC_DIR/$1.log 2>&1
+    if [ "$?" -eq 0 ]
+    then
+        echo "success"
+    else
+        echo -e "\e[31mfail\e[m"
+    fi
 }
 
 cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST=ON"
