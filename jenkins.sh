@@ -1,6 +1,8 @@
 cp config.sh.sample config.sh
 sed -i -e "s/HOME/WORKSPACE/g" config.sh
 
+source config.sh
+
 bash -xe ./getsource.sh
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 sed -i -e 's/apt-get /apt-get -y /g' ${WORKSPACE}/src/openhrp3/util/installPackages.sh
