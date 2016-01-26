@@ -1,12 +1,14 @@
 cp config.sh.sample config.sh
 sed -i -e "s/HOME/WORKSPACE/g" config.sh
 
-source config.sh
 sudo apt-get update
+sudo apt-get -y install git lsb-release wget libgtest-dev
+
+source config.sh
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-sudo apt-get -y install git lsb-release wget software-properties-common libgtest-dev
+sudo apt-get -y install software-properties-common
 else
-sudo apt-get -y install git lsb-release wget python-software-properties libgtest-dev
+sudo apt-get -y install python-software-properties
 fi
 
 ${HOME}/Documents/jenkinshrg/install/credential.sh
