@@ -56,3 +56,15 @@ source env.sh
 #bash -xe ./update.sh
 bash -xe ./checkout.sh
 bash -xe ./build.sh
+
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+if [ -z "${DISPLAY}" ]; then
+    bash -xe ./test.sh
+    bash -xe ./coverage.sh
+    bash -xe ./inspection.sh
+fi
+
+if [ -n "${DISPLAY}" ]; then
+    bash -xe ./task.sh HRP2DRC testbed-terrain 620 170 530 220 300
+fi
+fi
