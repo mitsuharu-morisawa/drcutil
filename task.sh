@@ -12,9 +12,11 @@ PORT=${9}
 
 rm -f ${TASK}.*
 
+ulimit -c unlimited
 killall -9 openhrp-model-loader || true
 killall -9 choreonoid || true
 cd ${WORKSPACE}/openrtp/share/hrpsys/samples/${PROJECT}
+rm -f core
 CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation 2>&1 | tee ${WORKSPACE}/${TASK}.txt &
 CHOREONOID=$(jobs -p %+)
 
