@@ -59,6 +59,7 @@ bash -xe ./build.sh
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -n "${DISPLAY}" ]; then
+    sudo apt-get -y install xautomation imagemagick recordmydesktop
     bash -xe ./task.sh HRP2DRC testbed-terrain 620 170 530 220 300
 fi
 fi
