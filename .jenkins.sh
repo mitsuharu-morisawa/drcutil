@@ -5,7 +5,7 @@ sudo apt-get update
 sudo apt-get -y install lsb-release
 source config.sh
 
-if [ ! -e src ]; then
+if [ ! -e $SRC_DIR ]; then
 mkdir $SRC_DIR
 sudo apt-get -y install wget
 ${HOME}/Documents/jenkinshrg/install/credential.sh
@@ -29,7 +29,7 @@ sed -i -e "s/collada-dom-dev/#collada-dom-dev/g" ${WORKSPACE}/src/openhrp3/util/
 fi
 fi
 
-if [ ! -e openrtp ]; then
+if [ ! -e $PREFIX ]; then
 mkdir $PREFIX
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 sudo apt-get -y install software-properties-common
