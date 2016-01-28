@@ -44,13 +44,13 @@ sudo apt-get -y install libgtest-dev
 bash -xe ./install.sh
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 mkdir -p $HOME/.config/Choreonoid
-cp ${WORKSPACE}/drcutil/Choreonoid.conf $HOME/.config/Choreonoid
+cp ${WORKSPACE}/drcutil/.config/Choreonoid.conf $HOME/.config/Choreonoid
 sed -i -e "s/vagrant\/src/${USER}\/workspace\/${JOB_NAME}\/src/g" $HOME/.config/Choreonoid/Choreonoid.conf
 sed -i -e "s/vagrant\/openrtp/${USER}\/workspace\/${JOB_NAME}\/openrtp/g" $HOME/.config/Choreonoid/Choreonoid.conf
 fi
 fi
 
-source env.sh
+source .bashrc
 
 #bash -xe ./update.sh
 bash -xe ./checkout.sh
