@@ -51,6 +51,7 @@ fi
 fi
 
 source .bashrc
+bash -xe ./diff.sh
 
 #bash -xe ./update.sh
 bash -xe ./checkout.sh
