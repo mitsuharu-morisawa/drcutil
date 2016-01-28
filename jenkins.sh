@@ -1,6 +1,7 @@
 cp config.sh.sample config.sh
 sed -i -e "s/HOME/WORKSPACE/g" config.sh
 
+sudo apt-get update
 sudo apt-get -y install lsb-release
 source config.sh
 
