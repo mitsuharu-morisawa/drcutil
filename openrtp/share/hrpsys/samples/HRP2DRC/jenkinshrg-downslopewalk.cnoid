@@ -1,0 +1,691 @@
+items: 
+  id: 0
+  name: "Root"
+  plugin: Base
+  class: RootItem
+  children: 
+    - 
+      id: 1
+      name: "RemoteWorld"
+      plugin: Body
+      class: WorldItem
+      data: 
+        collisionDetection: false
+        collisionDetector: AISTCollisionDetector
+      children: 
+        - 
+          id: 2
+          name: "HRP2DRC"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/HRP2DRC/model/HRP2DRC.yaml"
+            currentBaseLink: "WAIST"
+            rootPosition: [ 0.00122689013, 0.000492931402, 0.758996069 ]
+            rootAttitude: [ 
+              0.999999906, 6.76505236e-06, -0.000433726642, 
+              -6.77516191e-06, 1, -2.33071087e-05, 
+              0.000433726485, 2.33100451e-05, 0.999999906 ]
+            jointPositions: [ 
+              -0.000161, -0.000885, -0.457405,  0.874157, -0.418226,  0.001713,  0.000172, -0.000716, -0.457826,  0.874947, 
+              -0.418593,  0.000364, -0.000000, -0.001925,  0.000000,  0.000156,  0.784046, -0.348353,  0.001510, -1.308535, 
+               0.000011,  0.000219, -0.000006,  0.349071,  0.784029,  0.348352, -0.001502, -1.308543,  0.000003, -0.000221, 
+               0.000033,  0.349060, -0.349054,  0.349047, -0.349016,  0.349064, -0.349027, -0.349068,  0.349078, -0.349004, 
+               0.349079, -0.349053 ]
+            initialRootPosition: [ 0, 0, 0.76 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            initialJointPositions: [ 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: false
+          children: 
+            - 
+              id: 3
+              name: "DRCUserInterface"
+              plugin: DRCUserInterfacePlugin
+              class: DRCUserInterface
+              data: 
+                rtcInstance: DRCUserInterface
+                periodicRate: 20
+                bodyTransparency: 0.75
+                uiSyncMode: off
+                uiSyncProtocol: UDP
+                uiSyncHost: 
+                multiPointCloud: 
+                  autoSave: false
+                  renderingMode: Point
+                  pointSize: 0
+                  voxelSize: 0
+                heightField: 
+                  renderingMode: Point
+                  pointSize: 2.5
+                  voxelSize: 0.005
+                  isEditable: false
+                OGMap: 
+                  renderingMode: Point
+                  pointSize: 0
+                  voxelSize: 0.01
+                  isEditable: false
+                extraPoints: 
+                  renderingMode: Point
+                  pointSize: 0
+                  voxelSize: 0.01
+                  isEditable: false
+                manipulationMarker: 
+                  targetModel: Sphere
+                  boxModelSize: [ 1, 1, 1 ]
+                objectMarker: 
+                  targetModel: Sphere
+                  boxModelSize: [ 1, 1, 1 ]
+        - 
+          id: 4
+          name: "DRCTerrainTask.py"
+          plugin: Python
+          class: PythonScriptItem
+          data: 
+            file: "${HRPCNOID}/DRCUserInterfacePlugin/HRP2DRC/DRCTerrainTask.py"
+            executionOnLoading: true
+            backgroundExecution: false
+    - 
+      id: 5
+      name: "ModelLoader"
+      plugin: Base
+      class: ExtCommandItem
+      data: 
+        command: openhrp-model-loader
+        executeOnLoading: true
+        waitingTimeAfterStarted: 0
+    - 
+      id: 6
+      name: "SimulationWorld"
+      plugin: Body
+      class: WorldItem
+      data: 
+        collisionDetection: false
+        collisionDetector: AISTCollisionDetector
+      children: 
+        - 
+          id: 7
+          name: "HRP2DRC"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/HRP2DRC/model/HRP2DRCBush.yaml"
+            currentBaseLink: ""
+            rootPosition: [ -0.000138017768, 9.25440816e-05, 0.757633242 ]
+            rootAttitude: [ 
+              0.999999997, 7.7438896e-05, 2.38407066e-05, 
+              -7.74388733e-05, 0.999999997, -9.52382695e-07, 
+              -2.38407803e-05, 9.50536494e-07, 1 ]
+            jointPositions: [ 
+              -0.000191, -0.000086, -0.455478,  0.876009, -0.422292,  0.000085,  0.000188, -0.000171, -0.455386,  0.875965, 
+              -0.422808,  0.000170,  0.000000, -0.001918,  0.000000,  0.000159,  0.784026, -0.348356,  0.001504, -1.308538, 
+               0.000011,  0.000218, -0.000005,  0.349071,  0.784009,  0.348354, -0.001498, -1.308546,  0.000003, -0.000221, 
+               0.000033,  0.349060, -0.349054,  0.349047, -0.349016,  0.349064, -0.349027, -0.349069,  0.349078, -0.349004, 
+               0.349079, -0.349053 ]
+            initialRootPosition: [ 0, 0, 0.76 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            initialJointPositions: [ 
+               0.000000,  0.000000, -0.453800,  0.872700, -0.418900,  0.000000,  0.000000,  0.000000, -0.453800,  0.872700, 
+              -0.418900,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.261800, -0.174500,  0.000000, -0.523600, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.261800,  0.174500,  0.000000, -0.523600,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: false
+          children: 
+            - 
+              id: 8
+              name: "BodyRTC"
+              plugin: OpenRTM
+              class: BodyRTCItem
+              data: 
+                isImmediateMode: true
+                moduleName: "PDservo"
+                confFileName: "Virtual-HRP2DRC-RTC.conf"
+                configurationMode: Use Configuration File
+                AutoConnect: true
+                InstanceName: HRP2DRCController(Robot)0
+                bodyPeriodicRate: 0.005
+        - 
+          id: 9
+          name: "downslopelongfloor"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/jenkinshrg-downslopelongfloor.wrl"
+            currentBaseLink: ""
+            rootPosition: [ 1, 0, -0.1 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 1, 0, -0.1 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+        - 
+          id: 10
+          name: "AISTSimulator"
+          plugin: Body
+          class: AISTSimulatorItem
+          data: 
+            realtimeSync: true
+            recording: full
+            timeRangeMode: Time bar range
+            timeLength: 60
+            allLinkPositionOutputMode: false
+            deviceStateOutput: false
+            controllerThreads: true
+            recordCollisionData: false
+            dynamicsMode: Forward dynamics
+            integrationMode: Runge Kutta
+            gravity: [ 0, 0, -9.80665 ]
+            staticFriction: 1
+            slipFriction: 1
+            cullingThresh: 0.01
+            contactCullingDepth: 0.01
+            errorCriterion: 0.001
+            maxNumIterations: 100
+            contactCorrectionDepth: 0.0002
+            contactCorrectionVelocityRatio: 1
+            kinematicWalking: false
+            2Dmode: false
+          children: 
+            - 
+              id: 11
+              name: "GLVisionSimulator"
+              plugin: Body
+              class: GLVisionSimulatorItem
+              data: 
+                enabled: true
+                targetBodies: [ HRP2DRC ]
+                targetSensors: [ CAMERA_C, CAMERA_RH, CAMERA_LH, ranger ]
+                maxFrameRate: 1000
+                maxLatency: 0
+                recordVisionData: false
+                useThread: true
+                useThreadsForSensors: true
+                bestEffort: true
+                allSceneObjects: false
+                rangeSensorPrecisionRatio: 2
+                depthError: 0
+                enableHeadLight: true
+                enableAdditionalLights: true
+        - 
+          id: 12
+          name: "drc.py"
+          plugin: PythonSimScript
+          class: PythonSimScriptItem
+          data: 
+            timing: After init.
+            delay: 0
+            simulationOnly: false
+            backgroundExecution: true
+            file: "drc.py"
+          children: 
+            - 
+              id: 13
+              name: "OpenHRPInterpreterService"
+              plugin: OpenHRP3.1
+              class: OpenHRPInterpreterServiceItem
+              data: 
+                rtcInstance: PythonInterpreterProvider0
+                forceMainThreadExecution: false
+                putScriptText: false
+views: 
+  - 
+    id: 0
+    name: "CameraImage"
+    plugin: Base
+    class: ImageView
+  - 
+    id: 1
+    plugin: Base
+    class: ItemPropertyView
+    mounted: true
+  - 
+    id: 2
+    plugin: Base
+    class: ItemTreeView
+    mounted: true
+    state: 
+      checked: [ 2, 3, [ 3, "HeightField" ], 5, 12 ]
+      expanded: [ 1, 2, 3, 5, 6, 7, 8, 10, 12 ]
+  - 
+    id: 3
+    plugin: Base
+    class: MessageView
+    mounted: true
+  - 
+    id: 4
+    plugin: Base
+    class: SceneView
+    mounted: true
+    state: 
+      editMode: true
+      viewpointControlMode: thirdPerson
+      collisionLines: false
+      polygonMode: fill
+      defaultHeadLight: true
+      defaultHeadLightIntensity: 0.75
+      headLightLightingFromBack: false
+      worldLight: true
+      worldLightIntensity: 0.5
+      worldLightAmbient: 0.3
+      additionalLights: true
+      fog: true
+      floorGrid: true
+      floorGridSpan: 10
+      floorGridInterval: 0.5
+      xzGridSpan: 10
+      xzGridInterval: 0.5
+      xzGrid: false
+      yzGridSpan: 10
+      yzGridInterval: 0.5
+      texture: true
+      lineWidth: 1
+      pointSize: 1
+      normalVisualization: false
+      normalLength: 0.01
+      coordinateAxes: true
+      showFPS: false
+      enableNewDisplayListDoubleRendering: true
+      useBufferForPicking: true
+      cameras: 
+        - 
+          camera: [ System, Perspective ]
+          isCurrent: true
+          fieldOfView: 0.6978
+          near: 0.01
+          far: 100
+          eye: [ 11.9164723, 3.73387299, 4.36868917 ]
+          direction: [ -0.921850107, -0.288849683, -0.258376163 ]
+          up: [ -0.246556055, -0.0772551174, 0.966044387 ]
+        - 
+          camera: [ System, Orthographic ]
+          orthoHeight: 20
+          near: 0.01
+          far: 100
+        - 
+          camera: Tracking (Perspective)
+          fieldOfView: 0.785398
+          near: 0.01
+          far: 100
+          eye: [ 4.010809, 2.00179189, 1.49899607 ]
+          direction: [ -0.888888889, -0.444444444, -0.111111111 ]
+          up: [ -0.0993807989, -0.0496903995, 0.99380799 ]
+        - 
+          camera: Tracking (Orthographic)
+          orthoHeight: 2
+          near: 0.01
+          far: 100
+      backgroundColor: [ 0.100000001, 0.100000001, 0.300000012 ]
+      gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      dedicatedItemTreeViewChecks: false
+  - 
+    id: 5
+    name: "Simulation Scene"
+    plugin: Base
+    class: SceneView
+    mounted: true
+    state: 
+      editMode: false
+      viewpointControlMode: thirdPerson
+      collisionLines: false
+      polygonMode: fill
+      defaultHeadLight: true
+      defaultHeadLightIntensity: 0.75
+      headLightLightingFromBack: false
+      worldLight: true
+      worldLightIntensity: 0.5
+      worldLightAmbient: 0.3
+      additionalLights: true
+      fog: true
+      floorGrid: false
+      floorGridSpan: 10
+      floorGridInterval: 0.5
+      xzGridSpan: 10
+      xzGridInterval: 0.5
+      xzGrid: false
+      yzGridSpan: 10
+      yzGridInterval: 0.5
+      texture: true
+      lineWidth: 1
+      pointSize: 1
+      normalVisualization: false
+      normalLength: 0.01
+      coordinateAxes: true
+      showFPS: false
+      enableNewDisplayListDoubleRendering: false
+      useBufferForPicking: true
+      cameras: 
+        - 
+          camera: [ System, Perspective ]
+          isCurrent: true
+          fieldOfView: 0.6978
+          near: 0.01
+          far: 100
+          eye: [ -3.57660585, 2.66606273, 3.36347405 ]
+          direction: [ 0.902488604, -0.358316809, -0.239004988 ]
+          up: [ 0.222137182, -0.0881955582, 0.97101834 ]
+        - 
+          camera: [ System, Orthographic ]
+          orthoHeight: 20
+          near: 0.01
+          far: 100
+      backgroundColor: [ 0, 0, 0 ]
+      gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      dedicatedItemTreeViewChecks: true
+      checked: [ 7, 9 ]
+  - 
+    id: 6
+    name: "Task"
+    plugin: Base
+    class: TaskView
+    mounted: true
+    state: 
+      layoutMode: horizontal
+      isAutoMode: false
+      currentTask: Terrain
+  - 
+    id: 7
+    plugin: Body
+    class: BodyLinkView
+    state: 
+      showRotationMatrix: false
+  - 
+    id: 8
+    plugin: Body
+    class: JointSliderView
+    state: 
+      showAllJoints: true
+      jointId: false
+      name: true
+      numColumns: 1
+      spinBox: true
+      slider: true
+      labelOnLeft: true
+  - 
+    id: 9
+    plugin: Body
+    class: LinkSelectionView
+    state: 
+      listingMode: "Link List"
+      bodyItems: 
+        - 
+          id: 2
+          selectedLinks: [ 0 ]
+        - 
+          id: 7
+          selectedLinks: [ 20 ]
+  - 
+    id: 10
+    name: "Nameserver"
+    plugin: Corba
+    class: NameServerView
+    mounted: true
+  - 
+    id: 11
+    name: "Head Camera"
+    plugin: DRCUserInterfacePlugin
+    class: DRCCameraImageView
+    mounted: true
+    state: 
+      cameraId: 0
+      maxNumImages: 300
+      rotateAngle: 90
+      showControlButtons: true
+      transform: [ 
+        1, 0, 0, 
+        0, 1, 0, 
+        0, -0.165803109, 1 ]
+  - 
+    id: 12
+    name: "R-Hand Camera"
+    plugin: DRCUserInterfacePlugin
+    class: DRCCameraImageView
+    state: 
+      cameraId: 1
+      maxNumImages: 300
+      rotateAngle: 90
+      showControlButtons: false
+      transform: [ 
+        1, 0, 0, 
+        0, 1, 0, 
+        0, 0, 1 ]
+  - 
+    id: 13
+    name: "L-Hand Camera"
+    plugin: DRCUserInterfacePlugin
+    class: DRCCameraImageView
+    state: 
+      cameraId: 2
+      maxNumImages: 300
+      rotateAngle: 90
+      showControlButtons: false
+      transform: [ 
+        1, 0, 0, 
+        0, 1, 0, 
+        0, 0, 1 ]
+  - 
+    id: 14
+    name: "Planner Config"
+    plugin: DRCUserInterfacePlugin
+    class: PlannerConfigView
+    mounted: true
+  - 
+    id: 15
+    name: "Stance Planner Config"
+    plugin: DRCUserInterfacePlugin
+    class: StancePlannerConfigView
+  - 
+    id: 16
+    name: "GrxUI Menu"
+    plugin: GrxUI
+    class: GrxUIMenuView
+    mounted: true
+  - 
+    id: 17
+    plugin: Python
+    class: PythonConsoleView
+    mounted: true
+toolbars: 
+  "TimeBar": 
+    minTime: 0
+    maxTime: 600
+    frameRate: 1000
+    playbackFrameRate: 50
+    idleLoopDrivenMode: false
+    currentTime: 51.569
+    speedScale: 1
+    syncToOngoingUpdates: true
+    autoExpansion: true
+  "KinematicsBar": 
+    mode: IK
+    enablePositionDragger: true
+    penetrationBlock: true
+    collisionLinkHighlight: false
+    snapDistance: 0.025
+    penetrationBlockDepth: 0.0005
+    lazyCollisionDetectionMode: true
+  "LeggedBodyBar": 
+    stanceWidth: 0.15
+  "BodyMotionGenerationBar": 
+    autoGenerationForNewBody: true
+    balancer: false
+    autoGeneration: false
+    timeScaleRatio: 1
+    preInitialDuration: 1
+    postFinalDuration: 1
+    onlyTimeBarRange: false
+    makeNewBodyItem: true
+    stealthyStepMode: true
+    stealthyHeightRatioThresh: 2
+    flatLiftingHeight: 0.005
+    flatLandingHeight: 0.005
+    impactReductionHeight: 0.005
+    impactReductionTime: 0.04
+    autoZmp: true
+    minZmpTransitionTime: 0.1
+    zmpCenteringTimeThresh: 0.03
+    zmpTimeMarginBeforeLiftingSpin: 0
+    zmpMaxDistanceFromCenter: 0.02
+    allLinkPositions: false
+    lipSyncMix: false
+    timeToStartBalancer: 0
+    balancerIterations: 2
+    plainBalancerMode: false
+    boundaryConditionType: position
+    boundarySmootherType: off
+    boundarySmootherTime: 0.5
+    boundaryCmAdjustment: false
+    boundaryCmAdjustmentTime: 1
+    waistHeightRelaxation: false
+    gravity: 9.8
+    dynamicsTimeRatio: 1
+Body: 
+  "BodyMotionEngine": 
+    updateJointVelocities: false
+  "EditableSceneBody": 
+    editableSceneBodies: 
+      - 
+        bodyItem: 2
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 7
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 9
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+    staticModelEditing: false
+  "KinematicFaultChecker": 
+    checkJointPositions: true
+    angleMargin: 0
+    translationMargin: 0
+    checkJointVelocities: true
+    velocityLimitRatio: 100
+    targetJoints: all
+    checkSelfCollisions: true
+    onlyTimeBarRange: false
+OpenRTM: 
+  "deleteUnmanagedRTCsOnStartingSimulation": true
+Python: 
+  "moduleSearchPath": 
+    - ${PROGRAM_TOP}/lib/python2.7/dist-packages/hrpsys
+viewAreas: 
+  - 
+    type: embedded
+    tabs: true
+    contents: 
+      type: splitter
+      orientation: horizontal
+      sizes: [ 265, 1584 ]
+      children: 
+        - 
+          type: splitter
+          orientation: vertical
+          sizes: [ 539, 539 ]
+          children: 
+            - 
+              type: pane
+              views: [ 2 ]
+              current: 2
+            - 
+              type: pane
+              views: [ 1, 14, 10 ]
+              current: 1
+        - 
+          type: splitter
+          orientation: vertical
+          sizes: [ 785, 293 ]
+          children: 
+            - 
+              type: splitter
+              orientation: horizontal
+              sizes: [ 1096, 482 ]
+              children: 
+                - 
+                  type: splitter
+                  orientation: horizontal
+                  sizes: [ 390, 700 ]
+                  children: 
+                    - 
+                      type: splitter
+                      orientation: vertical
+                      sizes: [ 390, 389 ]
+                      children: 
+                        - 
+                          type: pane
+                          views: [ 6 ]
+                          current: 6
+                        - 
+                          type: pane
+                          views: [ 11 ]
+                          current: 11
+                    - 
+                      type: pane
+                      views: [ 4 ]
+                      current: 4
+                - 
+                  type: pane
+                  views: [ 5, 16 ]
+                  current: 5
+            - 
+              type: splitter
+              orientation: horizontal
+              sizes: [ 790, 788 ]
+              children: 
+                - 
+                  type: pane
+                  views: [ 3 ]
+                  current: 3
+                - 
+                  type: pane
+                  views: [ 17 ]
+                  current: 17
+layoutOfToolBars: 
+  rows: 
+    - 
+      - { name: "FileBar", x: 0, priority: 0 }
+      - { name: "TimeBar", x: 48, priority: 0 }
+      - { name: "SceneBar", x: 2249, priority: 2 }
+      - { name: "CaptureBar", x: 2513, priority: 1 }
+      - { name: "BodyMotionGenerationBar", x: 641, priority: 0 }
+    - 
+      - { name: "ScriptBar", x: 0, priority: 7 }
+      - { name: "SimulationBar", x: 0, priority: 0 }
+      - { name: "DRCBar", x: 172, priority: 4 }
+      - { name: "KinematicsBar", x: 2153, priority: 2 }
+      - { name: "BodyBar", x: 2253, priority: 6 }
+      - { name: "GraphBar", x: 2394, priority: 5 }
