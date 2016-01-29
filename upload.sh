@@ -2,7 +2,6 @@ cd ${WORKSPACE}
 echo -n > artifacts.txt
 echo -n > jenkins-artifacts.txt
 
-JENKINS_URL=http://jenkinshrg.a01.aist.go.jp/
 DATE=$(date +"%Y-%m-%d")
 TIME=$(date +"%H-%M")
 
