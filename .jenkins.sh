@@ -1,3 +1,12 @@
+if [ ! -v JOB_NAME ]; then
+    JOB_NAME=debug
+fi
+
+if [ ! -v WORKSPACE ]; then
+    WORKSPACE=${HOME}/workspace/${JOB_NAME}
+    cd ${WORKSPACE}
+fi
+
 cp config.sh.sample config.sh
 sed -i -e "s/HOME/WORKSPACE/g" config.sh
 sudo apt-get update
