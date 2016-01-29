@@ -14,10 +14,6 @@ upload() {
   bash -xe ./upload.sh || true
   awk -F, '{print $2"\t"$3"\t"}' ${WORKSPACE}/artifacts.txt > ${WORKSPACE}/artifacts_email.txt
   awk -F, '{print $2"\t"$3"\t"}' ${WORKSPACE}/jenkins-artifacts.txt > ${WORKSPACE}/jenkins-artifacts_email.txt
-  rm -fr jenkinshrg.github.io
-  git clone https://github.com/jenkinshrg/jenkinshrg.github.io.git
-  cd jenkinshrg.github.io
-  bash -xe .jenkins.sh || true
 }
 
 trap upload EXIT
