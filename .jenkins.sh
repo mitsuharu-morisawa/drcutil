@@ -64,6 +64,7 @@ if [ ! -e $PREFIX ]; then
     fi
     sudo apt-get -y install libgtest-dev
     bash -xe ./install.sh
+    cp ${WORKSPACE}/src/*.log ${WORKSPACE}
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     mkdir -p $HOME/.config/Choreonoid
     cp ${WORKSPACE}/drcutil/.config/Choreonoid.conf $HOME/.config/Choreonoid
