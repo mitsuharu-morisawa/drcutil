@@ -75,7 +75,7 @@ bash -xe ./diff.sh
 cat ${WORKSPACE}/src/*.diff > ${WORKSPACE}/changes.txt
 awk -F, '{print $1"\t"$3"\t"}' ${WORKSPACE}/changes.txt > ${WORKSPACE}/changes_email.txt
 
-rm ${WORKSPACE}/*.log
+rm -f ${WORKSPACE}/*.log
 if [ -s ${WORKSPACE}/changes.txt ]; then
     #bash -xe ./update.sh
     bash -xe ./checkout.sh
