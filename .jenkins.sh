@@ -7,6 +7,20 @@ if [ ! -v WORKSPACE ]; then
     cd ${WORKSPACE}
 fi
 
+upload() {
+  sudo pip install google-api-python-client
+  source ${HOME}/Documents/jenkinshrg/scripts/env.sh
+  bash -xe ./upload.sh || true
+  awk -F, '{print $2"\t"$3"\t"}' ${WORKSPACE}/artifacts.txt > ${WORKSPACE}/artifacts_email.txt
+  awk -F, '{print $2"\t"$3"\t"}' ${WORKSPACE}/jenkins-artifacts.txt > ${WORKSPACE}/jenkins-artifacts_email.txt
+  rm -fr jenkinshrg.github.io
+  git clone https://github.com/jenkinshrg/jenkinshrg.github.io.git
+  cd jenkinshrg.github.io
+  bash -xe .jenkins.sh
+}
+
+trap upload EXIT
+
 cp config.sh.sample config.sh
 sed -i -e "s/HOME/WORKSPACE/g" config.sh
 sudo apt-get update
