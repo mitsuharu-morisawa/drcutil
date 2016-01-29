@@ -16,7 +16,7 @@ upload() {
   rm -fr jenkinshrg.github.io
   git clone https://github.com/jenkinshrg/jenkinshrg.github.io.git
   cd jenkinshrg.github.io
-  bash -xe .jenkins.sh
+  bash -xe .jenkins.sh || true
 }
 
 trap upload EXIT
