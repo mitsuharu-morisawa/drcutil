@@ -135,7 +135,7 @@ if [ "${1}" = "task" ] || [ "${1}" = "all" ]; then
     bash -xe ./task.sh HRP2DRC testbed-terrain 620 170 530 220 300
     fi
     if [ "${2}" = "valve" ] || [ "${2}" = "all" ]; then
-    bash -xe ./task.sh HRP2DRC drc-valves 870 1000 760 1050 90 valve_left q
+    bash -xe ./task.sh HRP2DRC drc-valves 870 1000 760 1050 120 valve_left q
     fi
     if [ "${2}" = "wall" ] || [ "${2}" = "all" ]; then
     #bash -xe ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 450 tool waistAbsTransform
