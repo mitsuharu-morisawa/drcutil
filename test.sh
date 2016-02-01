@@ -12,3 +12,21 @@ ctest_exec() {
 }
 
 ctest_exec "openhrp3" "hrpsys-base"
+
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
+    ctest_exec "HRP2"
+fi
+fi
+
+ctest_exec "HRP2DRC" "hmc2" "hrpsys-humanoid"
+
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
+    ctest_exec "hrpsys-private"
+fi
+fi
+
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+ctest_exec "choreonoid"
+fi

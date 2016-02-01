@@ -45,7 +45,7 @@ import -display :0 -window ${WINDOWSID} ${WORKSPACE}/${TASK}.png 2>&1 > /dev/nul
 RED=$(convert ${WORKSPACE}/${TASK}.png -format %c histogram:info: | grep red | cut -d: -f 1 | sed -e "s/ //g")
 echo "Red: ${RED}"
 if [ ${RED} -gt 300000 ]; then
-    EMA="EMA"
+    EMA="EMERGENCY"
 else
     EMA="NORMAL"
 fi
