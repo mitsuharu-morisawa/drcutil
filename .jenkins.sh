@@ -124,23 +124,25 @@ fi
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -n "${DISPLAY}" ]; then
+if [ "${1}" = "task" ] || [ "${1}" = "" ]; then
     sudo apt-get -y install xautomation imagemagick recordmydesktop
     cp -r openrtp ${WORKSPACE}
-    if [ "${1}" = "walk" ] || [ "${1}" = "" ]; then
+    if [ "${2}" = "walk" ] || [ "${2}" = "" ]; then
     bash -xe ./task.sh HRP2DRC jenkinshrg 620 170 530 220 120
     fi
-    if [ "${1}" = "terrain" ] || [ "${1}" = "" ]; then
+    if [ "${2}" = "terrain" ] || [ "${2}" = "" ]; then
     bash -xe ./task.sh HRP2DRC testbed-terrain 620 170 530 220 300
     fi
-    if [ "${1}" = "valve" ] || [ "${1}" = "" ]; then
+    if [ "${2}" = "valve" ] || [ "${2}" = "" ]; then
     bash -xe ./task.sh HRP2DRC drc-valves 870 1000 760 1050 90 valve_left q
     fi
-    if [ "${1}" = "wall" ] || [ "${1}" = "" ]; then
+    if [ "${2}" = "wall" ] || [ "${2}" = "" ]; then
     #bash -xe ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 450 tool waistAbsTransform
     bash -xe ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 450
     fi
-    if [ "${1}" = "balancebeam" ] || [ "${1}" = "" ]; then
+    if [ "${2}" = "balancebeam" ] || [ "${2}" = "" ]; then
     bash -xe ./task.sh HRP2DRC irex-balance-beam-auto 640 170 550 220 180
     fi
+fi
 fi
 fi
