@@ -85,39 +85,40 @@ if [ -s ${WORKSPACE}/changes.txt ]; then
     cp ${WORKSPACE}/src/*.log ${WORKSPACE}
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ -z "${DISPLAY}" ]; then
-        sudo apt-get -y install lcov
-        sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
-        sudo pip install lcov_cobertura
-        #sudo pip install nose
-        #sudo pip install unittest-xml-reporting
-        #sudo pip install coverage
-        sudo apt-get -y install valgrind kcachegrind
-        sudo apt-get -y install cppcheck
-        #sudo apt-get -y install cccc
-        bash -xe ./test.sh
-        cd ${WORKSPACE}
-        #lcov --capture --initial --directory . --output-file coverage.info
-        lcov --capture --directory . --output-file coverage.info
-        lcov --remove coverage.info '/usr/*' --output-file coverage.info
-        lcov --remove coverage.info 'src/openhrp3/hrplib/hrpUtil/test*.cpp' --output-file coverage.info
-        lcov --zerocounters --directory .
-        python /usr/local/lib/python2.7/dist-packages/lcov_cobertura.py coverage.info
-        genhtml --branch-coverage --legend --output-directory .coverage coverage.info
-        #cd ${WORKSPACE}
-        #valgrind --verbose --tool=memcheck --leak-check=full --xml=yes --xml-file=valgrind.xml src/openhrp3/build/bin/testEigen3d || true
-        #valgrind --verbose --tool=massif src/openhrp3/build/bin/testEigen3d || true
-        #valgrind --verbose --tool=callgrind src/openhrp3/build/bin/testEigen3d || true
-
-        #killall -9 openhrp-model-loader || true
-        #openhrp-model-loader &
-        #LOADER=$(jobs -p %+)
-        #valgrind --verbose --tool=memcheck --leak-check=full --xml=yes --xml-file=valgrind.xml hrpsys-simulator `pkg-config --variable=prefix hrpsys-base`/share/hrpsys/samples/PA10/PA10simulation.xml -nodisplay -exit-on-finish || true
-        #kill -9 $LOADER || true
-        #wait $LOADER || true
-        #rm -f rtc*.log
+    sudo apt-get -y install lcov
+    sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
+    sudo pip install lcov_cobertura
+    #sudo pip install nose
+    #sudo pip install unittest-xml-reporting
+    #sudo pip install coverage
+    sudo apt-get -y install valgrind kcachegrind
+    sudo apt-get -y install cppcheck
+    #sudo apt-get -y install cccc
+    bash -xe ./test.sh
+    cd ${WORKSPACE}
+    #lcov --capture --initial --directory . --output-file coverage.info
+    lcov --capture --directory . --output-file coverage.info
+    lcov --remove coverage.info '/usr/*' --output-file coverage.info
+    lcov --remove coverage.info 'src/openhrp3/hrplib/hrpUtil/test*.cpp' --output-file coverage.info
+    lcov --zerocounters --directory .
+    python /usr/local/lib/python2.7/dist-packages/lcov_cobertura.py coverage.info
+    genhtml --branch-coverage --legend --output-directory .coverage coverage.info
+    #cd ${WORKSPACE}
+    #valgrind --verbose --tool=memcheck --leak-check=full --xml=yes --xml-file=valgrind.xml src/openhrp3/build/bin/testEigen3d || true
+    #valgrind --verbose --tool=massif src/openhrp3/build/bin/testEigen3d || true
+    #valgrind --verbose --tool=callgrind src/openhrp3/build/bin/testEigen3d || true
+    #killall -9 openhrp-model-loader || true
+    #openhrp-model-loader &
+    #LOADER=$(jobs -p %+)
+    #valgrind --verbose --tool=memcheck --leak-check=full --xml=yes --xml-file=valgrind.xml hrpsys-simulator `pkg-config --variable=prefix hrpsys-base`/share/hrpsys/samples/PA10/PA10simulation.xml -nodisplay -exit-on-finish || true
+    #kill -9 $LOADER || true
+    #wait $LOADER || true
+    #rm -f rtc*.log
+    if [ "${1}" = "inspection" ] || [ "${1}" = "all" ]; then
         cd ${WORKSPACE}
         cppcheck --enable=all --inconclusive --xml --xml-version=2 --force src 2> cppcheck.xml
         #cccc $(find src -name "*.cpp" -o -name "*.cxx" -o -name "*.h" -o -name "*.hpp" -o -name "*.hxx") --outdir=.cccc
+    fi
     fi
     fi
 fi
