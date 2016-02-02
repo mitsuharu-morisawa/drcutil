@@ -87,6 +87,7 @@ if [ -s $WORKSPACE/changes.txt ]; then
     cp $SRC_DIR/*.log $WORKSPACE
 fi
 
+if [ "$1" = "test" ] || [ "$1" = "all" ]; then
 if [ -s $WORKSPACE/changes.txt ]; then
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -z "$DISPLAY" ]; then
@@ -98,6 +99,7 @@ if [ -z "$DISPLAY" ]; then
     #sudo pip install coverage
     bash -xe ./test.sh
     bash -xe ./coverage.sh
+fi
 fi
 fi
 fi
