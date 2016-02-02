@@ -75,9 +75,6 @@ bash -xe ./diff.sh
 cat ${WORKSPACE}/src/*.diff > ${WORKSPACE}/changes.txt
 awk -F, '{print $1"\t"$3"\t"}' ${WORKSPACE}/changes.txt > ${WORKSPACE}/changes_email.txt
 
-rm -f ${WORKSPACE}/*.log
-rm -f ${WORKSPACE}/cppcheck.xml
-rm -f ${WORKSPACE}/coverage.xml
 if [ -s ${WORKSPACE}/changes.txt ]; then
     #bash -xe ./update.sh
     bash -xe ./checkout.sh
@@ -95,29 +92,10 @@ if [ -s ${WORKSPACE}/changes.txt ]; then
     sudo apt-get -y install cppcheck
     #sudo apt-get -y install cccc
     bash -xe ./test.sh
-    cd ${WORKSPACE}
-    #lcov --capture --initial --directory . --output-file coverage.info
-    lcov --capture --directory . --output-file coverage.info
-    lcov --remove coverage.info '/usr/*' --output-file coverage.info
-    lcov --remove coverage.info 'src/openhrp3/hrplib/hrpUtil/test*.cpp' --output-file coverage.info
-    lcov --zerocounters --directory .
-    python /usr/local/lib/python2.7/dist-packages/lcov_cobertura.py coverage.info
-    genhtml --branch-coverage --legend --output-directory .coverage coverage.info
-    #cd ${WORKSPACE}
-    #valgrind --verbose --tool=memcheck --leak-check=full --xml=yes --xml-file=valgrind.xml src/openhrp3/build/bin/testEigen3d || true
-    #valgrind --verbose --tool=massif src/openhrp3/build/bin/testEigen3d || true
-    #valgrind --verbose --tool=callgrind src/openhrp3/build/bin/testEigen3d || true
-    #killall -9 openhrp-model-loader || true
-    #openhrp-model-loader &
-    #LOADER=$(jobs -p %+)
-    #valgrind --verbose --tool=memcheck --leak-check=full --xml=yes --xml-file=valgrind.xml hrpsys-simulator `pkg-config --variable=prefix hrpsys-base`/share/hrpsys/samples/PA10/PA10simulation.xml -nodisplay -exit-on-finish || true
-    #kill -9 $LOADER || true
-    #wait $LOADER || true
-    #rm -f rtc*.log
+    bash -xe ./coverage.sh
+    #bash -xe ./analysis.sh
     if [ "${1}" = "inspection" ] || [ "${1}" = "all" ]; then
-        cd ${WORKSPACE}
-        cppcheck --enable=all --inconclusive --xml --xml-version=2 --force src 2> cppcheck.xml
-        #cccc $(find src -name "*.cpp" -o -name "*.cxx" -o -name "*.h" -o -name "*.hpp" -o -name "*.hxx") --outdir=.cccc
+        bash -xe ./inspection.sh
     fi
     fi
     fi
