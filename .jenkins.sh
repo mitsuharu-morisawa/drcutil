@@ -85,30 +85,26 @@ if [ -s $WORKSPACE/changes.txt ]; then
     bash -xe ./checkout.sh
     bash -xe ./build.sh
     cp $SRC_DIR/*.log $WORKSPACE
-    if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    if [ -z "$DISPLAY" ]; then
+fi
+
+if [ -s $WORKSPACE/changes.txt ]; then
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+if [ -z "$DISPLAY" ]; then
     sudo apt-get -y install lcov
     sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
     sudo pip install lcov_cobertura
     #sudo pip install nose
     #sudo pip install unittest-xml-reporting
     #sudo pip install coverage
-    sudo apt-get -y install valgrind kcachegrind
-    sudo apt-get -y install cppcheck
-    #sudo apt-get -y install cccc
     bash -xe ./test.sh
     bash -xe ./coverage.sh
-    #bash -xe ./analysis.sh
-    if [ "$1" = "inspection" ] || [ "$1" = "all" ]; then
-        bash -xe ./inspection.sh
-    fi
-    fi
-    fi
+fi
+fi
 fi
 
+if [ "$1" = "task" ] || [ "$1" = "all" ]; then
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -n "$DISPLAY" ]; then
-if [ "$1" = "task" ] || [ "$1" = "all" ]; then
     sudo apt-get -y install xautomation imagemagick recordmydesktop
     cp -r openrtp $WORKSPACE
     if [ "$2" = "walk" ] || [ "$2" = "all" ]; then
@@ -127,6 +123,29 @@ if [ "$1" = "task" ] || [ "$1" = "all" ]; then
     if [ "$2" = "balancebeam" ] || [ "$2" = "all" ]; then
     bash -xe ./task.sh HRP2DRC irex-balance-beam-auto 640 170 550 220 180
     fi
+fi
+fi
+fi
+
+#if [ "$1" = "analysis" ] || [ "$1" = "all" ]; then
+#if [ -s $WORKSPACE/changes.txt ]; then
+#if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+#if [ -z "$DISPLAY" ]; then
+#    sudo apt-get -y install valgrind kcachegrind
+#    bash -xe ./analysis.sh
+#fi
+#fi
+#fi
+#fi
+
+if [ "$1" = "inspection" ] || [ "$1" = "all" ]; then
+if [ -s $WORKSPACE/changes.txt ]; then
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+if [ -z "$DISPLAY" ]; then
+    sudo apt-get -y install cppcheck
+    #sudo apt-get -y install cccc
+    bash -xe ./inspection.sh
+fi
 fi
 fi
 fi
