@@ -35,11 +35,11 @@ if [ ! -e $SRC_DIR ]; then
     $HOME/Documents/jenkinshrg/install/credential.sh
     bash -xe ./getsource.sh
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/src/openhrp3/util/installPackages.sh
+    sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
     sed -i -e 's/exit 1/exit 0/g' $SRC_DIR/openhrp3/util/installPackages.sh
     sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/choreonoid/misc/script/install-requisites-ubuntu-14.04.sh
     else
-    sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/src/openhrp3/util/installPackages.sh
+    sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
     sed -i -e 's/exit 1/exit 0/g' $SRC_DIR/openhrp3/util/installPackages.sh
     sed -i -e "s/add-apt-repository -y ppa:hrg\/daily/add-apt-repository -y 'deb http:\/\/ppa.launchpad.net\/hrg\/daily\/ubuntu trusty main'/g" $SRC_DIR/openhrp3/util/pkg_install_ubuntu.sh
     sed -i -e "s/libeigen3-dev/#libeigen3-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
