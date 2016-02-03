@@ -109,6 +109,7 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -n "$DISPLAY" ]; then
     sudo apt-get -y install xautomation imagemagick recordmydesktop
     cp -r openrtp $WORKSPACE
+    FREE_BEFORE=$(free | awk 'NR==3 { print $3 }')
     if [ "$2" = "walk" ] || [ "$2" = "all" ]; then
     bash -xe ./task.sh HRP2DRC jenkinshrg 620 170 530 220 120
     fi
@@ -125,8 +126,12 @@ if [ -n "$DISPLAY" ]; then
     if [ "$2" = "balancebeam" ] || [ "$2" = "all" ]; then
     bash -xe ./task.sh HRP2DRC irex-balance-beam-auto 640 170 550 220 210
     fi
-    echo 'used memory' > $WORKSPACE/system.csv
+    echo 'used' > $WORKSPACE/system.csv
     free | awk 'NR==3 { print $3 }' >> $WORKSPACE/system.csv
+    FREE_AFTER=$(free | awk 'NR==3 { print $3 }')
+    FREE_CHANGE=$(expr $FREE_AFTER - $FREE_BEFORE)
+    echo 'used,change' > $WORKSPACE/system.csv
+    echo $FREE_AFTER,$FREE_CHANGE >> $WORKSPACE/system.csv
 fi
 fi
 fi
