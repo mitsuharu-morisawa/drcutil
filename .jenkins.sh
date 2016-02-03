@@ -125,7 +125,7 @@ if [ -n "$DISPLAY" ]; then
     if [ "$2" = "balancebeam" ] || [ "$2" = "all" ]; then
     bash -xe ./task.sh HRP2DRC irex-balance-beam-auto 640 170 550 220 210
     fi
-    echo 'used' > $WORKSPACE/free.csv
+    echo 'used memory' > $WORKSPACE/free.csv
     free | awk 'NR==3 { print $3 }' >> $WORKSPACE/free.csv
 fi
 fi
