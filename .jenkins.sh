@@ -124,7 +124,7 @@ if [ -n "$DISPLAY" ]; then
     bash -xe ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 480
     fi
     if [ "$2" = "balancebeam" ] || [ "$2" = "all" ]; then
-    bash -xe ./task.sh HRP2DRC irex-balance-beam-auto 640 170 550 220 210
+    bash -xe ./task.sh HRP2DRC irex-balance-beam-auto 640 170 550 220 240
     fi
     echo 'used' > $WORKSPACE/system.csv
     free | awk 'NR==3 { print $3 }' >> $WORKSPACE/system.csv
