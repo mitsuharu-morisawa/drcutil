@@ -109,6 +109,7 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -n "$DISPLAY" ]; then
     sudo apt-get -y install xautomation imagemagick recordmydesktop
     cp -r openrtp $WORKSPACE
+    free
     if [ "$2" = "walk" ] || [ "$2" = "all" ]; then
     bash -xe ./task.sh HRP2DRC jenkinshrg 620 170 530 220 120
     fi
@@ -125,6 +126,7 @@ if [ -n "$DISPLAY" ]; then
     if [ "$2" = "balancebeam" ] || [ "$2" = "all" ]; then
     bash -xe ./task.sh HRP2DRC irex-balance-beam-auto 640 170 550 220 210
     fi
+    free
 fi
 fi
 fi
