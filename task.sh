@@ -38,7 +38,7 @@ PS_AFTER=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
 FREE_AFTER=$(free -m | awk 'NR==3 { print $3 }')
 if [ "$PS_BEFORE" != "" ] && [ "$PS_AFTER" != "" ]; then
     PS_CHANGE=$(expr $PS_AFTER - $PS_BEFORE)
-    echo 'rss,change' > $WORKSPACE/choreonoid.csv
+    echo 'used,change' > $WORKSPACE/choreonoid.csv
     echo $PS_AFTER,$PS_CHANGE >> $WORKSPACE/choreonoid.csv
 fi
 if [ "$FREE_BEFORE" != "" ] && [ "$FREE_AFTER" != "" ]; then
