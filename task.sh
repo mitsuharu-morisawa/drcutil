@@ -26,17 +26,17 @@ WINDOWSID=$(xwininfo -display :0 -name "${TASK} - Choreonoid" | grep 'id: 0x' | 
 recordmydesktop --windowid ${WINDOWSID} --display :0 --no-sound --overwrite -o ${WORKSPACE}/${TASK}.ogv 2>&1 > /dev/null &
 RECORDMYDESKTOP=$(jobs -p %+)
 
-FREE_BEFORE=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
+#FREE_BEFORE=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
 
 xte -x :0 "mousemove ${AUTOPOSX} ${AUTOPOSY}" && xte "mouseclick 1"
 sleep 1
 xte -x :0 "mousemove ${OKPOSX} ${OKPOSY}" && xte "mouseclick 1"
 sleep ${WAIT}
 
-FREE_AFTER=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
-FREE_CHANGE=$(expr $FREE_AFTER - $FREE_BEFORE)
-echo 'rss,change' > $WORKSPACE/choreonoid.csv
-echo $FREE_AFTER,$FREE_CHANGE >> $WORKSPACE/choreonoid.csv
+#FREE_AFTER=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
+#FREE_CHANGE=$(expr $FREE_AFTER - $FREE_BEFORE)
+#echo 'rss,change' > $WORKSPACE/choreonoid.csv
+#echo $FREE_AFTER,$FREE_CHANGE >> $WORKSPACE/choreonoid.csv
 
 python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
 RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
