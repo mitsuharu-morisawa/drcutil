@@ -118,14 +118,14 @@ if [ -n "$DISPLAY" ]; then
     bash -xe ./task.sh HRP2DRC testbed-terrain 620 170 530 220 300
     fi
     if [ "$2" = "valve" ] || [ "$2" = "all" ]; then
-    bash -xe ./task.sh HRP2DRC drc-valves 870 1000 760 1050 120 valve_left q
+    bash -xe ./task.sh HRP2DRC drc-valves 870 1000 760 1050 180 valve_left q
     fi
     if [ "$2" = "wall" ] || [ "$2" = "all" ]; then
     #bash -xe ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 480 tool waistAbsTransform
     bash -xe ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 540
     fi
     if [ "$2" = "balancebeam" ] || [ "$2" = "all" ]; then
-    bash -xe ./task.sh HRP2DRC irex-balance-beam-auto 640 170 550 220 240
+    bash -xe ./task.sh HRP2DRC irex-balance-beam-auto 640 170 550 220 300
     fi
     FREE_AFTER=$(free -m | awk 'NR==3 { print $3 }')
     FREE_CHANGE=$(expr $FREE_AFTER - $FREE_BEFORE)
