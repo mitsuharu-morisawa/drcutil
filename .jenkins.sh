@@ -80,7 +80,7 @@ bash -xe ./diff.sh
 cat $SRC_DIR/*.diff > $WORKSPACE/changes.txt
 awk -F, '{print $1"\t"$3"\t"}' $WORKSPACE/changes.txt > $WORKSPACE/changes_email.txt
 
-rm -f *.log
+rm -f $WORKSPACE/*.log
 if [ -s $WORKSPACE/changes.txt ]; then
     #bash -xe ./update.sh
     bash -xe ./checkout.sh
