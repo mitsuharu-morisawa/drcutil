@@ -15,7 +15,7 @@ fi
 
 upload() {
   sudo pip install google-api-python-client
-  source $HOME/Documents/jenkinshrg/scripts/env.sh
+  source $HOME/.jenkinshrg/scripts/env.sh
   bash -xe ./upload.sh || true
   awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/artifacts.txt > $WORKSPACE/artifacts_email.txt
   awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/jenkins-artifacts.txt > $WORKSPACE/jenkins-artifacts_email.txt
@@ -32,7 +32,7 @@ source config.sh
 if [ ! -e $SRC_DIR ]; then
     mkdir $SRC_DIR
     sudo apt-get -y install git wget
-    $HOME/Documents/jenkinshrg/install/credential.sh
+    $HOME/.jenkinshrg/install/credential.sh
     bash -xe ./getsource.sh
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
