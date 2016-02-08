@@ -14,6 +14,7 @@ if [ ! -v WORKSPACE ]; then
 fi
 
 upload() {
+  sudo apt-get -y install python-pip
   sudo pip install google-api-python-client
   source $HOME/.jenkinshrg/scripts/env.sh
   bash -xe ./upload.sh || true
@@ -101,6 +102,7 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -z "$DISPLAY" ]; then
     sudo apt-get -y install lcov
     sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
+    sudo apt-get -y install python-pip
     sudo pip install lcov_cobertura
     #sudo pip install nose
     #sudo pip install unittest-xml-reporting
