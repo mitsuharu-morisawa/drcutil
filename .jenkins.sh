@@ -32,7 +32,6 @@ source config.sh
 if [ ! -e $SRC_DIR ]; then
     mkdir $SRC_DIR
     sudo apt-get -y install git wget
-    $HOME/.jenkinshrg/install/credential.sh
     bash -xe ./getsource.sh
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
