@@ -1,6 +1,6 @@
 cd ${WORKSPACE}
 echo -n > artifacts.txt
-echo -n > jenkins-artifacts.txt
+echo -n > uploads.txt
 
 DATE=$(date +"%Y-%m-%d")
 TIME=$(date +"%H-%M")
@@ -11,10 +11,10 @@ upload() {
   MIMETYPE=${3}
   TITLE=${JOB_NAME}-${BUILD_NUMBER}-${DATE}-${TIME}-${FILENAME}
   if [ -s ${FILENAME} ]; then
-      URL=$(python ${WORKSPACE}/drcutil/.jenkins/remoteBackup.py ${TITLE} ${MIMETYPE} ${FILENAME})
-      echo "${LABEL},${FILENAME},${URL}" >> artifacts.txt
       URL=${BUILD_URL}artifact/${FILENAME}
-      echo "${LABEL},${FILENAME},${URL}" >> jenkins-artifacts.txt
+      echo "${LABEL},${FILENAME},${URL}" >> artifacts.txt
+      URL=$(python ${WORKSPACE}/drcutil/.jenkins/remoteBackup.py ${TITLE} ${MIMETYPE} ${FILENAME})
+      echo "${LABEL},${FILENAME},${URL}" >> uploads.txt
   fi
 }
 

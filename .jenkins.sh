@@ -18,7 +18,7 @@ upload() {
   source $HOME/.jenkinshrg/scripts/env.sh
   bash -xe ./upload.sh || true
   awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/artifacts.txt > $WORKSPACE/artifacts_email.txt
-  awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/jenkins-artifacts.txt > $WORKSPACE/jenkins-artifacts_email.txt
+  awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/uploads.txt > $WORKSPACE/uploads_email.txt
 }
 
 trap upload EXIT
@@ -75,11 +75,19 @@ if [ ! -e $PREFIX ]; then
 fi
 
 source .bashrc
+
+rm -f $WORKSPACE/changes.txt
+rm -f $WORKSPACE/changes_email.txt
+rm -f $WORKSPACE/*.log
+rm -f $WORKSPACE/artifacts.txt
+rm -f $WORKSPACE/artifacts_email.txt
+rm -f $WORKSPACE/uploads.txt
+rm -f $WORKSPACE/uploads_email.txt
+
 bash -xe ./diff.sh
 cat $SRC_DIR/*.diff > $WORKSPACE/changes.txt
 awk -F, '{print $1"\t"$3"\t"}' $WORKSPACE/changes.txt > $WORKSPACE/changes_email.txt
 
-rm -f $WORKSPACE/*.log
 if [ -s $WORKSPACE/changes.txt ]; then
     #bash -xe ./update.sh
     bash -xe ./checkout.sh
