@@ -65,18 +65,14 @@ fetch_log_nolink() {
 
 fetch_log "openhrp3" "hrpsys-base"
 
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
     update_log "HRP2"
-fi
 fi
 
 fetch_log "HRP2DRC" "hmc2" "hrpsys-humanoid"
 
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
     update_log "hrpsys-private"
-fi
 fi
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then

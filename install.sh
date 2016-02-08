@@ -28,10 +28,8 @@ cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TE
 cmake_install_with_option "octomap-1.6.8"
 cmake_install_with_option "hrpsys-base" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_KALMAN_FILTER=OFF -DBUILD_STABILIZER=OFF"
 
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
     cmake_install_with_option "HRP2" "-DROBOT_NAME=HRP2DRC"
-fi
 fi
 
 cmake_install_with_option "HRP2DRC"
@@ -39,10 +37,8 @@ cmake_install_with_option "hmc2" "-DCOMPILE_JAVA_STUFF=OFF"
 cmake_install_with_option "hrpsys-humanoid" "-DCOMPILE_JAVA_STUFF=OFF"
 
 
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
     cmake_install_with_option "hrpsys-private"
-fi
 fi
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
