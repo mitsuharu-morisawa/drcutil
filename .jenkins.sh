@@ -118,7 +118,7 @@ if [ -n "$DISPLAY" ]; then
     bash -e ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 540
     fi
     if [ "$2" = "balancebeam" ] || [ "$2" = "all" ]; then
-    bash -e ./task.sh HRP2DRC irex-balance-beam-auto 640 170 550 220 300
+    bash -e ./task.sh HRP2KAI irex-balance-beam-auto 640 170 550 220 300
     fi
 fi
 fi
