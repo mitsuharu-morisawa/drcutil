@@ -10,6 +10,7 @@ tar zxvf v1.6.8.tar.gz
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]
 then
     git clone ssh://atom.a01.aist.go.jp/git/HRP2
+    git clone ssh://atom.a01.aist.go.jp/git/HRP2KAI.git
     git clone ssh://atom.a01.aist.go.jp/git/hrpsys-private
 fi
 

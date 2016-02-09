@@ -14,7 +14,7 @@ cppcheck_exec "openhrp3" "hrpsys-base"
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
-    cppcheck_exec "HRP2"
+    cppcheck_exec "HRP2" "HRP2KAI"
 fi
 fi
 

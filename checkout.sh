@@ -17,6 +17,9 @@ then
     cd HRP2
     git pull
     cd ..
+    cd HRP2KAI
+    git pull
+    cd ..
 fi
 
 

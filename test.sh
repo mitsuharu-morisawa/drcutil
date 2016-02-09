@@ -14,7 +14,7 @@ ctest_exec() {
 ctest_exec "openhrp3" "hrpsys-base"
 
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
-    ctest_exec "HRP2"
+    ctest_exec "HRP2" "HRP2KAI"
 fi
 
 ctest_exec "HRP2DRC" "hmc2" "hrpsys-humanoid"

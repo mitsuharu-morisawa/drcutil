@@ -20,7 +20,7 @@ build_install "openhrp3" "hrpsys-base"
 
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
     build_install "HRP2"
-    # build_install "robot/HRP2SH"
+    build_install "HRP2KAI"
 fi
 
 build_install "HRP2DRC" "hmc2" "hrpsys-humanoid"

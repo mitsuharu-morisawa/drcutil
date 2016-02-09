@@ -30,6 +30,7 @@ cmake_install_with_option "hrpsys-base" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_KALMAN
 
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
     cmake_install_with_option "HRP2" "-DROBOT_NAME=HRP2DRC"
+    cmake_install_with_option "HRP2KAI"
 fi
 
 cmake_install_with_option "HRP2DRC"
