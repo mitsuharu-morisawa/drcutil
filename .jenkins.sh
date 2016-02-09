@@ -71,7 +71,7 @@ rm -f $WORKSPACE/artifacts_email.txt
 rm -f $WORKSPACE/uploads.txt
 rm -f $WORKSPACE/uploads_email.txt
 
-bash -e ./diff.sh
+bash -xe ./diff.sh
 cat $SRC_DIR/*.diff > $WORKSPACE/changes.txt
 awk -F, '{print $1"\t"$3"\t"}' $WORKSPACE/changes.txt > $WORKSPACE/changes_email.txt
 
