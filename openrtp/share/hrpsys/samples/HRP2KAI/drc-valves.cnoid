@@ -1,0 +1,1104 @@
+items: 
+  id: 0
+  name: "Root"
+  plugin: Base
+  class: RootItem
+  children: 
+    - 
+      id: 1
+      name: "RemoteWorld"
+      plugin: Body
+      class: WorldItem
+      data: 
+        collisionDetection: false
+        collisionDetector: AISTCollisionDetector
+      children: 
+        - 
+          id: 2
+          name: "HRP2KAI"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/HRP2KAI/model/HRP2KAI.yaml"
+            currentBaseLink: "WAIST"
+            rootPosition: [ -0.00958210509, -0.00129895739, 0.773 ]
+            rootAttitude: [ 
+              0.999995859, 1.29984748e-05, -0.00287765062, 
+              -1.31186883e-05, 0.999999999, -4.17559824e-05, 
+              0.00287765007, 4.17935605e-05, 0.999995859 ]
+            jointPositions: [ 
+              -0.000005,  0.002480, -0.459025,  0.852650, -0.392068, -0.003152, -0.000005,  0.002152, -0.458208,  0.851028, 
+              -0.391236, -0.001120, -0.000000, -0.000000, -0.000000,  0.000000,  0.261799, -0.174533,  0.000000, -0.523599, 
+               0.000000,  0.000000,  0.000000,  0.349066,  0.261799,  0.174533,  0.000000, -0.523599,  0.000000,  0.000000, 
+              -0.000000,  0.349066, -0.349066,  0.349066, -0.349066,  0.349066, -0.349066, -0.349066,  0.349066, -0.349066, 
+               0.349066, -0.349066 ]
+            initialRootPosition: [ -0, 0, 0.773 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            initialJointPositions: [ 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: false
+          children: 
+            - 
+              id: 3
+              name: "DRCUserInterface"
+              plugin: DRCUserInterfacePlugin
+              class: DRCUserInterface
+              data: 
+                rtcInstance: DRCUserInterface
+                periodicRate: 20
+                bodyTransparency: 0.75
+                uiSyncMode: off
+                uiSyncProtocol: TCP
+                uiSyncHost: 192.168.1.84
+                multiPointCloud: 
+                  autoSave: false
+                  renderingMode: Point
+                  pointSize: 2.5
+                  voxelSize: 0
+                heightField: 
+                  renderingMode: Point
+                  pointSize: 2.5
+                  voxelSize: 0.01
+                  isEditable: false
+                OGMap: 
+                  renderingMode: Voxel
+                  pointSize: 0
+                  voxelSize: 0.05
+                  isEditable: false
+                extraPoints: 
+                  renderingMode: Point
+                  pointSize: 0
+                  voxelSize: 0.01
+                  isEditable: false
+                manipulationMarker: 
+                  targetModel: DRCValve
+                  boxModelSize: [ 1, 1, 1 ]
+                objectMarker: 
+                  targetModel: Sphere
+                  boxModelSize: [ 1, 1, 1 ]
+              children: 
+                - 
+                  name: "Manipulation Marker"
+                  isSubItem: true
+                  children: 
+                    - 
+                      id: 4
+                      name: "DRCValve"
+                      plugin: Base
+                      class: SceneItem
+                      data: 
+                        file: "${MODEL}/DRC_20131220/Valve/GateValve_NIBCO_F619RW3/gatevalve_nibco_f619rw3_handle_only.wrl"
+                        format: VRML-FILE
+                        translation: [ 0, 0, 0 ]
+                        rotation: [ 1, 0, 0, 0 ]
+                      children: 
+                        - 
+                          id: 5
+                          name: "gatevalve_nibco_f619rw3_handle_points"
+                          plugin: Base
+                          class: PointSetItem
+                          data: 
+                            file: "${MODEL}/DRC_20131220/Valve/GateValve_NIBCO_F619RW3/gatevalve_nibco_f619rw3_handle_points.pcd"
+                            format: PCD-FILE
+                            renderingMode: Point
+                            pointSize: 3
+                            voxelSize: 0.01
+                            isEditable: false
+
+                    - 
+                      id: 312
+                      name: "BigValveHandle"
+                      plugin: Base
+                      class: SceneItem
+                      data: 
+                        file: "${MODEL}/DRC_20131220/Valve/kitz_valve_450_handle.wrl"
+                        format: VRML-FILE
+                        translation: [ 0, 0, 0 ]
+                        rotation: [ 1, 0, 0, 0 ]
+                      children: 
+                        - 
+                          id: 7
+                          name: "kitz_valve_450_handle.pcd"
+                          plugin: Base
+                          class: PointSetItem
+                          data: 
+                            file: "${MODEL}/DRC_20131220/Valve/kitz_valve_450_handle.pcd"
+                            format: PCD-FILE
+                            renderingMode: Point
+                            pointSize: 0
+                            voxelSize: 0.01
+                            isEditable: false
+                            
+                    - 
+                      id: 6
+                      name: "ValveHandle2"
+                      plugin: Base
+                      class: SceneItem
+                      data: 
+                        file: "${MODEL}/DRC_20131220/Valve/GateValve_NIBCO_F619RW3/gatevalve_18inch_diameter_handle_main.wrl"
+                        format: VRML-FILE
+                        translation: [ 0, 0, 0 ]
+                        rotation: [ 1, 0, 0, 0 ]
+                      children: 
+                        - 
+                          id: 7
+                          name: "gatevalve_18inch_diameter_handle_main_points"
+                          plugin: Base
+                          class: PointSetItem
+                          data: 
+                            file: "${MODEL}/DRC_20131220/Valve/GateValve_NIBCO_F619RW3/gatevalve_18inch_diameter_handle_main_points.pcd"
+                            format: PCD-FILE
+                            renderingMode: Point
+                            pointSize: 0
+                            voxelSize: 0.01
+                            isEditable: false
+                    - 
+                      id: 8
+                      name: "ValveLever1"
+                      plugin: Base
+                      class: SceneItem
+                      data: 
+                        file: "${MODEL}/DRC_20131220/Valve/CSBallValve_SHARPE_SV50114R030/csballvalve_sharpe_sv50114r030_lever.wrl"
+                        format: VRML-FILE
+                        translation: [ 0, 0, 0 ]
+                        rotation: [ 1, 0, 0, 0 ]
+                      children: 
+                        - 
+                          id: 9
+                          name: "csballvalve_sharpe_sv50114r030_lever_points"
+                          plugin: Base
+                          class: PointSetItem
+                          data: 
+                            file: "${MODEL}/DRC_20131220/Valve/CSBallValve_SHARPE_SV50114R030/csballvalve_sharpe_sv50114r030_lever_points.pcd"
+                            format: PCD-FILE
+                            renderingMode: Point
+                            pointSize: 0
+                            voxelSize: 0.01
+                            isEditable: false
+        - 
+          id: 10
+          name: "ValveTask.py"
+          plugin: Python
+          class: PythonScriptItem
+          data: 
+            file: "ValveTask.py"
+            executionOnLoading: true
+            backgroundExecution: false
+    - 
+      id: 11
+      name: "ModelLoader"
+      plugin: Base
+      class: ExtCommandItem
+      data: 
+        command: openhrp-model-loader
+        executeOnLoading: true
+    - 
+      id: 12
+      name: "SimulationWorld"
+      plugin: Body
+      class: WorldItem
+      data: 
+        collisionDetection: false
+        collisionDetector: AISTCollisionDetector
+      children: 
+        - 
+          id: 13
+          name: "HRP2KAI"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/HRP2KAI/model/HRP2KAIBush.yaml"
+            currentBaseLink: ""
+            rootPosition: [ 0, 0, 0.773 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [ 
+               0.000000,  0.000000, -0.453800,  0.872700, -0.418900,  0.000000,  0.000000,  0.000000, -0.453800,  0.872700, 
+              -0.418900,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.261800, -0.174500,  0.000000, -0.523600, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.261800,  0.174500,  0.000000, -0.523600,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000 ]
+            initialRootPosition: [ 0, 0, 0.773 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            initialJointPositions: [ 
+               0.000000,  0.000000, -0.453800,  0.872700, -0.418900,  0.000000,  0.000000,  0.000000, -0.453800,  0.872700, 
+              -0.418900,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.261800, -0.174500,  0.000000, -0.523600, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.261800,  0.174500,  0.000000, -0.523600,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: false
+          children: 
+            - 
+              id: 14
+              name: "BodyRTC"
+              plugin: OpenRTM
+              class: BodyRTCItem
+              data: 
+                isImmediateMode: false
+                moduleName: "PDservo"
+                confFileName: "Virtual-HRP2KAI-RTC.conf"
+                configurationMode: Use Configuration File
+                AutoConnect: true
+                InstanceName: HRP2KAIController(Robot)0
+                bodyPeriodicRate: 0.005
+            - 
+              id: 15
+              name: "SensorVisualizer"
+              plugin: Body
+              class: SensorVisualizer
+              data: 
+                lengthRatio: 0.002
+        - 
+          id: 16
+          name: "valve_drc_20131220_ver2_convexhull_backwall"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/DRC_20131220/Valve/Valve_DRC_20131220_ver2/valve_drc_20131220_ver2_convexhull_backwall.wrl"
+            currentBaseLink: "Root"
+            rootPosition: [ 0, 0, -0.1 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0, 0, -0.1 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+        - 
+          id: 17
+          name: "valve_drc_20131220_ver2_pipe-center"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/DRC_20131220/Valve/Valve_DRC_20131220_ver2/valve_drc_20131220_ver2_pipe-center.wrl"
+            currentBaseLink: "Root"
+            rootPosition: [ 0, -0.3, -0.1 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0, -0.3, -0.1 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+        - 
+          id: 18
+          name: "valve_drc_20131220_ver2_pipe-left"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/DRC_20131220/Valve/Valve_DRC_20131220_ver2/valve_drc_20131220_ver2_pipe-left.wrl"
+            currentBaseLink: "Root"
+            rootPosition: [ 0, -0.4, -0.1 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0, -0.4, -0.1 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+        - 
+          id: 19
+          name: "valve_left"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/DRCtrial_valve_f619rw3.wrl"
+            currentBaseLink: "WAIST"
+            rootPosition: [ 0.689, 0.5, 1 ]
+            rootAttitude: [ 
+              -1, -1.22460635e-16, 0, 
+              1.22460635e-16, -1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0.689, 0.5, 1 ]
+            initialRootAttitude: [ 
+              -1, -1.22460635e-16, 0, 
+              1.22460635e-16, -1, 0, 
+              0, 0, 1 ]
+            initialJointPositions: [  0.000000 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+          children:
+            -
+              id: 999
+              name: "BodyRTC"
+              plugin: OpenRTM
+              class: BodyRTCItem
+              data:
+                isImmediateMode: true
+                moduleName: ""
+                confFileName: "Virtual-VALVE-RTC.conf"
+                configurationMode: Use Configuration File
+                AutoConnect: false
+                InstanceName: "valve_left"
+                bodyPeriodicRate: 0
+        - 
+          id: 20
+          name: "valve_center"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/DRCtrial_valve_18inch.wrl"
+            currentBaseLink: ""
+            rootPosition: [ 0.689, -0.3, 1 ]
+            rootAttitude: [ 
+              -1, -1.22460635e-16, 0, 
+              1.22460635e-16, -1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0.689, -0.3, 1 ]
+            initialRootAttitude: [ 
+              -1, -1.22460635e-16, 0, 
+              1.22460635e-16, -1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+        - 
+          id: 21
+          name: "valve_drc_20131220_ver2_pipe-center"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/DRC_20131220/Valve/Valve_DRC_20131220_ver2/valve_drc_20131220_ver2_pipe-center.wrl"
+            currentBaseLink: "Root"
+            rootPosition: [ 0, 1.2, -0.1 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0, 1.2, -0.1 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+        - 
+          id: 22
+          name: "valve_center"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/NEDO_valve_225.wrl"
+            currentBaseLink: "WAIST"
+            rootPosition: [ 0.689, 1.2, 1 ]
+            rootAttitude: [ 
+              -1, -1.22460635e-16, 0, 
+              1.22460635e-16, -1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0.689, 1.2, 1 ]
+            initialRootAttitude: [ 
+              -1, -1.22460635e-16, 0, 
+              1.22460635e-16, -1, 0, 
+              0, 0, 1 ]
+            initialJointPositions: [  0.000000 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+        - 
+          id: 23
+          name: "valve_drc_20131220_ver2_pipe-right"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/DRC_20131220/Valve/Valve_DRC_20131220_ver2/valve_drc_20131220_ver2_pipe-center.wrl"
+            currentBaseLink: "Root"
+            rootPosition: [ 0, -1.2, -0.1 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0, -1.2, -0.1 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+        - 
+          id: 24
+          name: "valve_right"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/NEDO_valve_450.wrl"
+            currentBaseLink: "WAIST"
+            rootPosition: [ 0.689, -1.2, 1 ]
+            rootAttitude: [ 
+              -1, -1.22460635e-16, 0, 
+              1.22460635e-16, -1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0.689, -1.2, 1 ]
+            initialRootAttitude: [ 
+              -1, -1.22460635e-16, 0, 
+              1.22460635e-16, -1, 0, 
+              0, 0, 1 ]
+            initialJointPositions: [  0.000000 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+        - 
+          id: 25
+          name: "floor"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${MODEL}/floor.wrl"
+            currentBaseLink: ""
+            rootPosition: [ 0, 0, -0.1 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0, 0, -0.1 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+        - 
+          id: 26
+          name: "AISTSimulator"
+          plugin: Body
+          class: AISTSimulatorItem
+          data: 
+            realtimeSync: false
+            recording: tail
+            timeRangeMode: Unlimited
+            onlyActiveControlPeriod: false
+            timeLength: 60
+            allLinkPositionOutputMode: true
+            deviceStateOutput: true
+            controllerThreads: true
+            recordCollisionData: false
+            dynamicsMode: Forward dynamics
+            integrationMode: Runge Kutta
+            gravity: [ 0, 0, -9.80665 ]
+            staticFriction: 1
+            slipFriction: 1
+            cullingThresh: 0.01
+            contactCullingDepth: 0.01
+            errorCriterion: 0.001
+            maxNumIterations: 100
+            contactCorrectionDepth: 0.0002
+            contactCorrectionVelocityRatio: 1
+            kinematicWalking: false
+            2Dmode: false
+          children: 
+            - 
+              id: 27
+              name: "RangeSensorSimulator"
+              plugin: Body
+              class: GLVisionSimulatorItem
+              data: 
+                enabled: true
+                targetBodies: [ HRP2KAI ]
+                targetSensors: [ ranger ]
+                maxFrameRate: 1000
+                maxLatency: 1
+                recordVisionData: false
+                useThread: true
+                useThreadsForSensors: false
+                bestEffort: false
+                allSceneObjects: false
+                rangeSensorPrecisionRatio: 2
+                depthError: 0
+                enableHeadLight: true
+                enableAdditionalLights: false
+            - 
+              id: 28
+              name: "CameraSimulator"
+              plugin: Body
+              class: GLVisionSimulatorItem
+              data: 
+                enabled: true
+                targetBodies: [ HRP2KAI ]
+                targetSensors: [ CAMERA_C, CAMERA_R, CAMERA_RH, CAMERA_LH ]
+                maxFrameRate: 2
+                maxLatency: 3
+                recordVisionData: false
+                useThread: true
+                useThreadsForSensors: false
+                bestEffort: true
+                allSceneObjects: false
+                rangeSensorPrecisionRatio: 2
+                depthError: 2.122e-314
+                enableHeadLight: true
+                enableAdditionalLights: true
+        - 
+          id: 29
+          name: "drc.py"
+          plugin: PythonSimScript
+          class: PythonSimScriptItem
+          data: 
+            timing: After init.
+            delay: 0
+            simulationOnly: false
+            backgroundExecution: true
+            file: "drc.py"
+          children: 
+            - 
+              id: 30
+              name: "OpenHRPInterpreterService"
+              plugin: OpenHRP3.1
+              class: OpenHRPInterpreterServiceItem
+              data: 
+                rtcInstance: PythonInterpreterProvider0
+                forceMainThreadExecution: false
+                putScriptText: false
+views: 
+  - 
+    id: 0
+    name: "CameraImage"
+    plugin: Base
+    class: ImageView
+  - 
+    id: 1
+    plugin: Base
+    class: ItemPropertyView
+    mounted: true
+  - 
+    id: 2
+    plugin: Base
+    class: ItemTreeView
+    mounted: true
+    state: 
+      selected: [ 3 ]
+      checked: [ 2, 3, [ 3, "Trajectory" ], [ 3, "PointCloud" ], 11, 29 ]
+      expanded: [ 1, 2, 3, [ 3, "Manipulation Marker" ], 11, 12, 16, 19, 21, 25, 26, 29 ]
+  - 
+    id: 3
+    plugin: Base
+    class: MessageView
+    mounted: true
+  - 
+    id: 4
+    plugin: Base
+    class: SceneView
+    mounted: true
+    state: 
+      editMode: false
+      viewpointControlMode: thirdPerson
+      collisionLines: false
+      polygonMode: fill
+      defaultHeadLight: true
+      defaultHeadLightIntensity: 0.75
+      headLightLightingFromBack: false
+      worldLight: true
+      worldLightIntensity: 0.5
+      worldLightAmbient: 0.3
+      additionalLights: true
+      floorGrid: true
+      floorGridSpan: 10
+      floorGridInterval: 0.5
+      xzGridSpan: 10
+      xzGridInterval: 0.5
+      xzGrid: false
+      yzGridSpan: 10
+      yzGridInterval: 0.5
+      texture: true
+      lineWidth: 1
+      pointSize: 1
+      normalVisualization: false
+      normalLength: 0.01
+      coordinateAxes: true
+      showFPS: false
+      enableNewDisplayListDoubleRendering: true
+      useBufferForPicking: true
+      cameras: 
+        - 
+          camera: Tracking (Perspective)
+          fieldOfView: 0.785398
+          near: 0.01
+          far: 100
+          eye: [ 4, 2, 1.5 ]
+          direction: [ -0.888888889, -0.444444444, -0.111111111 ]
+          up: [ -0.0993807989, -0.0496903995, 0.99380799 ]
+        - 
+          camera: Tracking (Orthographic)
+          orthoHeight: 2
+          near: 0.01
+          far: 100
+        - 
+          camera: Perspective
+          isCurrent: true
+          fieldOfView: 0.6978
+          near: 0.01
+          far: 100
+          eye: [ -1.45265814, 1.95108793, 1.46127961 ]
+          direction: [ 0.670959118, -0.701919172, -0.23900489 ]
+          up: [ 0.165148793, -0.17276925, 0.971018364 ]
+        - 
+          camera: Orthographic
+          orthoHeight: 20
+          near: 0.01
+          far: 100
+      backgroundColor: [ 0.100000001, 0.100000001, 0.300000012 ]
+      gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      dedicatedItemTreeViewChecks: false
+  - 
+    id: 5
+    name: "Simulation Scene"
+    plugin: Base
+    class: SceneView
+    mounted: true
+    state: 
+      editMode: false
+      viewpointControlMode: thirdPerson
+      collisionLines: false
+      polygonMode: fill
+      defaultHeadLight: true
+      defaultHeadLightIntensity: 0.75
+      headLightLightingFromBack: false
+      worldLight: true
+      worldLightIntensity: 0.5
+      worldLightAmbient: 0.3
+      additionalLights: true
+      floorGrid: false
+      floorGridSpan: 10
+      floorGridInterval: 0.5
+      xzGridSpan: 10
+      xzGridInterval: 0.5
+      xzGrid: false
+      yzGridSpan: 10
+      yzGridInterval: 0.5
+      texture: true
+      lineWidth: 1
+      pointSize: 1
+      normalVisualization: false
+      normalLength: 0.01
+      coordinateAxes: true
+      showFPS: false
+      enableNewDisplayListDoubleRendering: false
+      useBufferForPicking: true
+      cameras: 
+        - 
+          camera: Perspective
+          isCurrent: true
+          fieldOfView: 0.6978
+          near: 0.01
+          far: 100
+          eye: [ -0.740291264, 2.47401683, 1.8539283 ]
+          direction: [ 0.526493061, -0.781502912, -0.334751034 ]
+          up: [ 0.187034767, -0.277626099, 0.942306609 ]
+        - 
+          camera: Orthographic
+          orthoHeight: 20
+          near: 0.01
+          far: 100
+      backgroundColor: [ 0, 0, 0 ]
+      gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      dedicatedItemTreeViewChecks: true
+      checked: [ 13, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 ]
+  - 
+    id: 6
+    name: "Task"
+    plugin: Base
+    class: TaskView
+    mounted: true
+    state: 
+      layoutMode: horizontal
+      isAutoMode: false
+      currentTask: Valve
+  - 
+    id: 7
+    plugin: Body
+    class: BodyLinkView
+    mounted: true
+    state: 
+      showRotationMatrix: false
+  - 
+    id: 8
+    name: "Body State"
+    plugin: Body
+    class: BodyStateView
+    mounted: true
+  - 
+    id: 9
+    plugin: Body
+    class: JointSliderView
+    mounted: true
+    state: 
+      showAllJoints: true
+      jointId: false
+      name: true
+      numColumns: 1
+      spinBox: true
+      slider: true
+      labelOnLeft: true
+      currentBodyItem: 21
+  - 
+    id: 10
+    plugin: Body
+    class: LinkSelectionView
+    mounted: true
+    state: 
+      listingMode: "Link List"
+      currentBodyItem: 21
+      bodyItems: 
+        - 
+          id: 2
+          selectedLinks: [ 0 ]
+        - 
+          id: 21
+          selectedLinks: [ 0 ]
+        - 
+          id: 18
+          selectedLinks: [ 0 ]
+        - 
+          id: 22
+          selectedLinks: [ 0 ]
+        - 
+          id: 20
+          selectedLinks: [ 0 ]
+        - 
+          id: 19
+          selectedLinks: [ 0 ]
+        - 
+          id: 24
+          selectedLinks: [ 0 ]
+  - 
+    id: 11
+    name: "Nameserver"
+    plugin: Corba
+    class: NameServerView
+    mounted: true
+  - 
+    id: 12
+    name: "Head Camera"
+    plugin: DRCUserInterfacePlugin
+    class: DRCCameraImageView
+    mounted: true
+    state: 
+      cameraId: 0
+      maxNumImages: 300
+      showControlButtons: true
+      rotationAngle: 0
+  - 
+    id: 13
+    name: "Rear Camera"
+    plugin: DRCUserInterfacePlugin
+    class: DRCCameraImageView
+    mounted: true
+    state: 
+      cameraId: 3
+      maxNumImages: 300
+      showControlButtons: true
+      rotationAngle: 0
+  - 
+    id: 14
+    name: "R-Hand Camera"
+    plugin: DRCUserInterfacePlugin
+    class: DRCCameraImageView
+    mounted: true
+    state: 
+      cameraId: 1
+      maxNumImages: 300
+      showControlButtons: true
+      rotationAngle: 0
+  - 
+    id: 15
+    name: "L-Hand Camera"
+    plugin: DRCUserInterfacePlugin
+    class: DRCCameraImageView
+    mounted: true
+    state: 
+      cameraId: 2
+      maxNumImages: 300
+      showControlButtons: true
+      rotationAngle: 0
+  - 
+    id: 16
+    name: "DRC Control"
+    plugin: DRCUserInterfacePlugin
+    class: DRCControlView
+    mounted: true
+  - 
+    id: 17
+    name: "OCS Python Console"
+    plugin: DRCUserInterfacePlugin
+    class: OCSPythonConsoleView
+    mounted: true
+  - 
+    id: 18
+    name: "Planner Config"
+    plugin: DRCUserInterfacePlugin
+    class: PlannerConfigView
+    mounted: true
+  - 
+    id: 19
+    name: "Stance Planner Config"
+    plugin: DRCUserInterfacePlugin
+    class: StancePlannerConfigView
+  - 
+    id: 20
+    name: "GrxUI Menu"
+    plugin: GrxUI
+    class: GrxUIMenuView
+    mounted: true
+  - 
+    id: 21
+    plugin: Python
+    class: PythonConsoleView
+    mounted: true
+toolbars: 
+  "TimeBar": 
+    minTime: 0
+    maxTime: 30
+    frameRate: 1000
+    playbackFrameRate: 50
+    idleLoopDrivenMode: false
+    currentTime: 0
+    speedScale: 1
+    syncToOngoingUpdates: true
+    autoExpansion: true
+  "KinematicsBar": 
+    mode: IK
+    enablePositionDragger: true
+    penetrationBlock: true
+    collisionLinkHighlight: false
+    snapDistance: 0.025
+    penetrationBlockDepth: 0.0005
+    lazyCollisionDetectionMode: true
+  "BodyBar": 
+    current: 21
+  "LeggedBodyBar": 
+    stanceWidth: 0.15
+Body: 
+  "BodyMotionEngine": 
+    updateJointVelocities: false
+  "EditableSceneBody": 
+    editableSceneBodies: 
+      - 
+        bodyItem: 2
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 13
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 16
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 17
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 18
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 19
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 20
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 21
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 22
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 23
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 24
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 25
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+  "KinematicFaultChecker": 
+    checkJointPositions: true
+    angleMargin: 0
+    translationMargin: 0
+    checkJointVelocities: true
+    velocityLimitRatio: 100
+    targetJoints: all
+    checkSelfCollisions: true
+    onlyTimeBarRange: false
+OpenRTM: 
+  "deleteUnmanagedRTCsOnStartingSimulation": true
+Python: 
+  "moduleSearchPath": 
+    - ${PROGRAM_TOP}/lib/python2.7/dist-packages/hrpsys
+viewAreas: 
+  - 
+    type: embedded
+    tabs: true
+    contents: 
+      type: splitter
+      orientation: horizontal
+      sizes: [ 397, 1517 ]
+      children: 
+        - 
+          type: splitter
+          orientation: vertical
+          sizes: [ 484, 482 ]
+          children: 
+            - 
+              type: pane
+              views: [ 2 ]
+              current: 2
+            - 
+              type: pane
+              views: [ 1, 18, 11, 10 ]
+              current: 1
+        - 
+          type: splitter
+          orientation: vertical
+          sizes: [ 742, 224 ]
+          children: 
+            - 
+              type: splitter
+              orientation: horizontal
+              sizes: [ 945, 566 ]
+              children: 
+                - 
+                  type: splitter
+                  orientation: horizontal
+                  sizes: [ 280, 659 ]
+                  children: 
+                    - 
+                      type: splitter
+                      orientation: vertical
+                      sizes: [ 540, 196 ]
+                      children: 
+                        - 
+                          type: splitter
+                          orientation: vertical
+                          sizes: [ 356, 178 ]
+                          children: 
+                            - 
+                              type: splitter
+                              orientation: vertical
+                              sizes: [ 172, 178 ]
+                              children: 
+                                - 
+                                  type: pane
+                                  views: [ 12 ]
+                                  current: 12
+                                - 
+                                  type: pane
+                                  views: [ 13 ]
+                                  current: 13
+                            - 
+                              type: pane
+                              views: [ 14 ]
+                              current: 14
+                        - 
+                          type: pane
+                          views: [ 15 ]
+                          current: 15
+                    - 
+                      type: pane
+                      views: [ 4, 9, 7 ]
+                      current: 4
+                - 
+                  type: pane
+                  views: [ 5, 20 ]
+                  current: 5
+            - 
+              type: splitter
+              orientation: horizontal
+              sizes: [ 592, 919 ]
+              children: 
+                - 
+                  type: pane
+                  views: [ 6 ]
+                  current: 6
+                - 
+                  type: pane
+                  views: [ 3, 21, 16, 8, 17 ]
+                  current: 3
+layoutOfToolBars: 
+  rows: 
+    - 
+      - { name: "FileBar", x: 0, priority: 0 }
+      - { name: "ScriptBar", x: 48, priority: 4 }
+      - { name: "SimulationBar", x: 48, priority: 3 }
+      - { name: "TimeBar", x: 48, priority: 0 }
+      - { name: "SceneBar", x: 2249, priority: 2 }
+      - { name: "CaptureBar", x: 2513, priority: 1 }

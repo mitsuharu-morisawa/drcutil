@@ -115,7 +115,7 @@ if [ -n "$DISPLAY" ]; then
     fi
     if [ "$2" = "wall" ] || [ "$2" = "all" ]; then
     #bash -e ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 480 tool waistAbsTransform
-    bash -e ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 540
+    bash -e ./task.sh HRP2KAI drc-wall-testbed 640 170 550 220 540
     fi
     if [ "$2" = "balancebeam" ] || [ "$2" = "all" ]; then
     bash -e ./task.sh HRP2KAI irex-balance-beam-auto 640 170 550 220 300
