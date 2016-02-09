@@ -111,7 +111,7 @@ if [ -n "$DISPLAY" ]; then
     bash -e ./task.sh HRP2KAI testbed-terrain 620 170 530 220 300
     fi
     if [ "$2" = "valve" ] || [ "$2" = "all" ]; then
-    bash -e ./task.sh HRP2DRC drc-valves 870 1000 760 1050 300 valve_left q
+    bash -e ./task.sh HRP2KAI drc-valves 870 1000 760 1050 300 valve_left q
     fi
     if [ "$2" = "wall" ] || [ "$2" = "all" ]; then
     #bash -e ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 480 tool waistAbsTransform
