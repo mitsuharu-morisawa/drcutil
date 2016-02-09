@@ -1,9 +1,16 @@
+rm -f $WORKSPACE/*.txt
+rm -f $WORKSPACE/*.log
+rm -f $WORKSPACE/*.png
+rm -f $WORKSPACE/*.ogv
+rm -f $WORKSPACE/*.csv
+
 upload() {
   sudo apt-get -y install python-pip
   sudo pip install google-api-python-client
   source $HOME/.jenkinshrg/scripts/env.sh
   cp $SRC_DIR/*.log $WORKSPACE || true
   bash -e ./upload.sh || true
+  awk -F, '{print $1"\t"$3"\t"}' $WORKSPACE/changes.txt > $WORKSPACE/changes_email.txt
   awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/artifacts.txt > $WORKSPACE/artifacts_email.txt
   awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/uploads.txt > $WORKSPACE/uploads_email.txt
 }
@@ -52,6 +59,7 @@ if [ ! -e $PREFIX ]; then
     sudo sed -i -e 's/giopMaxMsgSize = 2097152/giopMaxMsgSize = 2147483648/g' /etc/omniORB.cfg
     fi
     sudo apt-get -y install libgtest-dev
+    rm -f $SRC_DIR/*.log
     bash -e ./install.sh
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     mkdir -p $HOME/.config/Choreonoid
@@ -63,21 +71,14 @@ fi
 
 source .bashrc
 
-rm -f $WORKSPACE/changes.txt
-rm -f $WORKSPACE/changes_email.txt
-rm -f $WORKSPACE/*.log
-rm -f $WORKSPACE/artifacts.txt
-rm -f $WORKSPACE/artifacts_email.txt
-rm -f $WORKSPACE/uploads.txt
-rm -f $WORKSPACE/uploads_email.txt
-
+rm -f $SRC_DIR/*.diff
 bash -e ./diff.sh
 cat $SRC_DIR/*.diff > $WORKSPACE/changes.txt
-awk -F, '{print $1"\t"$3"\t"}' $WORKSPACE/changes.txt > $WORKSPACE/changes_email.txt
 
 if [ -s $WORKSPACE/changes.txt ]; then
     #bash -e ./update.sh
     bash -e ./checkout.sh
+    rm -f $SRC_DIR/*.log
     bash -e ./build.sh
 fi
 
@@ -92,6 +93,7 @@ if [ -z "$DISPLAY" ]; then
     #sudo pip install nose
     #sudo pip install unittest-xml-reporting
     #sudo pip install coverage
+    rm -f $SRC_DIR/*/build/Testing/*/Test.xml
     bash -e ./test.sh
     bash -e ./coverage.sh
 fi
