@@ -108,7 +108,7 @@ if [ -n "$DISPLAY" ]; then
     bash -e ./task.sh HRP2DRC jenkinshrg 620 170 530 220 120
     fi
     if [ "$2" = "terrain" ] || [ "$2" = "all" ]; then
-    bash -e ./task.sh HRP2DRC testbed-terrain 620 170 530 220 300
+    bash -e ./task.sh HRP2KAI testbed-terrain 620 170 530 220 300
     fi
     if [ "$2" = "valve" ] || [ "$2" = "all" ]; then
     bash -e ./task.sh HRP2DRC drc-valves 870 1000 760 1050 300 valve_left q
