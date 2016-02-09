@@ -17,6 +17,7 @@ upload() {
   sudo apt-get -y install python-pip
   sudo pip install google-api-python-client
   source $HOME/.jenkinshrg/scripts/env.sh
+  cp $SRC_DIR/*.log $WORKSPACE
   bash -e ./upload.sh || true
   awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/artifacts.txt > $WORKSPACE/artifacts_email.txt
   awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/uploads.txt > $WORKSPACE/uploads_email.txt
@@ -67,7 +68,6 @@ if [ ! -e $PREFIX ]; then
     fi
     sudo apt-get -y install libgtest-dev
     bash -xe ./install.sh
-    cp $SRC_DIR/*.log $WORKSPACE
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     mkdir -p $HOME/.config/Choreonoid
     cp $WORKSPACE/drcutil/.config/Choreonoid.conf $HOME/.config/Choreonoid
@@ -94,7 +94,6 @@ if [ -s $WORKSPACE/changes.txt ]; then
     #bash -xe ./update.sh
     bash -xe ./checkout.sh
     bash -xe ./build.sh
-    cp $SRC_DIR/*.log $WORKSPACE
 fi
 
 if [ "$1" = "test" ] || [ "$1" = "all" ]; then
