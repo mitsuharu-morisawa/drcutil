@@ -1,28 +1,6 @@
 source config.sh
 cd $SRC_DIR
 
-update_log() {
-    for dir_name in $@; do
-        cd "$dir_name"
-        echo -n > $SRC_DIR/${dir_name}.diff
-        STATUS=$(svn status --show-updates --quiet)
-        if [ "$STATUS" != "" ]; then
-            echo "${dir_name},xxxxxxx," >> $SRC_DIR/${dir_name}.diff
-        fi
-#        svn log --quiet --incremental --revision HEAD | while read line
-#        do
-#            set +e
-#            echo ${line} | grep "^-"
-#            if [ $? -ne 0 ]; then
-#                REMOTE_ID=$(echo "${line}" | cut -d "|" -f 1)
-#                echo ",${REMOTE_ID}" >> $SRC_DIR/${dir_name}.diff
-#            fi
-#            set -e
-#        done
-        cd ..
-    done
-}
-
 fetch_log() {
     for dir_name in $@; do
         cd "$dir_name"
@@ -66,13 +44,13 @@ fetch_log_nolink() {
 fetch_log "openhrp3" "hrpsys-base"
 
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
-    update_log "HRP2"
+    fetch_log_nolink "HRP2"
 fi
 
 fetch_log "HRP2DRC" "hmc2" "hrpsys-humanoid"
 
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
-    update_log "hrpsys-private"
+    fetch_log_nolink "hrpsys-private"
 fi
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then

@@ -15,12 +15,8 @@ cd ..
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]
 then
     cd HRP2
-    svn update 
+    git pull
     cd ..
-
-    # cd robot/HRP2SH
-    # svn update 
-    # cd ../..
 fi
 
 
@@ -41,7 +37,7 @@ cd ..
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]
 then
     cd hrpsys-private
-    svn update
+    git pull
     cd ..
 fi
 

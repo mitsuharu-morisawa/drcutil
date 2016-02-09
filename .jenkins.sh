@@ -1,18 +1,3 @@
-echo $JENKINS_URL
-echo $JOB_NAME
-echo $BUILD_NUMBER
-echo $WORKSPACE
-
-if [ ! -v JOB_NAME ]; then
-    JOB_NAME=debug
-fi
-
-if [ ! -v WORKSPACE ]; then
-    WORKSPACE=$HOME/workspace/$JOB_NAME
-    mkdir -p $WORKSPACE
-    cd $WORKSPACE
-fi
-
 upload() {
   sudo apt-get -y install python-pip
   sudo pip install google-api-python-client
@@ -35,7 +20,7 @@ if [ ! -e $SRC_DIR ]; then
     mkdir $SRC_DIR
     sudo apt-get -y install git wget
     $HOME/.jenkinshrg/install/credential.sh
-    bash -xe ./getsource.sh
+    bash -e ./getsource.sh
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
     sed -i -e 's/exit 1/exit 0/g' $SRC_DIR/openhrp3/util/installPackages.sh
@@ -62,12 +47,12 @@ if [ ! -e $PREFIX ]; then
     else
     sudo apt-get -y install python-software-properties
     fi
-    bash -xe ./setupenv.sh
+    bash -e ./setupenv.sh
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     sudo sed -i -e 's/giopMaxMsgSize = 2097152/giopMaxMsgSize = 2147483648/g' /etc/omniORB.cfg
     fi
     sudo apt-get -y install libgtest-dev
-    bash -xe ./install.sh
+    bash -e ./install.sh
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     mkdir -p $HOME/.config/Choreonoid
     cp $WORKSPACE/drcutil/.config/Choreonoid.conf $HOME/.config/Choreonoid
@@ -86,14 +71,14 @@ rm -f $WORKSPACE/artifacts_email.txt
 rm -f $WORKSPACE/uploads.txt
 rm -f $WORKSPACE/uploads_email.txt
 
-bash -xe ./diff.sh
+bash -e ./diff.sh
 cat $SRC_DIR/*.diff > $WORKSPACE/changes.txt
 awk -F, '{print $1"\t"$3"\t"}' $WORKSPACE/changes.txt > $WORKSPACE/changes_email.txt
 
 if [ -s $WORKSPACE/changes.txt ]; then
-    #bash -xe ./update.sh
-    bash -xe ./checkout.sh
-    bash -xe ./build.sh
+    #bash -e ./update.sh
+    bash -e ./checkout.sh
+    bash -e ./build.sh
 fi
 
 if [ "$1" = "test" ] || [ "$1" = "all" ]; then
@@ -107,8 +92,8 @@ if [ -z "$DISPLAY" ]; then
     #sudo pip install nose
     #sudo pip install unittest-xml-reporting
     #sudo pip install coverage
-    bash -xe ./test.sh
-    bash -xe ./coverage.sh
+    bash -e ./test.sh
+    bash -e ./coverage.sh
 fi
 fi
 fi
@@ -120,20 +105,20 @@ if [ -n "$DISPLAY" ]; then
     sudo apt-get -y install xautomation imagemagick recordmydesktop
     cp -r openrtp $WORKSPACE
     if [ "$2" = "walk" ] || [ "$2" = "all" ]; then
-    bash -xe ./task.sh HRP2DRC jenkinshrg 620 170 530 220 120
+    bash -e ./task.sh HRP2DRC jenkinshrg 620 170 530 220 120
     fi
     if [ "$2" = "terrain" ] || [ "$2" = "all" ]; then
-    bash -xe ./task.sh HRP2DRC testbed-terrain 620 170 530 220 300
+    bash -e ./task.sh HRP2DRC testbed-terrain 620 170 530 220 300
     fi
     if [ "$2" = "valve" ] || [ "$2" = "all" ]; then
-    bash -xe ./task.sh HRP2DRC drc-valves 870 1000 760 1050 300 valve_left q
+    bash -e ./task.sh HRP2DRC drc-valves 870 1000 760 1050 300 valve_left q
     fi
     if [ "$2" = "wall" ] || [ "$2" = "all" ]; then
-    #bash -xe ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 480 tool waistAbsTransform
-    bash -xe ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 540
+    #bash -e ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 480 tool waistAbsTransform
+    bash -e ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 540
     fi
     if [ "$2" = "balancebeam" ] || [ "$2" = "all" ]; then
-    bash -xe ./task.sh HRP2DRC irex-balance-beam-auto 640 170 550 220 300
+    bash -e ./task.sh HRP2DRC irex-balance-beam-auto 640 170 550 220 300
     fi
 fi
 fi
@@ -144,7 +129,7 @@ fi
 #if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 #if [ -z "$DISPLAY" ]; then
 #    sudo apt-get -y install valgrind kcachegrind
-#    bash -xe ./analysis.sh
+#    bash -e ./analysis.sh
 #fi
 #fi
 #fi
@@ -156,7 +141,7 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -z "$DISPLAY" ]; then
     sudo apt-get -y install cppcheck
     #sudo apt-get -y install cccc
-    bash -xe ./inspection.sh
+    bash -e ./inspection.sh
 fi
 fi
 fi
