@@ -17,11 +17,8 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 cd $SRC_DIR/choreonoid/misc/script
 ./install-requisites-ubuntu-$UBUNTU_VER.sh
 
-#choreonoid
-sudo apt-get -y install libzbar-dev
-
 #hrpcnoid
-sudo apt-get -y install libdecodeqr-dev
+sudo apt-get -y install libzbar-dev
 else
 cd $WORKSPACE
 wget -q http://bitbucket.org/eigen/eigen/get/3.2.5.tar.gz
