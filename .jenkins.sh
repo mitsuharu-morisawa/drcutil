@@ -27,7 +27,7 @@ source config.sh
 
 if [ ! -e $SRC_DIR ]; then
     mkdir $SRC_DIR
-    sudo apt-get -y install wget ca-certificates
+    sudo apt-get -y install wget ca-certificates openssh-client
     $HOME/.jenkinshrg/install/credential.sh
     bash -e ./getsource.sh
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
