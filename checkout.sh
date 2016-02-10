@@ -1,49 +1,29 @@
 source config.sh
 
+pull_source() {
+    for dir_name in $@; do
+	echo $dir_name
+        cd "$dir_name"
+	git pull
+        cd ..
+    done
+}
+
 cd $SRC_DIR
 
-cd openhrp3
+pull_source openhrp3 hrpsys-base hmc2 hrpsys-humanoid
+
+cd HRP2
 git pull
 cd ..
 
-
-cd hrpsys-base
+cd HRP2KAI
 git pull
 cd ..
 
-
-if [ "$HAVE_ATOM_ACCESS" -eq 1 ]
-then
-    cd HRP2
-    git pull
-    cd ..
-    cd HRP2KAI
-    git pull
-    cd ..
-fi
-
-
-cd HRP2DRC
+cd hrpsys-private
 git pull
 cd ..
-
-cd hmc2
-git pull
-cd ..
-
-
-cd hrpsys-humanoid
-git pull
-cd ..
-
-
-if [ "$HAVE_ATOM_ACCESS" -eq 1 ]
-then
-    cd hrpsys-private
-    git pull
-    cd ..
-fi
-
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 cd choreonoid
