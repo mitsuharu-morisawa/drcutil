@@ -20,6 +20,8 @@ upload() {
 
 wget -q -O console.log $BUILD_URL/consoleText || true
 
+upload "BUILD" "console.log" "text/plain"
+
 upload "BUILD" "openhrp3.log" "text/plain"
 upload "BUILD" "octomap-1.6.8.log" "text/plain"
 upload "BUILD" "hrpsys-base.log" "text/plain"
