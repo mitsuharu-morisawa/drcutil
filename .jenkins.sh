@@ -3,6 +3,7 @@ rm -f $WORKSPACE/*.log
 rm -f $WORKSPACE/*.png
 rm -f $WORKSPACE/*.ogv
 rm -f $WORKSPACE/*.csv
+rm -f $WORKSPACE/*.xml
 
 upload() {
   sudo apt-get -y install python-pip

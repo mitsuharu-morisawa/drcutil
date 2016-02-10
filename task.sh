@@ -71,7 +71,7 @@ kill -2 $RECORDMYDESKTOP || true
 wait $RECORDMYDESKTOP || true
 
 JUNIT=${WORKSPACE}/${TASK}.xml
-echo "<testsuite tests='1'>" >> ${JUNIT}
+echo "<testsuite tests='1'>" > ${JUNIT}
 if [ "${RESULT}" = "OK" ] && [ "${EMA}" = "NORMAL" ]; then
     echo "<testcase name='${TASK}' classname='choreonoid' />" >> ${JUNIT}
 else
