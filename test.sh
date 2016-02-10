@@ -16,7 +16,7 @@ if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
     ctest_exec "HRP2" "HRP2KAI"
 fi
 
-ctest_exec "HRP2DRC" "hmc2" "hrpsys-humanoid"
+ctest_exec "hmc2" "hrpsys-humanoid"
 
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
     ctest_exec "hrpsys-private"
