@@ -10,8 +10,6 @@ WAIT=${7}
 TARGET=${8}
 PORT=${9}
 
-rm -f ${TASK}.*
-
 ulimit -c unlimited
 killall -9 openhrp-model-loader || true
 killall -9 choreonoid || true

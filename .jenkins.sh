@@ -59,7 +59,6 @@ if [ ! -e $PREFIX ]; then
     sudo sed -i -e 's/giopMaxMsgSize = 2097152/giopMaxMsgSize = 2147483648/g' /etc/omniORB.cfg
     fi
     sudo apt-get -y install libgtest-dev
-    rm -f $SRC_DIR/*.log
     bash -e ./install.sh
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     mkdir -p $HOME/.config/Choreonoid
@@ -75,10 +74,10 @@ rm -f $SRC_DIR/*.diff
 bash -e ./diff.sh
 cat $SRC_DIR/*.diff > $WORKSPACE/changes.txt
 
+rm -f $SRC_DIR/*.log
 if [ -s $WORKSPACE/changes.txt ]; then
     #bash -e ./update.sh
     bash -e ./checkout.sh
-    rm -f $SRC_DIR/*.log
     bash -e ./build.sh
 fi
 
