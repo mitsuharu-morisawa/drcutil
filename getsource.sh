@@ -1,6 +1,6 @@
 source config.sh
 
-sudo apt-get -y install subversion git
+sudo apt-get -y install git
 
 cd $SRC_DIR
 git clone https://github.com/fkanehiro/openhrp3.git

@@ -5,13 +5,7 @@ build_install() {
     for dir_name in $@; do
         cd "$dir_name/build"
 	echo -n "building $dir_name ... "
-        $SUDO make -j2 install > $SRC_DIR/${dir_name}.log 2>&1
-	if [ "$?" -eq 0 ]
-	then
-	    echo "success"
-	else
-	    echo -e "\e[31mfail\e[m"
-	fi
+        $SUDO make -j2 install
         cd ../../
     done
 }

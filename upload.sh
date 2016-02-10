@@ -18,33 +18,16 @@ upload() {
   fi
 }
 
-wget -q -O console.log $BUILD_URL/consoleText || true
-
 upload "BUILD" "console.log" "text/plain"
 
-upload "BUILD" "openhrp3.log" "text/plain"
-upload "BUILD" "octomap-1.6.8.log" "text/plain"
-upload "BUILD" "hrpsys-base.log" "text/plain"
-upload "BUILD" "HRP2.log" "text/plain"
-upload "BUILD" "HRP2KAI.log" "text/plain"
-upload "BUILD" "HRP2DRC.log" "text/plain"
-upload "BUILD" "hmc2.log" "text/plain"
-upload "BUILD" "hrpsys-humanoid.log" "text/plain"
-upload "BUILD" "hrpsys-private.log" "text/plain"
-upload "BUILD" "choreonoid.log" "text/plain"
-
-upload "CONSOLE" "irex-balance-beam-auto.txt" "text/plain"
 upload "IMAGE" "irex-balance-beam-auto.png" "image/png"
 upload "VIDEO" "irex-balance-beam-auto.ogv" "video/ogg"
 
-upload "CONSOLE" "testbed-terrain.txt" "text/plain"
 upload "IMAGE" "testbed-terrain.png" "image/png"
 upload "VIDEO" "testbed-terrain.ogv" "video/ogg"
 
-upload "CONSOLE" "drc-valves.txt" "text/plain"
 upload "IMAGE" "drc-valves.png" "image/png"
 upload "VIDEO" "drc-valves.ogv" "video/ogg"
 
-upload "CONSOLE" "drc-wall-testbed.txt" "text/plain"
 upload "IMAGE" "drc-wall-testbed.png" "image/png"
 upload "VIDEO" "drc-wall-testbed.ogv" "video/ogg"
