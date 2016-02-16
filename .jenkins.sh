@@ -9,7 +9,6 @@ upload() {
     wget -q -O $WORKSPACE/console.log $BUILD_URL/consoleText || true
     sudo apt-get -y install python-pip
     sudo pip install google-api-python-client
-    source $HOME/.jenkinshrg/scripts/env.sh
     bash -e ./upload.sh || true
     awk -F, '{print $1"\t"$3"\t"}' $WORKSPACE/changes.txt > $WORKSPACE/changes_email.txt
     awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/artifacts.txt > $WORKSPACE/artifacts_email.txt
