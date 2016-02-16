@@ -89,7 +89,7 @@ PROTO Humanoid [
   }
 }
 
-DEF valve Humanoid {
+DEF NibcoValveF619RW3 Humanoid {
   humanoidBody [
     DEF WAIST Joint {
       jointType "fixed"
@@ -111,7 +111,7 @@ DEF valve Humanoid {
         }
 	DEF HANDLE Joint {
 	  jointType "rotate"
-          jointId 0
+	  jointId 0
 	  jointAxis "X"
 	  children[
 	    Transform {
@@ -145,6 +145,4 @@ DEF valve Humanoid {
     USE BODY,
     USE HANDLE_S
   ]
-  name "box"
-  version "1.1"
 }
