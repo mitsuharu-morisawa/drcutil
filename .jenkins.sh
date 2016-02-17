@@ -77,12 +77,8 @@ if [ -s $WORKSPACE/changes.txt ]; then
     #bash -e ./update.sh
     bash -e ./checkout.sh
     bash -e ./build.sh
-fi
-
-if [ "$1" = "test" ] || [ "$1" = "all" ]; then
-if [ -s $WORKSPACE/changes.txt ]; then
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-if [ -z "$DISPLAY" ]; then
+    if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+    if [ -z "$DISPLAY" ]; then
     sudo apt-get -y install lcov
     sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
     sudo apt-get -y install python-pip
@@ -93,9 +89,13 @@ if [ -z "$DISPLAY" ]; then
     rm -f $SRC_DIR/*/build/Testing/*/Test.xml
     bash -e ./test.sh
     bash -e ./coverage.sh
-fi
-fi
-fi
+    #sudo apt-get -y install valgrind kcachegrind
+    #bash -e ./analysis.sh
+    sudo apt-get -y install cppcheck
+    #sudo apt-get -y install cccc
+    bash -e ./inspection.sh
+    fi
+    fi
 fi
 
 if [ "$1" = "task" ] || [ "$1" = "all" ]; then
@@ -116,29 +116,6 @@ if [ -n "$DISPLAY" ]; then
     #bash -e ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 480 tool waistAbsTransform
     bash -e ./task.sh HRP2KAI drc-wall-testbed 640 170 550 220 540
     fi
-fi
-fi
-fi
-
-#if [ "$1" = "analysis" ] || [ "$1" = "all" ]; then
-#if [ -s $WORKSPACE/changes.txt ]; then
-#if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-#if [ -z "$DISPLAY" ]; then
-#    sudo apt-get -y install valgrind kcachegrind
-#    bash -e ./analysis.sh
-#fi
-#fi
-#fi
-#fi
-
-if [ "$1" = "inspection" ] || [ "$1" = "all" ]; then
-if [ -s $WORKSPACE/changes.txt ]; then
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-if [ -z "$DISPLAY" ]; then
-    sudo apt-get -y install cppcheck
-    #sudo apt-get -y install cccc
-    bash -e ./inspection.sh
-fi
 fi
 fi
 fi
