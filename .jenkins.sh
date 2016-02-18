@@ -10,7 +10,6 @@ upload() {
     sudo apt-get -y install python-pip
     sudo pip install google-api-python-client
     bash -e ./upload.sh || true
-    awk -F, '{print $1"\t"$3"\t"}' $WORKSPACE/changes.txt > $WORKSPACE/changes_email.txt
     awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/artifacts.txt > $WORKSPACE/artifacts_email.txt
     awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/uploads.txt > $WORKSPACE/uploads_email.txt
 }
@@ -27,7 +26,10 @@ if [ -e $SRC_DIR ]; then
     rm -f $SRC_DIR/*.diff
     bash -e ./diff.sh
     cat $SRC_DIR/*.diff > $WORKSPACE/changes.txt
+else
+    echo -n > $WORKSPACE/changes.txt
 fi
+awk -F, '{print $1"\t"$3"\t"}' $WORKSPACE/changes.txt > $WORKSPACE/changes_email.txt
 
 if [ "$1" = "build" ]; then
     rm -fr $WORKSPACE/src
