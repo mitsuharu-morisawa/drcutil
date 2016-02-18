@@ -23,6 +23,17 @@ sudo apt-get update
 sudo apt-get -y install lsb-release
 source config.sh
 
+if [ -e $SRC_DIR ]; then
+    rm -f $SRC_DIR/*.diff
+    bash -e ./diff.sh
+    cat $SRC_DIR/*.diff > $WORKSPACE/changes.txt
+fi
+
+if [ "$1" = "build" ]; then
+    rm -fr $WORKSPACE/src
+    rm -fr $WORKSPACE/openrtp
+fi
+
 if [ ! -e $SRC_DIR ]; then
     mkdir $SRC_DIR
     sudo apt-get -y install wget ca-certificates
@@ -68,10 +79,6 @@ if [ ! -e $PREFIX ]; then
 fi
 
 source .bashrc
-
-rm -f $SRC_DIR/*.diff
-bash -e ./diff.sh
-cat $SRC_DIR/*.diff > $WORKSPACE/changes.txt
 
 if [ -s $WORKSPACE/changes.txt ]; then
     #bash -e ./update.sh
