@@ -22,6 +22,7 @@ sudo apt-get update
 sudo apt-get -y install lsb-release
 source config.sh
 
+sudo apt-get -y install git wget
 if [ -e $SRC_DIR ]; then
     rm -f $SRC_DIR/*.diff
     bash -e ./diff.sh
@@ -38,7 +39,6 @@ fi
 
 if [ ! -e $SRC_DIR ]; then
     mkdir $SRC_DIR
-    sudo apt-get -y install wget ca-certificates
     bash -e ./getsource.sh
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
