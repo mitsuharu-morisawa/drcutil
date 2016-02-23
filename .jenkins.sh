@@ -112,7 +112,7 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -n "$DISPLAY" ]; then
     sudo apt-get -y install xautomation imagemagick recordmydesktop
     cp -r openrtp $WORKSPACE
-    bash -e ./task.sh $2 $3 $4 $5 $6 $7 $8 $9 $10
+    bash -e ./task.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
 fi
 fi
 fi
