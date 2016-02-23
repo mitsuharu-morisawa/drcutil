@@ -107,24 +107,12 @@ if [ -s $WORKSPACE/changes.txt ]; then
     fi
 fi
 
-if [ "$1" = "task" ] || [ "$1" = "all" ]; then
+if [ "$1" = "task" ]; then
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -n "$DISPLAY" ]; then
     sudo apt-get -y install xautomation imagemagick recordmydesktop
     cp -r openrtp $WORKSPACE
-    if [ "$2" = "balancebeam" ] || [ "$2" = "all" ]; then
-    bash -e ./task.sh HRP2KAI irex-balance-beam-auto 640 170 550 220 300
-    fi
-    if [ "$2" = "terrain" ] || [ "$2" = "all" ]; then
-    bash -e ./task.sh HRP2KAI testbed-terrain 620 170 530 220 300
-    fi
-    if [ "$2" = "valve" ] || [ "$2" = "all" ]; then
-    bash -e ./task.sh HRP2KAI drc-valves 870 1000 760 1050 300 valve_left q
-    fi
-    if [ "$2" = "wall" ] || [ "$2" = "all" ]; then
-    #bash -e ./task.sh HRP2DRC drc-wall-testbed 640 170 550 220 480 tool waistAbsTransform
-    bash -e ./task.sh HRP2KAI drc-wall-testbed 640 170 550 220 540
-    fi
+    bash -e ./task.sh $2 $3 $4 $5 $6 $7 $8 $9 $10
 fi
 fi
 fi
