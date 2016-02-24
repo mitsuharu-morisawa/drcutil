@@ -10,12 +10,12 @@ from apiclient.http import MediaFileUpload
 from apiclient import errors
 from datetime import datetime
 
-CREDENTIAL_FILE = os.environ['CREDENTIAL_FILE']
+CREDENTIAL_FILE = os.environ['HOME'] + '/.jenkinshrg/jsonCredential.txt'
 
 CLIENT_ID = os.environ['CLIENT_ID']
 CLIENT_SECRET = os.environ['CLIENT_SECRET']
-OAUTH_SCOPE = os.environ['OAUTH_SCOPE']
-REDIRECT_URI = os.environ['REDIRECT_URI']
+OAUTH_SCOPE = 'https://www.googleapis.com/auth/drive'
+REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 
 def storeJsonCredential(jsonStr):
 	f = open(CREDENTIAL_FILE, 'w')
