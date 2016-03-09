@@ -21,6 +21,7 @@ cd $SRC_DIR/choreonoid/misc/script
 sudo apt-get -y install libzbar-dev
 else
 cd $WORKSPACE
+sudo rm -fr 3.2.5.tar.gz eigen-eigen-bdd17ee3b1b3
 wget -q http://bitbucket.org/eigen/eigen/get/3.2.5.tar.gz
 tar zxvf 3.2.5.tar.gz
 cd eigen-eigen-bdd17ee3b1b3
