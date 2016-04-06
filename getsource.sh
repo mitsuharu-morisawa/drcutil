@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 source config.sh
 
 sudo apt-get -y install git

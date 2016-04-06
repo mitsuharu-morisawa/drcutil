@@ -1,4 +1,10 @@
+#!/usr/bin/env bash
+
+
 source config.sh
+FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOURCE"))"
+RUNNINGSCRIPT="$0"
+trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 
 export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 
@@ -15,10 +21,10 @@ cmake_install_with_option() {
         cmake -DCMAKE_INSTALL_PREFIX=$PREFIX $2 ..
     fi
 
-    $SUDO make -j2 install
+    $SUDO make -j$MAKE_THREADS_NUMBER install
 }
 
-cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST=ON"
+cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST=$BUILD_GOOGLE_TEST"
 cmake_install_with_option "octomap-1.7.1"
 cmake_install_with_option "hrpsys-base" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_KALMAN_FILTER=OFF -DBUILD_STABILIZER=OFF"
 cmake_install_with_option "HRP2" "-DROBOT_NAME=HRP2KAI"

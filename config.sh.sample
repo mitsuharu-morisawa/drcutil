@@ -4,6 +4,7 @@ export PREFIX=$HOME/openrtp
 export HAVE_ATOM_ACCESS=1
 export SUDO=
 export INTERNAL_MACHINE=0
+export MAKE_THREADS_NUMBER=2
 
 /bin/ping atom -c 1 &> /dev/null
 if [ $? -ne 0 ] 
@@ -15,3 +16,12 @@ if [ "$(lsb_release -is)" == "Debian" ]
 then
     export INTERNAL_MACHINE=1
 fi
+
+BUILD_GOOGLE_TEST=ON
+
+err_report() {
+    echo "Error on line $2:$1"
+    echo "Stopping the script $(basename "$3")."
+}
+
+

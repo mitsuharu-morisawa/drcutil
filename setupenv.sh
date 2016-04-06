@@ -1,4 +1,10 @@
+#!/usr/bin/env bash
+
 source config.sh
+FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOURCE"))"
+RUNNINGSCRIPT="$0"
+trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
+
 
 cd $SRC_DIR/openhrp3/util
 ./installPackages.sh packages.list.ubuntu.$UBUNTU_VER
@@ -28,7 +34,7 @@ cd eigen-eigen-bdd17ee3b1b3
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..
-sudo make install
+sudo make -j$MAKE_THREADS_NUMBER install
 cd ../..
 sudo rm -fr 3.2.5.tar.gz eigen-eigen-bdd17ee3b1b3
 
@@ -47,7 +53,7 @@ cd collada-dom-2.4.0
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..
-sudo make install
+sudo make -j$MAKE_THREADS_NUMBER install
 cd ../..
 sudo rm -fr collada-dom-2.4.0.tgz collada-dom-2.4.0
 fi
