@@ -1,4 +1,10 @@
+#!/usr/bin/env bash
+
 source config.sh
+FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOURCE"))"
+RUNNINGSCRIPT="$0"
+trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
+
 
 cd $SRC_DIR/openhrp3/util
 ./installPackages.sh packages.list.ubuntu.$UBUNTU_VER
