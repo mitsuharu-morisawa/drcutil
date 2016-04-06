@@ -21,7 +21,7 @@ cmake_install_with_option() {
         cmake -DCMAKE_INSTALL_PREFIX=$PREFIX $2 ..
     fi
 
-    $SUDO make -j2 install
+    $SUDO make -j$MAKE_THREADS_NUMBER install
 }
 
 cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST=$BUILD_GOOGLE_TEST"

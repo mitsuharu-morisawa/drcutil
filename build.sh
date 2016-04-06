@@ -12,7 +12,7 @@ build_install() {
     for dir_name in $@; do
         cd "$dir_name/build"
 	echo -n "building $dir_name ... "
-        $SUDO make -j2 install
+        $SUDO make -j$MAKE_THREADS_NUMBER install
         cd ../../
     done
 }
