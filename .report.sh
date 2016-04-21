@@ -32,6 +32,10 @@ REPORT_JOB=drcutil-task-wall
 wget -q -O ${WORKSPACE}/jenkinshrg.github.io/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
 python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
 
+REPORT_JOB=hrp5p-task-terrain
+wget -q -O ${WORKSPACE}/jenkinshrg.github.io/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
+python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
+
 git add --all
 git commit -m "update report"
 git push origin master
