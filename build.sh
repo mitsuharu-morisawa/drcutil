@@ -10,10 +10,12 @@ cd $SRC_DIR
 
 build_install() {
     for dir_name in $@; do
-        cd "$dir_name/build"
-	echo -n "building $dir_name ... "
-        $SUDO make -j$MAKE_THREADS_NUMBER install
-        cd ../../
+	if [ -e $dir_name ]; then
+            cd "$dir_name/build"
+	    echo -n "building $dir_name ... "
+            $SUDO make -j$MAKE_THREADS_NUMBER install
+            cd ../../
+	fi
     done
 }
 
