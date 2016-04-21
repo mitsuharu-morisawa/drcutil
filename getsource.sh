@@ -11,6 +11,7 @@ tar zxvf v1.7.1.tar.gz
 
 git clone ssh://atom.a01.aist.go.jp/git/HRP2
 git clone ssh://atom.a01.aist.go.jp/git/HRP2KAI.git
+git clone ssh://atom.a01.aist.go.jp/git/HRP5P.git
 git clone ssh://atom.a01.aist.go.jp/git/hrpsys-private
 
 git clone https://github.com/fkanehiro/hrpsys-base.git

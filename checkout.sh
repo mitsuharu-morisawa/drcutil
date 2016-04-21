@@ -23,6 +23,11 @@ cd HRP2KAI
 git pull
 cd ..
 
+echo HRP5P
+cd HRP5P
+git pull
+cd ..
+
 echo hrpsys-private
 cd hrpsys-private
 git pull

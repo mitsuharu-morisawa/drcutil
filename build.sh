@@ -17,7 +17,7 @@ build_install() {
     done
 }
 
-build_install "openhrp3" "hrpsys-base" "HRP2" "HRP2KAI" "hmc2" "hrpsys-private" "hrpsys-humanoid"
+build_install "openhrp3" "hrpsys-base" "HRP2" "HRP2KAI" "HRP5P" "hmc2" "hrpsys-private" "hrpsys-humanoid"
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 build_install "choreonoid"
