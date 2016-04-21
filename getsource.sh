@@ -6,8 +6,8 @@ sudo apt-get -y install git
 
 cd $SRC_DIR
 git clone https://github.com/fkanehiro/openhrp3.git
-wget https://github.com/OctoMap/octomap/archive/v1.7.1.tar.gz
-tar zxvf v1.7.1.tar.gz
+wget https://github.com/OctoMap/octomap/archive/v1.8.0.tar.gz
+tar zxvf v1.8.0.tar.gz
 
 git clone ssh://atom.a01.aist.go.jp/git/HRP2
 git clone ssh://atom.a01.aist.go.jp/git/HRP2KAI.git
