@@ -31,6 +31,6 @@ print ""
 print "|Name|Status|"
 print "|---|---|"
 for job in jobs:
-    if job['name'] == "drcutil-build-32" or job['name'] == "drcutil-build-64" or job['name'] == "drcutil-task-balancebeam" or job['name'] == "drcutil-task-terrain" or job['name'] == "drcutil-task-valve" or job['name'] == "drcutil-task-wall" or job['name'] == "hrp5p-task-terrain":
+    if job['name'] == "drcutil-build-32" or job['name'] == "drcutil-build-64" or job['name'] == "drcutil-task-balancebeam" or job['name'] == "drcutil-task-terrain" or job['name'] == "drcutil-task-valve" or job['name'] == "drcutil-task-wall" or job['name'] == "hrp5p-task-terrain" or job['name'] == "hrp2kai-task-door":
         print "|[" + job['name'] + "](http://jenkinshrg.github.io#" + job['name'] + ")|![Build Status](http://jenkinshrg.github.io/"+ job['name'] + ".svg)|"
 print ""
