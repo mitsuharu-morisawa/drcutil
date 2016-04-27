@@ -24,7 +24,7 @@ cd $SRC_DIR/choreonoid/misc/script
 ./install-requisites-ubuntu-$UBUNTU_VER.sh
 
 #hrpcnoid
-sudo apt-get -y install libzbar-dev
+sudo apt-get -y install libzbar-dev python-matplotlib
 else
 cd $WORKSPACE
 sudo rm -fr 3.2.5.tar.gz eigen-eigen-bdd17ee3b1b3
