@@ -8,37 +8,13 @@ JENKINS_URL=http://jenkinshrg.a01.aist.go.jp/
 
 python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResultSummary.py ${JENKINS_URL} > index.md
 
-REPORT_JOB=drcutil-build-32
-wget -q -O ${WORKSPACE}/jenkinshrg.github.io/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
-python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
+REPORT_JOBS="drcutil-build-32 drcutil-build-64 drcutil-task-balancebeam drcutil-task-terrain drcutil-task-valve drcutil-task-wall hrp5p-task-terrain hrp2kai-task-door"
 
-REPORT_JOB=drcutil-build-64
-wget -q -O ${WORKSPACE}/jenkinshrg.github.io/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
-python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
-
-REPORT_JOB=drcutil-task-balancebeam
-wget -q -O ${WORKSPACE}/jenkinshrg.github.io/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
-python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
-
-REPORT_JOB=drcutil-task-terrain
-wget -q -O ${WORKSPACE}/jenkinshrg.github.io/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
-python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
-
-REPORT_JOB=drcutil-task-valve
-wget -q -O ${WORKSPACE}/jenkinshrg.github.io/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
-python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
-
-REPORT_JOB=drcutil-task-wall
-wget -q -O ${WORKSPACE}/jenkinshrg.github.io/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
-python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
-
-REPORT_JOB=hrp5p-task-terrain
-wget -q -O ${WORKSPACE}/jenkinshrg.github.io/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
-python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
-
-REPORT_JOB=hrp2kai-task-door
-wget -q -O ${WORKSPACE}/jenkinshrg.github.io/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
-python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
+for REPORT_JOB in ${REPORT_JOBS}
+do
+    wget -q -O ${WORKSPACE}/jenkinshrg.github.io/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
+    python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
+done
 
 git add --all
 git commit -m "update report"
