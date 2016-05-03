@@ -25,7 +25,11 @@ cmake_install_with_option() {
 }
 
 cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST=$BUILD_GOOGLE_TEST"
-cmake_install_with_option "octomap-1.8.0"
+
+if [ "$UBUNTU_VER" != "16.04" ]
+   cmake_install_with_option "octomap-1.8.0"
+fi
+
 cmake_install_with_option "hrpsys-base" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_KALMAN_FILTER=OFF -DBUILD_STABILIZER=OFF"
 cmake_install_with_option "HRP2" "-DROBOT_NAME=HRP2KAI"
 cmake_install_with_option "HRP2KAI"

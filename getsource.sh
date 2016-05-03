@@ -6,8 +6,11 @@ sudo apt-get -y install git
 
 cd $SRC_DIR
 git clone https://github.com/fkanehiro/openhrp3.git
-wget https://github.com/OctoMap/octomap/archive/v1.8.0.tar.gz
-tar zxvf v1.8.0.tar.gz
+
+if [ "$UBUNTU_VER" != "16.04" ]
+   wget https://github.com/OctoMap/octomap/archive/v1.8.0.tar.gz
+   tar zxvf v1.8.0.tar.gz
+fi
 
 git clone ssh://atom.a01.aist.go.jp/git/HRP2
 git clone ssh://atom.a01.aist.go.jp/git/HRP2KAI.git

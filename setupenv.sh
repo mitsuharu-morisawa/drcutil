@@ -11,12 +11,18 @@ cd $SRC_DIR/openhrp3/util
 cd ..
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-sudo add-apt-repository -y ppa:v-launchpad-jochen-sprickerhof-de/pcl
-sudo apt-get update
-sudo apt-get -y install libxml2-dev libsdl-dev libglew-dev libopencv-dev libcvaux-dev libhighgui-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python libpcl-all
-else
-sudo apt-get -y install libxml2-dev libsdl-dev libglew-dev libopencv-dev libcvaux-dev libhighgui-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
+    if [ "$UBUNTU_VER" = "16.04" ]; then
+	sudo apt-get -y install libpcl-dev
+	sudo apt-get -y install liboctomap-dev
+    else
+	sudo add-apt-repository -y ppa:v-launchpad-jochen-sprickerhof-de/pcl
+	sudo apt-get update
+	sudo apt-get -y install libpcl-all
+    fi
 fi
+#hrpsys-base
+sudo apt-get -y install libxml2-dev libsdl-dev libglew-dev libopencv-dev libcvaux-dev libhighgui-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
+#hmc2
 sudo apt-get -y install libyaml-dev libncurses5-dev
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
