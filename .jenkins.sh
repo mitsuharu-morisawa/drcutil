@@ -7,7 +7,7 @@ rm -f $WORKSPACE/*.xml
 
 upload() {
     wget -q -O $WORKSPACE/console.log $BUILD_URL/consoleText || true
-    sudo apt-get -y install python-pip
+    sudo apt-get -y install python-pip python-dev
     sudo pip install google-api-python-client
     bash -e ./upload.sh || true
     awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/artifacts.txt > $WORKSPACE/artifacts_email.txt
