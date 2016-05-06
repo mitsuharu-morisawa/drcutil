@@ -85,7 +85,9 @@ fi
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 fetch_log_nolink_noverify "choreonoid"
 
-cd choreonoid/ext
-fetch_log "hrpcnoid"
-cd ../..
+if [ -e choreonoid/ext ]; then
+    cd choreonoid/ext
+    fetch_log "hrpcnoid"
+    cd ../..
+fi
 fi
