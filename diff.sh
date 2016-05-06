@@ -3,6 +3,9 @@ cd $SRC_DIR
 
 fetch_log() {
     for dir_name in $@; do
+	if [ ! -e $dir_name ]; then
+	    continue
+	fi
         cd "$dir_name"
         echo -n > $SRC_DIR/${dir_name}.diff
         URL=$(git config --get remote.origin.url)
@@ -23,6 +26,9 @@ fetch_log() {
 
 fetch_log_nolink() {
     for dir_name in $@; do
+	if [ ! -e $dir_name ]; then
+	    continue
+	fi
         cd "$dir_name"
         echo -n > $SRC_DIR/${dir_name}.diff
         URL=$(git config --get remote.origin.url)
@@ -43,6 +49,9 @@ fetch_log_nolink() {
 
 fetch_log_nolink_noverify() {
     for dir_name in $@; do
+	if [ ! -e $dir_name ]; then
+	    continue
+	fi
         cd "$dir_name"
         echo -n > $SRC_DIR/${dir_name}.diff
         URL=$(git config --get remote.origin.url)
