@@ -70,6 +70,8 @@ wait $CHOREONOID || true
 kill -2 $RECORDMYDESKTOP || true
 wait $RECORDMYDESKTOP || true
 
+echo ${RESULT} > ${WORKSPACE}/task_result.txt
+
 JUNIT=${WORKSPACE}/${TASK}.xml
 echo "<testsuite tests='1'>" > ${JUNIT}
 if [ "${RESULT}" = "OK" ] && [ "${EMA}" = "NORMAL" ]; then
