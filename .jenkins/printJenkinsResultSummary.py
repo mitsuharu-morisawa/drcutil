@@ -18,15 +18,24 @@ def printLatestResults(url, job, n):
     for i in range(n):
         if i < len(builds):
             result = builds[i]['result']
+            text = ""
             if result == "SUCCESS":
                 color = "blue"
             elif result == "UNSTABLE":
                 color = "yellow"
+                try:
+                    r = urllib2.urlopen(build['url'] + "artifact/task_result.txt")
+                    line = r.readline()
+                    text = line[0:len(line)-1]
+                except:
+                    pass
+                finally:
+                    r.close()
             elif result == "FAILURE":
                 color = "red"
             else:
                 color = "aborted"
-            print "![Jenkins Icon](http://jenkinshrg.github.io/images/24x24/"+ color + ".png)",
+            print "![Jenkins Icon](http://jenkinshrg.github.io/images/24x24/"+ color + ".png)"+text,
         print "|",
     print 
 
