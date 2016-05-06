@@ -24,7 +24,7 @@ def printLatestResults(url, job, n):
             elif result == "UNSTABLE":
                 color = "yellow"
                 try:
-                    r = urllib2.urlopen(build['url'] + "artifact/task_result.txt")
+                    r = urllib2.urlopen(builds[i]['url'] + "artifact/task_result.txt")
                     line = r.readline()
                     text = line[0:len(line)-1]
                 except:
