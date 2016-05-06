@@ -74,6 +74,14 @@ for build in builds:
         color = "blue"
     elif result == "UNSTABLE":
         color = "yellow"
+        try:
+            r = urllib2.urlopen(build['url'] + "artifact/task_result.txt")
+            line = r.readline()
+            result = line[0:len(line)-1]
+        except:
+            pass
+        finally:
+            r.close()
     elif result == "FAILURE":
         color = "red"
     elif result == "ABORTED":
