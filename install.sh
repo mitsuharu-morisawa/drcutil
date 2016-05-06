@@ -26,7 +26,7 @@ cmake_install_with_option() {
 
 cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST=$BUILD_GOOGLE_TEST"
 
-if [ "$UBUNTU_VER" != "16.04" ]
+if [ "$UBUNTU_VER" != "16.04" ]; then
    cmake_install_with_option "octomap-1.8.0"
 fi
 

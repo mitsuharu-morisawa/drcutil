@@ -7,7 +7,7 @@ sudo apt-get -y install git
 cd $SRC_DIR
 git clone https://github.com/fkanehiro/openhrp3.git
 
-if [ "$UBUNTU_VER" != "16.04" ]
+if [ "$UBUNTU_VER" != "16.04" ]; then
    wget https://github.com/OctoMap/octomap/archive/v1.8.0.tar.gz
    tar zxvf v1.8.0.tar.gz
 fi
