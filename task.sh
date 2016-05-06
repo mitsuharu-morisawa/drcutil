@@ -45,6 +45,8 @@ if [ "$FREE_BEFORE" != "" ] && [ "$FREE_AFTER" != "" ]; then
     echo $FREE_AFTER,$FREE_CHANGE >> $WORKSPACE/system.csv
 fi
 
+import -display :0 -window ${WINDOWSID} ${WORKSPACE}/${TASK}.png 2>&1 > /dev/null
+
 python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
 RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
 echo "RESULT: ${RESULT}"
@@ -53,8 +55,6 @@ if [ "${TARGET}" != "" ]; then
   RESULT=$(cat ${WORKSPACE}/${TASK}-getTargetPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkTargetPos.py ${VR})
   echo "RESULT: ${RESULT}"
 fi
-
-import -display :0 -window ${WINDOWSID} ${WORKSPACE}/${TASK}.png 2>&1 > /dev/null
 
 RED=$(convert ${WORKSPACE}/${TASK}.png -format %c histogram:info: | grep red | cut -d: -f 1 | sed -e "s/ //g")
 echo "Red: ${RED}"
