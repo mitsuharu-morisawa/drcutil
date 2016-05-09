@@ -13,6 +13,7 @@ PORT=${9}
 ulimit -c unlimited
 killall -9 openhrp-model-loader || true
 killall -9 choreonoid || true
+killall -9 recordmydesktop || true
 cd ${WORKSPACE}/openrtp/share/hrpsys/samples/${PROJECT}
 rm -f core
 CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
@@ -46,6 +47,8 @@ if [ "$FREE_BEFORE" != "" ] && [ "$FREE_AFTER" != "" ]; then
 fi
 
 import -display :0 -window ${WINDOWSID} ${WORKSPACE}/${TASK}.png 2>&1 > /dev/null
+kill -2 $RECORDMYDESKTOP || true
+wait $RECORDMYDESKTOP || true
 
 python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
 RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
@@ -67,8 +70,6 @@ echo "EMA: ${EMA}"
 
 kill -9 $CHOREONOID || true
 wait $CHOREONOID || true
-kill -2 $RECORDMYDESKTOP || true
-wait $RECORDMYDESKTOP || true
 
 echo ${RESULT} > ${WORKSPACE}/task_result.txt
 
