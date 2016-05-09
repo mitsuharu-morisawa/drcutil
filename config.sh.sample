@@ -1,5 +1,4 @@
 export SRC_DIR=$HOME/src
-export UBUNTU_VER=14.04
 export PREFIX=$HOME/openrtp
 export HAVE_ATOM_ACCESS=1
 export SUDO=
@@ -12,9 +11,12 @@ then
     export HAVE_ATOM_ACCESS=0
 fi
 
+export UBUNTU_VER="$(lsb_release -rs)"
+
 if [ "$(lsb_release -is)" == "Debian" ]
 then
     export INTERNAL_MACHINE=1
+    export UBUNTU_VER=14.04
 fi
 
 BUILD_GOOGLE_TEST=ON
