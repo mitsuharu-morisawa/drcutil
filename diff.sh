@@ -54,7 +54,8 @@ fetch_log_nolink_noverify() {
 	fi
         cd "$dir_name"
         echo -n > $SRC_DIR/${dir_name}.diff
-        URL=$(git config --get remote.origin.url)
+        #URL=$(git config --get remote.origin.url)
+        URL=https://github.com/s-nakaoka/choreonoid.git
         LOCAL_ID=$(git log -1 HEAD --pretty=format:"%H")
         GIT_SSL_NO_VERIFY=1 git fetch
         git log origin HEAD --pretty=format:"%H,%h" | while read line
@@ -64,7 +65,8 @@ fetch_log_nolink_noverify() {
                 break
             fi
             SHORT_ID=$(echo "${line}" | cut -d "," -f 2)
-            echo "${dir_name},$SHORT_ID," >> $SRC_DIR/${dir_name}.diff
+            #echo "${dir_name},$SHORT_ID," >> $SRC_DIR/${dir_name}.diff
+            echo "${dir_name},$SHORT_ID,${URL%.git}/commit/$REMOTE_ID" >> $SRC_DIR/${dir_name}.diff
         done
         cd ..
     done
