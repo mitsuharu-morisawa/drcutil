@@ -72,12 +72,6 @@ if [ ! -e $PREFIX ]; then
     fi
     sudo apt-get -y install libgtest-dev
     bash -e ./install.sh
-    if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    mkdir -p $HOME/.config/Choreonoid
-    cp $WORKSPACE/drcutil/.config/Choreonoid.conf $HOME/.config/Choreonoid
-    sed -i -e "s/vagrant\/src/$USER\/workspace\/$JOB_NAME\/src/g" $HOME/.config/Choreonoid/Choreonoid.conf
-    sed -i -e "s/vagrant\/openrtp/$USER\/workspace\/$JOB_NAME\/openrtp/g" $HOME/.config/Choreonoid/Choreonoid.conf
-    fi
 fi
 
 source .bashrc
@@ -111,6 +105,10 @@ if [ "$1" = "task" ]; then
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -n "$DISPLAY" ]; then
     sudo apt-get -y install xautomation imagemagick recordmydesktop
+    mkdir -p $HOME/.config/Choreonoid
+    cp $WORKSPACE/drcutil/.config/Choreonoid.conf $HOME/.config/Choreonoid
+    sed -i -e "s/vagrant\/src/$USER\/workspace\/$JOB_NAME\/src/g" $HOME/.config/Choreonoid/Choreonoid.conf
+    sed -i -e "s/vagrant\/openrtp/$USER\/workspace\/$JOB_NAME\/openrtp/g" $HOME/.config/Choreonoid/Choreonoid.conf
     bash -e ./task.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
 fi
 fi
