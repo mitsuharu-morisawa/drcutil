@@ -12,7 +12,7 @@ cd ..
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ "$UBUNTU_VER" = "16.04" ]; then
-	sudo apt-get -y install libpcl-dev
+	sudo apt-get -y install libpcl-dev libproj-dev
 	sudo apt-get -y install liboctomap-dev
     else
 	sudo add-apt-repository -y ppa:v-launchpad-jochen-sprickerhof-de/pcl
