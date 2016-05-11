@@ -43,7 +43,7 @@ if [ ! -e $SRC_DIR ]; then
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
     sed -i -e 's/exit 1/exit 0/g' $SRC_DIR/openhrp3/util/installPackages.sh
-    sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/choreonoid/misc/script/install-requisites-ubuntu-14.04.sh
+    sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/choreonoid/misc/script/install-requisites-ubuntu-$UBUNTU_VER.sh
     else
     sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
     sed -i -e 's/exit 1/exit 0/g' $SRC_DIR/openhrp3/util/installPackages.sh
