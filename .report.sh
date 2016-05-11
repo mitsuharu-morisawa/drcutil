@@ -8,7 +8,7 @@ JENKINS_URL=http://jenkinshrg.a01.aist.go.jp/
 
 python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResultSummary.py ${JENKINS_URL} > index.md
 
-REPORT_JOBS="drcutil-build-32 drcutil-build-64 drcutil-task-balancebeam drcutil-task-terrain drcutil-task-valve drcutil-task-wall hrp5p-task-terrain hrp2kai-task-door"
+REPORT_JOBS="drcutil-build-32 drcutil-build-64 build-ubuntu16.04-64 drcutil-task-balancebeam drcutil-task-terrain drcutil-task-valve drcutil-task-wall hrp5p-task-terrain hrp2kai-task-door"
 
 for REPORT_JOB in ${REPORT_JOBS}
 do
