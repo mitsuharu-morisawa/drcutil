@@ -11,7 +11,7 @@ cd $SRC_DIR/openhrp3/util
 
 sudo sed -i -e 's/giopMaxMsgSize = 2097152/giopMaxMsgSize = 2147483648/g' /etc/omniORB.cfg
 
-if [ "$BUILD_GOOGLE_TEST" = "ON"]; then
+if [ "$BUILD_GOOGLE_TEST" = "ON" ]; then
     sudo apt-get -y install libgtest-dev
 fi
 
