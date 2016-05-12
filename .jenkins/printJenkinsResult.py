@@ -189,5 +189,5 @@ for build in builds:
     finally:
         r.close()
     notes = memory_used + memory_change
-    print "|" + number + "|" + "![Jenkins Icon](http://jenkinshrg.github.io/images/24x24/"+ color + ".png)" + result + "|" + str(datetime.fromtimestamp(build['timestamp'] / 1000).strftime("%Y/%m/%d %H:%M")) + "|" + str(build['duration'] / 60 / 1000) + " min." + "|" + numberErrorSeverity + "|" + failCount + "|" + ratio + "|" + changes + "|" + uploads + "|" + notes + "|"
+    print "|" + str(number) + "|" + "![Jenkins Icon](http://jenkinshrg.github.io/images/24x24/"+ color + ".png)" + result + "|" + str(datetime.fromtimestamp(build['timestamp'] / 1000).strftime("%Y/%m/%d %H:%M")) + "|" + str(build['duration'] / 60 / 1000) + " min." + "|" + numberErrorSeverity + "|" + failCount + "|" + ratio + "|" + changes + "|" + uploads + "|" + notes + "|"
 print ""
