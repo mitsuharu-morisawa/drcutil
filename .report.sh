@@ -8,7 +8,7 @@ JENKINS_URL=http://jenkinshrg.a01.aist.go.jp/
 
 python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResultSummary.py ${JENKINS_URL} > index.md
 
-REPORT_JOBS="$(python ${WORKSPACE}/drcutil/.jenkins/getJobs.py ${JENKINS_URL}"
+REPORT_JOBS="$(python ${WORKSPACE}/drcutil/.jenkins/getJobs.py ${JENKINS_URL})"
 
 for REPORT_JOB in ${REPORT_JOBS}
 do
