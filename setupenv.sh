@@ -8,7 +8,12 @@ trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 
 cd $SRC_DIR/openhrp3/util
 ./installPackages.sh packages.list.ubuntu.$UBUNTU_VER
-cd ..
+
+sudo sed -i -e 's/giopMaxMsgSize = 2097152/giopMaxMsgSize = 2147483648/g' /etc/omniORB.cfg
+
+if [ "$BUILD_GOOGLE_TEST" = "ON"]; then
+    sudo apt-get -y install libgtest-dev
+fi
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ "$UBUNTU_VER" = "16.04" ]; then

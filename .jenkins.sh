@@ -67,10 +67,6 @@ if [ ! -e $PREFIX ]; then
     sudo apt-get -y install python-software-properties
     fi
     bash -e ./setupenv.sh
-    if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    sudo sed -i -e 's/giopMaxMsgSize = 2097152/giopMaxMsgSize = 2147483648/g' /etc/omniORB.cfg
-    fi
-    sudo apt-get -y install libgtest-dev
     bash -e ./install.sh
 fi
 
