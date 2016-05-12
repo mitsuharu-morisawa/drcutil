@@ -62,10 +62,11 @@ print ""
 print "#### Build History"
 print ""
 
-print "|Status|Time|Duration|Inspection|Test|Coverage|Changes|Logs|Notes|"
-print "|------|----|--------|----------|----|--------|-------|----|-----|"
+print "|#|Status|Time|Duration|Inspection|Test|Coverage|Changes|Logs|Notes|"
+print "|---|------|----|--------|----------|----|--------|-------|----|-----|"
 
 for build in builds:
+    number = build['number']
     building = build['building']
     if building == True:
         continue
@@ -188,5 +189,5 @@ for build in builds:
     finally:
         r.close()
     notes = memory_used + memory_change
-    print "|" + "![Jenkins Icon](http://jenkinshrg.github.io/images/24x24/"+ color + ".png)" + result + "|" + str(datetime.fromtimestamp(build['timestamp'] / 1000).strftime("%Y/%m/%d %H:%M")) + "|" + str(build['duration'] / 60 / 1000) + " min." + "|" + numberErrorSeverity + "|" + failCount + "|" + ratio + "|" + changes + "|" + uploads + "|" + notes + "|"
+    print "|" + number + "|" + "![Jenkins Icon](http://jenkinshrg.github.io/images/24x24/"+ color + ".png)" + result + "|" + str(datetime.fromtimestamp(build['timestamp'] / 1000).strftime("%Y/%m/%d %H:%M")) + "|" + str(build['duration'] / 60 / 1000) + " min." + "|" + numberErrorSeverity + "|" + failCount + "|" + ratio + "|" + changes + "|" + uploads + "|" + notes + "|"
 print ""
