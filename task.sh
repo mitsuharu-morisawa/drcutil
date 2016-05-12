@@ -23,6 +23,7 @@ sleep 20
 
 if [ -e core ]; then
     echo bt | gdb choreonoid core
+    rm -f core
 fi
 
 WINDOWSID=$(xwininfo -display :0 -name "${TASK} - Choreonoid" | grep 'id: 0x' | grep -Eo '0x[a-z0-9]+')
