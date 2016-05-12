@@ -16,7 +16,7 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 	sudo apt-get -y install liboctomap-dev
     else
 	sudo add-apt-repository -y ppa:v-launchpad-jochen-sprickerhof-de/pcl
-	sudo apt-get update
+	sudo apt-get update || true #ignore checksum error
 	sudo apt-get -y install libpcl-all
     fi
 fi
