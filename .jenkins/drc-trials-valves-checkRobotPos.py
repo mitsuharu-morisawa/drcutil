@@ -11,11 +11,6 @@ for line in sys.stdin:
 if rotation[0] > -0.1 and rotation[0] < 0.1 and \
    rotation[1] > -0.1 and rotation[1] < 0.1 and \
    rotation[2] > -2.0 and rotation[2] < 2.0:
-    if position[0] > 0.0 and position[0] < 0.2 and \
-       position[1] > 0.1 and position[1] < 0.3 and \
-       position[2] > 0.6 and position[2] < 0.8:
-        print "OK"
-    else:
-        print "STOP"
+    print "OK"
 else:
     print "FALL"
