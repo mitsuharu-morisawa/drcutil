@@ -56,6 +56,11 @@ import -display :0 -window ${WINDOWSID} ${WORKSPACE}/${TASK}.png 2>&1 > /dev/nul
 kill -2 $RECORDMYDESKTOP || true
 wait $RECORDMYDESKTOP || true
 
+if [ -e core ]; then
+    echo bt | gdb choreonoid core
+    rm -f core
+fi
+
 python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
 RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
 echo "RESULT: ${RESULT}"
