@@ -34,3 +34,6 @@ upload "VIDEO" "drc-wall-testbed.ogv" "video/ogg"
 
 upload "IMAGE" "drc-door.png" "image/png"
 upload "VIDEO" "drc-door.ogv" "video/ogg"
+
+upload "IMAGE" "drc-trials-valves.png" "image/png"
+upload "VIDEO" "drc-trials-valves.ogv" "video/ogg"
