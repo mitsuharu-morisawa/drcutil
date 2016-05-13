@@ -20,20 +20,5 @@ upload() {
 
 upload "BUILD" "console.log" "text/plain"
 
-upload "IMAGE" "irex-balance-beam-auto.png" "image/png"
-upload "VIDEO" "irex-balance-beam-auto.ogv" "video/ogg"
-
-upload "IMAGE" "testbed-terrain.png" "image/png"
-upload "VIDEO" "testbed-terrain.ogv" "video/ogg"
-
-upload "IMAGE" "drc-valves.png" "image/png"
-upload "VIDEO" "drc-valves.ogv" "video/ogg"
-
-upload "IMAGE" "drc-wall-testbed.png" "image/png"
-upload "VIDEO" "drc-wall-testbed.ogv" "video/ogg"
-
-upload "IMAGE" "drc-door.png" "image/png"
-upload "VIDEO" "drc-door.ogv" "video/ogg"
-
-upload "IMAGE" "drc-trials-valves.png" "image/png"
-upload "VIDEO" "drc-trials-valves.ogv" "video/ogg"
+upload "IMAGE" "task.png" "image/png"
+upload "VIDEO" "task.ogv" "video/ogg"
