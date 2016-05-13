@@ -70,7 +70,7 @@ if [ "${TARGET}" != "" ]; then
   echo "RESULT: ${RESULT}"
 fi
 
-RED=$(convert ${WORKSPACE}/${TASK}.png -format %c histogram:info: | grep red | cut -d: -f 1 | sed -e "s/ //g")
+RED=$(convert ${WORKSPACE}/task.png -format %c histogram:info: | grep red | cut -d: -f 1 | sed -e "s/ //g")
 echo "Red: ${RED}"
 if [ ${RED} -gt 300000 ]; then
     EMA="EMERGENCY"
