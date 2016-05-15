@@ -75,7 +75,7 @@ source .bashrc
 if [ -s $WORKSPACE/changes.txt ]; then
     #bash -e ./update.sh
     bash -e ./checkout.sh
-    bash -e ./build.sh
+    VERBOSE=1 bash -e ./build.sh
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ -z "$DISPLAY" ]; then
     sudo apt-get -y install lcov
