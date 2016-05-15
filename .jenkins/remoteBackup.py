@@ -108,19 +108,18 @@ def delete_file(service, file_id):
 		#print 'An error occurred: %s' % error
 		pass
 
-def threshold_date_str(days_before):
+def threshold_date_str(hours_before):
 	import time
 	today = time.localtime()
 	today_epoch_delta = time.mktime(today)
-	return_day_epoch_delta = today_epoch_delta - days_before*24*60*60
+	return_day_epoch_delta = today_epoch_delta - hours_before*60*60
 	return time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime(return_day_epoch_delta))
 
 if __name__ == '__main__':
 	drive_service = build_service()
 
 	query = "title != 'share'"
-	#query += " and modifiedDate <'" + threshold_date_str(7) + "'"
-	query += " and modifiedDate <'" + threshold_date_str(2) + "'"
+	query += " and modifiedDate <'" + threshold_date_str(40) + "'"
 	files = retrieve_files(drive_service, query)
 	for item in files:
 		delete_file(drive_service, item["id"])
