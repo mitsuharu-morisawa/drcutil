@@ -1,3 +1,12 @@
+check_core(){
+    if [ -e core ]; then
+	echo bt | gdb choreonoid core
+	rm -f core
+    fi
+}
+
+trap check_core EXIT
+
 cd ${WORKSPACE}
 
 PROJECT=${1}
@@ -20,11 +29,6 @@ CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
 sleep 20
-
-if [ -e core ]; then
-    echo bt | gdb choreonoid core
-    rm -f core
-fi
 
 WINDOWSID=$(xwininfo -display :0 -name "${TASK} - Choreonoid" | grep 'id: 0x' | grep -Eo '0x[a-z0-9]+')
 
@@ -55,11 +59,6 @@ fi
 import -display :0 -window ${WINDOWSID} ${WORKSPACE}/task.png 2>&1 > /dev/null
 kill -2 $RECORDMYDESKTOP || true
 wait $RECORDMYDESKTOP || true
-
-if [ -e core ]; then
-    echo bt | gdb choreonoid core
-    rm -f core
-fi
 
 python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
 RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
