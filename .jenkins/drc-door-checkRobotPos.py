@@ -2,6 +2,9 @@ import sys
 
 num = 0
 for line in sys.stdin:
+    if line.find("nan") >= 0:
+        print "FALL"
+        sys.exit(0)
     num += 1
     if num == 2:
         position = eval(line)
