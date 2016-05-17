@@ -164,7 +164,7 @@ for build in builds:
             if label == "BUILD":
                 build_files += "[" + filename + "](" + googleurl + ")" + "<br>"
             elif label == "IMAGE":
-                image_files += "<a href=\"" + googleurl + "\"><img src=\"" + googleurl + "\" width=\"128\"></a><br>"
+                image_files += "[" + filename + "](" + googleurl + ")" + "<br>"
             elif label == "VIDEO":
                 video_files += "[" + filename + "](" + googleurl + ")" + "<br>"
             line = r.readline()
