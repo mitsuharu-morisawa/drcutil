@@ -18,6 +18,12 @@ trap upload EXIT
 
 cp config.sh.sample config.sh
 sed -i -e "s/HOME/WORKSPACE/g" config.sh
+if [ "$1" = "build" ]; then
+    sed -i -e "s/Release/Debug/g" config.sh
+else
+    sed -i -e "s/Release/RelWithDebInfo/g" config.sh
+fi
+
 sudo apt-get update || true #ignore checksum error
 sudo apt-get -y install lsb-release
 source config.sh
