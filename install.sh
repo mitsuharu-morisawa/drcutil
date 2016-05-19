@@ -16,9 +16,9 @@ cmake_install_with_option() {
     cd "$SRC_DIR/$1/build"
 
     if [ $# = 1 ]; then
-        cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ..
+        cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
     else
-        cmake -DCMAKE_INSTALL_PREFIX=$PREFIX $2 ..
+        cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$BUILD_TYPE $2 ..
     fi
 
     $SUDO make -j$MAKE_THREADS_NUMBER install
