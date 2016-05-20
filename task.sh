@@ -67,7 +67,7 @@ wait $RECORDMYDESKTOP || true
 python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
 RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
 echo "RESULT: ${RESULT}"
-if [ "${TARGET}" != "" ]; then
+if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
   python ${WORKSPACE}/drcutil/.jenkins/getTargetPos.py ${TARGET} ${PORT} | tee ${WORKSPACE}/${TASK}-getTargetPos.txt
   RESULT=$(cat ${WORKSPACE}/${TASK}-getTargetPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkTargetPos.py ${VR})
   echo "RESULT: ${RESULT}"
