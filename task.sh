@@ -30,6 +30,10 @@ CHOREONOID=$(jobs -p %+)
 
 sleep 20
 
+if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-setTargetPos.py ]; then
+    python ${WORKSPACE}/drcutil/.jenkins/${TASK}-setTargetPos.py
+fi
+
 WINDOWSID=$(xwininfo -display :0 -name "${TASK} - Choreonoid" | grep 'id: 0x' | grep -Eo '0x[a-z0-9]+')
 
 recordmydesktop --windowid ${WINDOWSID} --display :0 --no-sound --overwrite -o ${WORKSPACE}/task.ogv 2>&1 > /dev/null &
