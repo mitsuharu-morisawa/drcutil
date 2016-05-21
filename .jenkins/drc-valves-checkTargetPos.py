@@ -6,7 +6,7 @@ for line in sys.stdin:
     if num == 2:
         radian = eval(line)
 
-if radian[0] > 3.0 and radian[0] < 3.4:
+if radian[0] > 3.0:
     print "OK"
 else:
     print "NG"
