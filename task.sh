@@ -25,6 +25,7 @@ killall -9 choreonoid || true
 killall -9 recordmydesktop || true
 cd ${WORKSPACE}/openrtp/share/hrpsys/samples/${PROJECT}
 rm -f core
+rm -f task_result.txt
 CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
@@ -45,7 +46,13 @@ PS_BEFORE=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
 xte -x :0 "mousemove ${AUTOPOSX} ${AUTOPOSY}" && xte "mouseclick 1"
 sleep 1
 xte -x :0 "mousemove ${OKPOSX} ${OKPOSY}" && xte "mouseclick 1"
-sleep ${WAIT}
+
+for ((i=0; i<${WAIT}; i++)); do
+    if [ -e task_result.txt ]; then
+	break
+    fi
+    sleep 1
+done
 
 PS_AFTER=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
 FREE_AFTER=$(free -m | awk 'NR==3 { print $3 }')
