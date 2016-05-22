@@ -37,7 +37,7 @@ fi
 
 WINDOWSID=$(xwininfo -display :0 -name "${TASK} - Choreonoid" | grep 'id: 0x' | grep -Eo '0x[a-z0-9]+')
 
-recordmydesktop --windowid ${WINDOWSID} --display :0 --no-sound --overwrite -o ${WORKSPACE}/task.ogv 2>&1 > /dev/null &
+recordmydesktop --windowid ${WINDOWSID} --display :0 --on-the-fly-encoding --no-sound --overwrite -o ${WORKSPACE}/task.ogv 2>&1 > /dev/null &
 RECORDMYDESKTOP=$(jobs -p %+)
 
 FREE_BEFORE=$(free -m | awk 'NR==3 { print $3 }')
