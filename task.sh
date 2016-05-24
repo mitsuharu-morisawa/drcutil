@@ -49,6 +49,7 @@ xte -x :0 "mousemove ${OKPOSX} ${OKPOSY}" && xte "mouseclick 1"
 
 for ((i=0; i<${WAIT}; i++)); do
     if [ -e task_result.txt ]; then
+	echo "task completion is detected at $i[s]"
 	break
     fi
     sleep 1
