@@ -40,9 +40,9 @@ cmake_install_with_option "hrpsys-private"
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     cmake_install_with_option "choreonoid" "-DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_PCL_PLUGIN=ON -DBUILD_OPENHRP_PLUGIN=ON -DBUILD_GRXUI_PLUGIN=ON -DBODY_CUSTOMIZERS=$SRC_DIR/HRP2/customizer/HRP2Customizer;$SRC_DIR/HRP5P/customizer/HRP5PCustomizer -DBUILD_DRC_USER_INTERFACE_PLUGIN=ON"
 else
-    cmake_install_with_option "flexiport"
-    cmake_install_with_option "hokuyoaist"
-    cmake_install_with_option "rtchokuyoaist"
+    cmake_install_with_option "flexiport" "-DBUILD_DOCUMENTATION=OFF"
+    cmake_install_with_option "hokuyoaist" "-DBUILD_DOCUMENTATION=OFF -DBUILD_PYTHON_BINDINGS=OFF"
+    cmake_install_with_option "rtchokuyoaist" "-DBUILD_DOCUMENTATION=OFF"
 fi
 
 echo "add the following environmental variable settings to your .bashrc"
