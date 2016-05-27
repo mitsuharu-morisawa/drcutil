@@ -21,8 +21,12 @@ git clone https://github.com/fkanehiro/hrpsys-base.git
 git clone https://github.com/jrl-umi3218/hmc2.git
 git clone https://github.com/jrl-umi3218/hrpsys-humanoid.git
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-GIT_SSL_NO_VERIFY=1 git clone https://choreonoid.org/git/choreonoid.git
-cd choreonoid/ext
-git clone https://github.com/jrl-umi3218/hrpcnoid.git
-cd ../..
+    GIT_SSL_NO_VERIFY=1 git clone https://choreonoid.org/git/choreonoid.git
+    cd choreonoid/ext
+    git clone https://github.com/jrl-umi3218/hrpcnoid.git
+    cd ../..
+else
+    git clone https://github.com/gbiggs/flexiport
+    git clone https://github.com/gbiggs/hokuyoaist
+    git clone https://github.com/gbiggs/rtchokuyoaist
 fi
