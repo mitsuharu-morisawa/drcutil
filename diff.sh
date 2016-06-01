@@ -66,7 +66,8 @@ fetch_log_nolink_noverify() {
             fi
             SHORT_ID=$(echo "${line}" | cut -d "," -f 2)
             #echo "${dir_name},$SHORT_ID," >> $SRC_DIR/${dir_name}.diff
-            echo "${dir_name},$SHORT_ID,${URL%.git}/commit/$REMOTE_ID" >> $SRC_DIR/${dir_name}.diff
+            #echo "${dir_name},$SHORT_ID,${URL%.git}/commit/$REMOTE_ID" >> $SRC_DIR/${dir_name}.diff
+	    echo "${dir_name},$SHORT_ID,https://www.choreonoid.org/redmine/projects/choreonoid/repository/revisions/$REMOTE_ID/diff" >> $SRC_DIR/${dir_name}.diff
         done
         cd ..
     done
