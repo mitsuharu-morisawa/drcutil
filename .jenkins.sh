@@ -82,8 +82,9 @@ source .bashrc
 if [ -s $WORKSPACE/changes.txt ]; then
     #bash -e ./update.sh
     bash -e ./checkout.sh
-    VERBOSE=1 bash -e ./build.sh
-    if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+fi
+bash -e ./install.sh
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ -z "$DISPLAY" ]; then
     sudo apt-get -y install lcov
     sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
@@ -100,7 +101,6 @@ if [ -s $WORKSPACE/changes.txt ]; then
     sudo apt-get -y install cppcheck
     #sudo apt-get -y install cccc
     bash -e ./inspection.sh
-    fi
     fi
 fi
 
