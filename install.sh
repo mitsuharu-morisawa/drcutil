@@ -29,9 +29,9 @@ if [ ! -e configure ]; then
     ./build/autogen
 fi
 if [ $BUILD_TYPE != "Release" ]; then
-    ./configure --prefix=$PREFIX --enable-debug
+    ./configure --prefix=$PREFIX --without-doxygen --enable-debug
 else
-    ./configure --prefix=$PREFIX
+    ./configure --prefix=$PREFIX --without-doxygen
 fi
 $SUDO make -j$MAKE_THREADS_NUMBER install
 
