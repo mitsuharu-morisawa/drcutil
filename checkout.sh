@@ -2,47 +2,28 @@ source config.sh
 
 pull_source() {
     for dir_name in $@; do
-	echo $dir_name
-        cd "$dir_name"
-	git pull
-        cd ..
+	if [ -e $dir_name ]; then
+	    echo $dir_name
+            cd "$dir_name"
+	    if [ -e .svn ]; then
+		svn update
+	    else
+		git pull
+	    fi
+            cd ..
+	fi
     done
 }
 
 cd $SRC_DIR
 
-pull_source openhrp3 hrpsys-base hmc2 hrpsys-humanoid
-
-echo HRP2
-cd HRP2
-git pull
-cd ..
-
-echo HRP2KAI
-cd HRP2KAI
-git pull
-cd ..
-
-if [ -e HRP5P ]; then
-    echo HRP5P
-    cd HRP5P
-    git pull
-    cd ..
-fi
-
-echo hrpsys-private
-cd hrpsys-private
-git pull
-cd ..
+pull_source OpenRTM-aist openhrp3 hrpsys-base hmc2 hrpsys-private hrpsys-humanoid HRP2 HRP2KAI HRP5P
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-echo choreonoid
-cd choreonoid
-GIT_SSL_NO_VERIFY=1 git pull
-echo choreonoid/ext/hrpcnoid
-cd ext/hrpcnoid
-git pull
-cd ../../..
+    GIT_SSL_NO_VERIFY=1 pull_source choreonoid
+    pull_source choreonoid/ext/hrpcnoid
+else
+    pull_source flexiport hokuyoaist rtchokuyoaist
 fi
 
 

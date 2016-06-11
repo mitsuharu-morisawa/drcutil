@@ -5,6 +5,7 @@ export SUDO=
 export INTERNAL_MACHINE=0
 export MAKE_THREADS_NUMBER=2
 export BUILD_TYPE=Release
+export OCTOMAP_VERSION=1.8.0
 
 /bin/ping atom -c 1 &> /dev/null
 if [ $? -ne 0 ] 

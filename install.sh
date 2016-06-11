@@ -24,13 +24,23 @@ cmake_install_with_option() {
     $SUDO make -j$MAKE_THREADS_NUMBER install
 }
 
+cd $SRC_DIR/OpenRTM-aist
+if [ ! -e configure ]; then
+    ./build/autogen
+fi
+if [ $BUILD_TYPE != "Release" ]; then
+    ./configure --prefix=$PREFIX --enable-debug
+else
+    ./configure --prefix=$PREFIX
+fi
+$SUDO make -j$MAKE_THREADS_NUMBER install
+
 cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST=$BUILD_GOOGLE_TEST"
 
-if [ "$UBUNTU_VER" != "16.04" ]; then
-   cmake_install_with_option "octomap-1.8.0"
-fi
-
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+    if [ "$UBUNTU_VER" != "16.04" ]; then
+	cmake_install_with_option "octomap-$OCTOMAP_VERSION"
+    fi
     cmake_install_with_option "hrpsys-base" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_KALMAN_FILTER=OFF -DBUILD_STABILIZER=OFF -DENABLE_DOXYGEN=OFF"
 else
     cmake_install_with_option "hrpsys-base" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_KALMAN_FILTER=OFF -DBUILD_STABILIZER=OFF -DENABLE_DOXYGEN=OFF -DINSTALL_HRPIO=OFF"

@@ -66,16 +66,14 @@ if [ ! -e $SRC_DIR ]; then
     fi
 fi
 
-if [ ! -e $PREFIX ]; then
-    mkdir $PREFIX
-    if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+bash -e ./getsource.sh
+mkdir -p $PREFIX
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     sudo apt-get -y install software-properties-common
-    else
+else
     sudo apt-get -y install python-software-properties
-    fi
-    bash -e ./setupenv.sh
-    bash -e ./install.sh
 fi
+bash -e ./setupenv.sh
 
 source .bashrc
 
