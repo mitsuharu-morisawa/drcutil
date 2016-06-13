@@ -6,8 +6,14 @@ RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 
 #OpenRTM-aist
-sudo apt-get -y install autoconf libtool
+sudo apt-get -y install autoconf
+if [ "$UBUNTU_VER" = "16.04" ]; then
+    sudo apt-get -y install libtool-bin
+else
+    sudo apt-get -y install libtool
+fi
 
+#openhrp3
 cd $SRC_DIR/openhrp3/util
 ./installPackages.sh packages.list.ubuntu.$UBUNTU_VER
 
