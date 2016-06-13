@@ -34,6 +34,6 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     cd ../..
 else
     get_source "git clone https://github.com/gbiggs/flexiport" flexiport
-    get_source "git clone https://github.com/gbiggs/hokuyoaist" hokuyoaist
-    get_source "git clone https://github.com/gbiggs/rtchokuyoaist" rtchokuyoaist
+    get_source "git clone https://github.com/fkanehiro/hokuyoaist" hokuyoaist
+    get_source "git clone https://github.com/fkanehiro/rtchokuyoaist" rtchokuyoaist
 fi
