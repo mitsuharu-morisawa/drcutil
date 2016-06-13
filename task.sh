@@ -37,7 +37,7 @@ WINDOWSID=$(xwininfo -display :0 -name "${TASK} - Choreonoid" | grep 'id: 0x' | 
 recordmydesktop --windowid ${WINDOWSID} --display :0 --no-sound --overwrite -o ${WORKSPACE}/task.ogv 2>&1 > /dev/null &
 RECORDMYDESKTOP=$(jobs -p %+)
 
-sleep 15
+sleep 20
 
 if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-setTargetPos.py ]; then
     python ${WORKSPACE}/drcutil/.jenkins/${TASK}-setTargetPos.py
