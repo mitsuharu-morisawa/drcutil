@@ -30,14 +30,14 @@ rm -rf PointCloud
 CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
-sleep 10
+sleep 15
 
 WINDOWSID=$(xwininfo -display :0 -name "${TASK} - Choreonoid" | grep 'id: 0x' | grep -Eo '0x[a-z0-9]+')
 
 recordmydesktop --windowid ${WINDOWSID} --display :0 --no-sound --overwrite -o ${WORKSPACE}/task.ogv 2>&1 > /dev/null &
 RECORDMYDESKTOP=$(jobs -p %+)
 
-sleep 20
+sleep 15
 
 if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-setTargetPos.py ]; then
     python ${WORKSPACE}/drcutil/.jenkins/${TASK}-setTargetPos.py
