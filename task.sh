@@ -19,6 +19,7 @@ WAIT=${7}
 TARGET=${8}
 PORT=${9}
 
+export ASAN_OPTIONS="disable_core=0:unmap_shadow_on_exit=1:abort_on_error=1"
 ulimit -c unlimited
 killall -9 openhrp-model-loader || true
 killall -9 choreonoid || true
