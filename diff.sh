@@ -76,7 +76,7 @@ fetch_log_nolink_noverify() {
 fetch_log "openhrp3" "hrpsys-base"
 
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
-    fetch_log_nolink "HRP2" "HRP2KAI"
+    fetch_log_nolink "HRP2" "HRP2KAI" "HRP5P"
 fi
 
 fetch_log "hmc2" "hrpsys-humanoid"
@@ -93,4 +93,6 @@ if [ -e choreonoid/ext ]; then
     fetch_log "hrpcnoid"
     cd ../..
 fi
+else
+    fetch_log "flexiport" "hokuyoaist" "rtchokuyoaist"
 fi
