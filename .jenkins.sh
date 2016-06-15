@@ -16,6 +16,8 @@ upload() {
 
 trap upload EXIT
 
+echo "`hostname`(`lsb_release -ds`)" > $WORKSPACE/env.txt
+
 cp config.sh.sample config.sh
 sed -i -e "s/HOME/WORKSPACE/g" config.sh
 if [ "$1" = "build" ]; then
