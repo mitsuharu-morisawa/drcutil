@@ -31,8 +31,10 @@ get_source "git clone https://github.com/jrl-umi3218/hmc2" hmc2
 get_source "git clone https://github.com/jrl-umi3218/hrpsys-humanoid" hrpsys-humanoid
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ "$UBUNTU_VER" != "16.04" ]; then
-	get_source "wget https://github.com/OctoMap/octomap/archive/v$OCTOMAP_VERSION.tar.gz" octomap-$OCTOMAP_VERSION
-	get_source "tar zxvf v$OCTOMAP_VERSION.tar.gz" octomap-$OCTOMAP_VERSION
+	if [ ! -e octomap-$OCTOMAP_VERSION ]; then
+	    wget https://github.com/OctoMap/octomap/archive/v$OCTOMAP_VERSION.tar.gz
+	    tar zxvf v$OCTOMAP_VERSION.tar.gz
+	fi
     fi
     GIT_SSL_NO_VERIFY=1 get_source "git clone https://choreonoid.org/git/choreonoid.git" choreonoid
     cd choreonoid/ext
