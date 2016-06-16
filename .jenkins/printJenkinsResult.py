@@ -177,7 +177,8 @@ for build in builds:
     try:
         url = build['url'] + "artifact/env.txt"
         r = urllib2.urlopen(url)
-        slave = r.readline()
+        line = r.readline()
+        slave = line[0:len(line)-1]
     except:
         pass
     finally:
