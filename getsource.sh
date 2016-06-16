@@ -6,7 +6,7 @@ sudo apt-get -y install git subversion
 
 get_source() {
     if [ ! -e $2 ]; then
-	$1
+	$1 $2
     fi
 }
 
@@ -14,11 +14,17 @@ cd $SRC_DIR
 
 get_source "svn co http://svn.openrtm.org/OpenRTM-aist/branches/RELENG_1_1/OpenRTM-aist" OpenRTM-aist
 get_source "git clone https://github.com/fkanehiro/openhrp3.git" openhrp3
-
-get_source "git clone ssh://atom.a01.aist.go.jp/git/HRP2" HRP2
-get_source "git clone ssh://atom.a01.aist.go.jp/git/HRP2KAI" HRP2KAI
-get_source "git clone ssh://atom.a01.aist.go.jp/git/HRP5P" HRP5P
-get_source "git clone ssh://atom.a01.aist.go.jp/git/hrpsys-private" hrpsys-private
+if [ $HAVE_ATOM_ACCESS -eq 1 ]; then
+    get_source "git clone ssh://atom.a01.aist.go.jp/git/HRP2" HRP2
+    get_source "git clone ssh://atom.a01.aist.go.jp/git/HRP2KAI" HRP2KAI
+    get_source "git clone ssh://atom.a01.aist.go.jp/git/HRP5P" HRP5P
+    get_source "git clone ssh://atom.a01.aist.go.jp/git/hrpsys-private" hrpsys-private
+else
+    get_source "git clone https://bitbucket.org/fkanehiro/hrp2" HRP2
+    get_source "git clone https://bitbucket.org/fkanehiro/hrp2-kai" HRP2KAI
+    get_source "git clone https://bitbucket.org/fkanehiro/hrp5p" HRP5P
+    get_source "git clone https://bitbucket.org/fkanehiro/hrpsys-private" hrpsys-private
+fi
 
 get_source "git clone https://github.com/fkanehiro/hrpsys-base" hrpsys-base
 get_source "git clone https://github.com/jrl-umi3218/hmc2" hmc2
