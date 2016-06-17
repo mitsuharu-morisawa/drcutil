@@ -33,7 +33,7 @@ if [ $BUILD_TYPE != "Release" ]; then
 else
     EXTRA_OPTION=
 fi
-./configure --prefix=$PREFIX $EXTRA_OPTION
+./configure --prefix=$PREFIX --without-doxygen $EXTRA_OPTION
 $SUDO make -j$MAKE_THREADS_NUMBER install
 
 cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST=$BUILD_GOOGLE_TEST"
