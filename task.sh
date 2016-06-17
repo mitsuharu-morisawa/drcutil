@@ -75,6 +75,8 @@ if [ "$PS_BEFORE" != "" ] && [ "$PS_AFTER" != "" ]; then
     echo $PS_AFTER,$PS_CHANGE >> $WORKSPACE/choreonoid.csv
 fi
 if [ "$FREE_BEFORE" != "" ] && [ "$FREE_AFTER" != "" ]; then
+    echo FREE_BEFORE=$FREE_BEFORE
+    echo FREE_AFTER=$FREE_AFTER
     FREE_CHANGE=$(expr $FREE_AFTER - $FREE_BEFORE)
     echo 'used,change' > $WORKSPACE/system.csv
     echo $FREE_AFTER,$FREE_CHANGE >> $WORKSPACE/system.csv
