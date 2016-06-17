@@ -1,3 +1,7 @@
+err_report() {
+    echo "Error on line $2:$1"
+    echo "Stopping the script $(basename "$3")."
+}
 FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOURCE"))"
 RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
