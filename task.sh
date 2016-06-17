@@ -52,7 +52,11 @@ if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-setTargetPos.py ]; then
     python ${WORKSPACE}/drcutil/.jenkins/${TASK}-setTargetPos.py
 fi
 
-FREE_BEFORE=$(free -m | awk 'NR==3 { print $3 }')
+if [ "$(lsb_release -rs)" != "16.04" ]; then
+    FREE_BEFORE=$(free -m | awk 'NR==3 { print $3 }')
+else
+    FREE_BEFORE=$(free -m | awk 'NR==2 { print $7 }')
+fi
 PS_BEFORE=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
 
 xte -x :0 "mousemove ${AUTOPOSX} ${AUTOPOSY}" && xte "mouseclick 1"
@@ -68,7 +72,11 @@ for ((i=0; i<${WAIT}; i++)); do
 done
 
 PS_AFTER=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
-FREE_AFTER=$(free -m | awk 'NR==3 { print $3 }')
+if [ "$(lsb_release -rs)" != "16.04" ]; then
+    FREE_AFTER=$(free -m | awk 'NR==3 { print $3 }')
+else
+    FREE_AFTER=$(free -m | awk 'NR==2 { print $7 }')
+fi
 if [ "$PS_BEFORE" != "" ] && [ "$PS_AFTER" != "" ]; then
     PS_CHANGE=$(expr $PS_AFTER - $PS_BEFORE)
     echo 'used,change' > $WORKSPACE/choreonoid.csv
