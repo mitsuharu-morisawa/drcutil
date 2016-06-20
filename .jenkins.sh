@@ -4,6 +4,7 @@ rm -f $WORKSPACE/*.png
 rm -f $WORKSPACE/*.ogv
 rm -f $WORKSPACE/*.csv
 rm -f $WORKSPACE/*.xml
+rm -f $WORKSPACE/*.tau
 
 upload() {
     wget -q -O $WORKSPACE/console.log $BUILD_URL/consoleText || true

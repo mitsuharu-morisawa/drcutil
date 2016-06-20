@@ -36,6 +36,7 @@ cd ${WORKSPACE}/openrtp/share/hrpsys/samples/${PROJECT}
 rm -f core
 rm -f task_result.txt
 rm -rf PointCloud
+rm -f *.tau
 CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
