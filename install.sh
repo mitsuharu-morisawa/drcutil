@@ -58,6 +58,8 @@ fi
 cmake_install_with_option "hmc2" "-DCOMPILE_JAVA_STUFF=OFF $EXTRA_OPTION"
 cmake_install_with_option "hrpsys-humanoid" "-DCOMPILE_JAVA_STUFF=OFF $EXTRA_OPTION"
 cmake_install_with_option "hrpsys-private"
+cmake_install_with_option "state-observation" "-DCMAKE_INSTALL_LIBDIR=lib"
+cmake_install_with_option "hrpsys-state-observation"
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     cmake_install_with_option "choreonoid" "-DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_PCL_PLUGIN=ON -DBUILD_OPENHRP_PLUGIN=ON -DBUILD_GRXUI_PLUGIN=ON -DBODY_CUSTOMIZERS=$SRC_DIR/HRP2/customizer/HRP2Customizer;$SRC_DIR/HRP5P/customizer/HRP5PCustomizer -DBUILD_DRC_USER_INTERFACE_PLUGIN=ON"
 else
