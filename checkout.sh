@@ -17,7 +17,7 @@ pull_source() {
 
 cd $SRC_DIR
 
-pull_source OpenRTM-aist openhrp3 hrpsys-base hmc2 hrpsys-private hrpsys-humanoid HRP2 HRP2KAI HRP5P
+pull_source OpenRTM-aist openhrp3 hrpsys-base hmc2 hrpsys-private hrpsys-humanoid HRP2 HRP2KAI HRP5P state-observation hrpsys-state-observation
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     GIT_SSL_NO_VERIFY=1 pull_source choreonoid
