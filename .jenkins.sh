@@ -6,6 +6,7 @@ rm -f $WORKSPACE/*.csv
 rm -f $WORKSPACE/*.xml
 rm -f $WORKSPACE/*.tau
 rm -f $WORKSPACE/*.q
+rm -f $WORKSPACE/*.qRef
 
 upload() {
     wget -q -O $WORKSPACE/console.log $BUILD_URL/consoleText || true

@@ -37,7 +37,7 @@ rm -f core
 rm -f task_result.txt
 rm -rf PointCloud
 rm -f *.tau
-rm -f *.q
+rm -f *.qRef
 CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
@@ -68,7 +68,7 @@ xte -x :0 "mousemove ${OKPOSX} ${OKPOSY}" && xte "mouseclick 1"
 for ((i=0; i<${WAIT}; i++)); do
     if [ -e task_result.txt ]; then
 	echo "task completion is detected at $i[s]"
-	mv *.tau *.q ${WORKSPACE} || true
+	mv *.tau *.q *.qRef ${WORKSPACE} || true
 	break
     fi
     sleep 1
