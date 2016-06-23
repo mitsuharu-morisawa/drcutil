@@ -8,6 +8,13 @@ trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 
 export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 
+if [ "$ENABLE_ASAN" -eq 1 ]; then
+    BUILD_TYPE=RelWithDebInfo
+    ASAN_OPTIONS="-DCMAKE_CXX_FLAGS_RELWITHDEBINFO=\"-O2 -g -DNDEBUG -fsanitize=address\" -DCMAKE_C_FLAGS_RELWITHDEBINFO=\"-O2 -g -DNDEBUG -fsanitize=address\""
+else
+    ASAN_OPTIONS=
+fi
+
 cmake_install_with_option() {
     # check existence of the build directory
     if [ ! -d "$SRC_DIR/$1/build" ]; then
@@ -15,10 +22,13 @@ cmake_install_with_option() {
     fi
     cd "$SRC_DIR/$1/build"
 
+    COMMON_OPTIONS="-DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$BUILD_TYPE"$ASAN_OPTIONS
+    echo cmake $COMMON_OPTIONS
+
     if [ $# = 1 ]; then
-        cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+        cmake $COMMON_OPTIONS ..
     else
-        cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$BUILD_TYPE $2 ..
+        cmake $COMMON_OPTIONS $2 ..
     fi
 
     $SUDO make -j$MAKE_THREADS_NUMBER install
