@@ -19,14 +19,17 @@ if [ $HAVE_ATOM_ACCESS -eq 1 ]; then
     get_source "git clone ssh://atom.a01.aist.go.jp/git/HRP2KAI" HRP2KAI
     get_source "git clone ssh://atom.a01.aist.go.jp/git/HRP5P" HRP5P
     get_source "git clone ssh://atom.a01.aist.go.jp/git/hrpsys-private" hrpsys-private
+    get_source "git clone --recursive ssh://atom.a01.aist.go.jp/usr/users/benallegue/git/hrpsys-state-observation" hrpsys-state-observation
 else
     get_source "git clone https://bitbucket.org/fkanehiro/hrp2" HRP2
     get_source "git clone https://bitbucket.org/fkanehiro/hrp2-kai" HRP2KAI
     get_source "git clone https://bitbucket.org/fkanehiro/hrp5p" HRP5P
     get_source "git clone https://bitbucket.org/fkanehiro/hrpsys-private" hrpsys-private
+    get_source "git clone --recursive https://bitbucket.org/fkanehiro/hrpsys-state-observation" hrpsys-state-observation
 fi
 
 get_source "git clone https://github.com/fkanehiro/hrpsys-base" hrpsys-base
+get_source "git clone --recursive https://github.com/mehdi-benallegue/state-observation" state-observation
 get_source "git clone https://github.com/jrl-umi3218/hmc2" hmc2
 get_source "git clone https://github.com/jrl-umi3218/hrpsys-humanoid" hrpsys-humanoid
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then

@@ -8,6 +8,13 @@ trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 
 export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 
+if [ "$ENABLE_ASAN" -eq 1 ]; then
+    BUILD_TYPE=RelWithDebInfo
+    ASAN_OPTIONS="-DCMAKE_CXX_FLAGS_RELWITHDEBINFO=\"-O2 -g -DNDEBUG -fsanitize=address\" -DCMAKE_C_FLAGS_RELWITHDEBINFO=\"-O2 -g -DNDEBUG -fsanitize=address\""
+else
+    ASAN_OPTIONS=
+fi
+
 cmake_install_with_option() {
     # check existence of the build directory
     if [ ! -d "$SRC_DIR/$1/build" ]; then
@@ -15,10 +22,13 @@ cmake_install_with_option() {
     fi
     cd "$SRC_DIR/$1/build"
 
+    COMMON_OPTIONS="-DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$BUILD_TYPE"$ASAN_OPTIONS
+    echo cmake $COMMON_OPTIONS
+
     if [ $# = 1 ]; then
-        cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+        cmake $COMMON_OPTIONS ..
     else
-        cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$BUILD_TYPE $2 ..
+        cmake $COMMON_OPTIONS $2 ..
     fi
 
     $SUDO make -j$MAKE_THREADS_NUMBER install
@@ -58,6 +68,8 @@ fi
 cmake_install_with_option "hmc2" "-DCOMPILE_JAVA_STUFF=OFF $EXTRA_OPTION"
 cmake_install_with_option "hrpsys-humanoid" "-DCOMPILE_JAVA_STUFF=OFF $EXTRA_OPTION"
 cmake_install_with_option "hrpsys-private"
+cmake_install_with_option "state-observation" "-DCMAKE_INSTALL_LIBDIR=lib"
+cmake_install_with_option "hrpsys-state-observation"
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     cmake_install_with_option "choreonoid" "-DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_PCL_PLUGIN=ON -DBUILD_OPENHRP_PLUGIN=ON -DBUILD_GRXUI_PLUGIN=ON -DBODY_CUSTOMIZERS=$SRC_DIR/HRP2/customizer/HRP2Customizer;$SRC_DIR/HRP5P/customizer/HRP5PCustomizer -DBUILD_DRC_USER_INTERFACE_PLUGIN=ON"
 else

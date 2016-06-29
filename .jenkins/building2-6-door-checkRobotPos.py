@@ -11,10 +11,8 @@ for line in sys.stdin:
     if num == 3:
         rotation = eval(line)
 
-if rotation[0] > -0.1 and rotation[0] < 0.1 and \
-   rotation[1] > -0.1 and rotation[1] < 0.1 and \
-   rotation[2] > -2.0 and rotation[2] < 2.0:
-    if position[0] > 2.0:
+if abs(rotation[0]) < 0.1 and abs(rotation[1]) < 0.1:
+    if abs(position[0] - 1.65) < 0.2 and abs(position[1] - -1.5) < 0.2:
         print "OK"
     else:
         print "STOP"
