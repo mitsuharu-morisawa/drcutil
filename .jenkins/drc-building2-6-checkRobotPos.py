@@ -13,8 +13,7 @@ for line in sys.stdin:
         rotation = eval(line)
 
 if math.fabs(rotation[0]) < 0.1 and \
-   math.fabs(rotation[1]) < 0.1 and \
-   math.fabs(rotation[2]) < 2.0:
+   math.fabs(rotation[1]) < 0.1:
     if position[0] > 2.5 and position[1] < -2.5:
         print "OK"
     else:
