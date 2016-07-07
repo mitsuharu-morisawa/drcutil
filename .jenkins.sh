@@ -19,6 +19,24 @@ upload() {
 
 trap upload EXIT
 
+sudo apt-get update || true #ignore checksum error
+sudo apt-get -y install lsb-release git wget
+# for add-apt-repository
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+    sudo apt-get -y install software-properties-common
+else
+    sudo apt-get -y install python-software-properties
+fi
+
+DRCUTIL_UPDATED=0
+CURRENT_REVISION=`git rev-parse HEAD`
+if [ -e $WORKSPACE/drcutil.rev ];then
+    LAST_REVISION=$(cat $WORKSPACE/drcutil.rev)
+    if [ "$CURRENT_REVISION" != "LAST_REVISION" ];then
+	DRCUTIL_UPDATED=1
+    fi
+fi
+echo $CURRENT_REVISION > $WORKSPACE/drcutil.rev
 echo "`hostname`(`lsb_release -ds`)" > $WORKSPACE/env.txt
 
 cp config.sh.sample config.sh
@@ -30,11 +48,8 @@ else
     sed -i -e "s/MAKE_THREADS_NUMBER=2/MAKE_THREADS_NUMBER=4/g" config.sh
 fi
 
-sudo apt-get update || true #ignore checksum error
-sudo apt-get -y install lsb-release
 source config.sh
 
-sudo apt-get -y install git wget
 if [ -e $SRC_DIR ]; then
     rm -f $SRC_DIR/*.diff
     bash -e ./diff.sh
@@ -49,7 +64,7 @@ if [ "$1" = "build" ]; then
     rm -fr $WORKSPACE/openrtp
 fi
 
-if [ ! -e $SRC_DIR ]; then
+if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
     mkdir $SRC_DIR
     bash -e ./getsource.sh
     sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
@@ -67,25 +82,19 @@ if [ ! -e $SRC_DIR ]; then
     sed -i -e "s/libboost-signals1.54-dev/#libboost-signals1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
     sed -i -e "s/libboost-thread1.54-dev/#libboost-thread1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
     sed -i -e "s/collada-dom-dev/#collada-dom-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
+    bash -e ./setupenv.sh
+    mkdir -p $PREFIX
+    bash -e ./install.sh
     fi
+else #update
+    if [ -s $WORKSPACE/changes.txt ]; then
+	bash -e ./checkout.sh
+    fi
+    bash -e ./build.sh
 fi
-
-bash -e ./getsource.sh
-mkdir -p $PREFIX
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    sudo apt-get -y install software-properties-common
-else
-    sudo apt-get -y install python-software-properties
-fi
-bash -e ./setupenv.sh
 
 source .bashrc
 
-if [ -s $WORKSPACE/changes.txt ]; then
-    #bash -e ./update.sh
-    bash -e ./checkout.sh
-fi
-bash -e ./install.sh
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ -z "$DISPLAY" ]; then
     sudo apt-get -y install lcov
