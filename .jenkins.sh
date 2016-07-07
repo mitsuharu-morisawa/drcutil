@@ -21,12 +21,6 @@ trap upload EXIT
 
 sudo apt-get update || true #ignore checksum error
 sudo apt-get -y install lsb-release git wget
-# for add-apt-repository
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    sudo apt-get -y install software-properties-common
-else
-    sudo apt-get -y install python-software-properties
-fi
 
 DRCUTIL_UPDATED=0
 CURRENT_REVISION=`git rev-parse HEAD`
@@ -49,6 +43,13 @@ else
 fi
 
 source config.sh
+
+# for add-apt-repository
+if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+    sudo apt-get -y install software-properties-common
+else
+    sudo apt-get -y install python-software-properties
+fi
 
 if [ -e $SRC_DIR ]; then
     rm -f $SRC_DIR/*.diff
