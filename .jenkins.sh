@@ -65,6 +65,8 @@ if [ "$1" = "build" ]; then
     rm -fr $WORKSPACE/openrtp
 fi
 
+source .bashrc
+
 if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
     mkdir -p $SRC_DIR
     bash -e ./getsource.sh
@@ -93,8 +95,6 @@ else #update
     fi
     VERBOSE=1 bash -e ./build.sh
 fi
-
-source .bashrc
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ -z "$DISPLAY" ]; then
