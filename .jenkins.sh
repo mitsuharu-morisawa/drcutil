@@ -91,7 +91,7 @@ else #update
     if [ -s $WORKSPACE/changes.txt ]; then
 	bash -e ./checkout.sh
     fi
-    bash -e ./build.sh
+    VERBOSE=1 bash -e ./build.sh
 fi
 
 source .bashrc
