@@ -66,7 +66,7 @@ if [ "$1" = "build" ]; then
 fi
 
 if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
-    mkdir $SRC_DIR
+    mkdir -p $SRC_DIR
     bash -e ./getsource.sh
     sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
     sed -i -e 's/exit 1/exit 0/g' $SRC_DIR/openhrp3/util/installPackages.sh
