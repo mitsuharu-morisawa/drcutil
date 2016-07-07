@@ -26,7 +26,7 @@ DRCUTIL_UPDATED=0
 CURRENT_REVISION=`git rev-parse HEAD`
 if [ -e $WORKSPACE/drcutil.rev ];then
     LAST_REVISION=$(cat $WORKSPACE/drcutil.rev)
-    if [ "$CURRENT_REVISION" != "LAST_REVISION" ];then
+    if [ "$CURRENT_REVISION" != "$LAST_REVISION" ];then
 	DRCUTIL_UPDATED=1
     fi
 fi
