@@ -10,8 +10,6 @@ rm -f $WORKSPACE/*.qRef
 
 upload() {
     wget -q -O $WORKSPACE/console.log $BUILD_URL/consoleText || true
-    sudo apt-get -y install python-pip python-dev
-    sudo pip install google-api-python-client
     bash -e ./upload.sh || true
     awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/artifacts.txt > $WORKSPACE/artifacts_email.txt
     awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/uploads.txt > $WORKSPACE/uploads_email.txt
@@ -19,7 +17,7 @@ upload() {
 
 trap upload EXIT
 
-sudo apt-get update || true #ignore checksum error
+#sudo apt-get update || true #ignore checksum error
 sudo apt-get -y install lsb-release git wget
 
 DRCUTIL_UPDATED=0
@@ -44,13 +42,6 @@ fi
 
 source config.sh
 
-# for add-apt-repository
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    sudo apt-get -y install software-properties-common
-else
-    sudo apt-get -y install python-software-properties
-fi
-
 if [ -e $SRC_DIR ]; then
     rm -f $SRC_DIR/*.diff
     bash -e ./diff.sh
@@ -68,6 +59,23 @@ fi
 source .bashrc
 
 if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
+    sudo apt-get -y install python-pip python-dev
+    sudo pip install google-api-python-client
+    # for add-apt-repository
+    if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+	sudo apt-get -y install software-properties-common
+	if [ -z "$DISPLAY" ]; then
+	    sudo apt-get -y install lcov
+	    sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
+	    sudo apt-get -y install python-pip
+	    sudo pip install lcov_cobertura
+	    sudo apt-get -y install cppcheck
+	else
+	    sudo apt-get -y install xautomation imagemagick recordmydesktop
+	fi
+    else
+	sudo apt-get -y install python-software-properties
+    fi
     mkdir -p $SRC_DIR
     bash -e ./getsource.sh
     sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
@@ -98,20 +106,9 @@ fi
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ -z "$DISPLAY" ]; then
-    sudo apt-get -y install lcov
-    sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
-    sudo apt-get -y install python-pip
-    sudo pip install lcov_cobertura
-    #sudo pip install nose
-    #sudo pip install unittest-xml-reporting
-    #sudo pip install coverage
     rm -f $SRC_DIR/*/build/Testing/*/Test.xml
     bash -e ./test.sh
     bash -e ./coverage.sh
-    #sudo apt-get -y install valgrind kcachegrind
-    #bash -e ./analysis.sh
-    sudo apt-get -y install cppcheck
-    #sudo apt-get -y install cccc
     bash -e ./inspection.sh
     fi
 fi
@@ -119,7 +116,6 @@ fi
 if [ "$1" = "task" ]; then
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -n "$DISPLAY" ]; then
-    sudo apt-get -y install xautomation imagemagick recordmydesktop
     mkdir -p $HOME/.config/Choreonoid
     cp $WORKSPACE/drcutil/.config/Choreonoid.conf $HOME/.config/Choreonoid
     sed -i -e "s/vagrant\/src/$USER\/workspace\/$JOB_NAME\/src/g" $HOME/.config/Choreonoid/Choreonoid.conf
