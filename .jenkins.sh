@@ -102,8 +102,8 @@ if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
 else #update
     if [ -s $WORKSPACE/changes.txt ]; then
 	bash -e ./checkout.sh
+	VERBOSE=1 bash -e ./build.sh
     fi
-    VERBOSE=1 bash -e ./build.sh
 fi
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
