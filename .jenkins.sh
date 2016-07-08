@@ -67,7 +67,6 @@ if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
 	if [ -z "$DISPLAY" ]; then
 	    sudo apt-get -y install lcov
 	    sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
-	    sudo apt-get -y install python-pip
 	    sudo pip install lcov_cobertura
 	    sudo apt-get -y install cppcheck
 	else
