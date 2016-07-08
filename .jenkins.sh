@@ -17,7 +17,7 @@ upload() {
 
 trap upload EXIT
 
-#sudo apt-get update || true #ignore checksum error
+sudo apt-get update || true #ignore checksum error
 sudo apt-get -y install lsb-release git wget
 
 DRCUTIL_UPDATED=0
