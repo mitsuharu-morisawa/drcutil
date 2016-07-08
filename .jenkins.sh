@@ -93,6 +93,9 @@ if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
 	sed -i -e "s/libboost-thread1.54-dev/#libboost-thread1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
 	sed -i -e "s/collada-dom-dev/#collada-dom-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
     fi
+    if [ -s $WORKSPACE/changes.txt ]; then
+	bash -e ./checkout.sh
+    fi
     bash -e ./setupenv.sh
     mkdir -p $PREFIX
     bash -e ./install.sh
