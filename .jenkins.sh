@@ -10,8 +10,6 @@ rm -f $WORKSPACE/*.qRef
 
 upload() {
     wget -q -O $WORKSPACE/console.log $BUILD_URL/consoleText || true
-    sudo apt-get -y install python-pip python-dev
-    sudo pip install google-api-python-client
     bash -e ./upload.sh || true
     awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/artifacts.txt > $WORKSPACE/artifacts_email.txt
     awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/uploads.txt > $WORKSPACE/uploads_email.txt
@@ -19,6 +17,18 @@ upload() {
 
 trap upload EXIT
 
+sudo apt-get update || true #ignore checksum error
+sudo apt-get -y install lsb-release git wget
+
+DRCUTIL_UPDATED=0
+CURRENT_REVISION=`git rev-parse HEAD`
+if [ -e $WORKSPACE/drcutil.rev ];then
+    LAST_REVISION=$(cat $WORKSPACE/drcutil.rev)
+    if [ "$CURRENT_REVISION" != "$LAST_REVISION" ];then
+	DRCUTIL_UPDATED=1
+    fi
+fi
+echo $CURRENT_REVISION > $WORKSPACE/drcutil.rev
 echo "`hostname`(`lsb_release -ds`)" > $WORKSPACE/env.txt
 
 cp config.sh.sample config.sh
@@ -30,11 +40,8 @@ else
     sed -i -e "s/MAKE_THREADS_NUMBER=2/MAKE_THREADS_NUMBER=4/g" config.sh
 fi
 
-sudo apt-get update || true #ignore checksum error
-sudo apt-get -y install lsb-release
 source config.sh
 
-sudo apt-get -y install git wget
 if [ -e $SRC_DIR ]; then
     rm -f $SRC_DIR/*.diff
     bash -e ./diff.sh
@@ -49,59 +56,61 @@ if [ "$1" = "build" ]; then
     rm -fr $WORKSPACE/openrtp
 fi
 
-if [ ! -e $SRC_DIR ]; then
-    mkdir $SRC_DIR
+source .bashrc
+
+if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
+    sudo apt-get -y install python-pip python-dev
+    sudo pip install google-api-python-client
+    # for add-apt-repository
+    if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+	sudo apt-get -y install software-properties-common
+	if [ -z "$DISPLAY" ]; then
+	    sudo apt-get -y install lcov
+	    sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
+	    sudo pip install lcov_cobertura
+	    sudo apt-get -y install cppcheck
+	else
+	    sudo apt-get -y install xautomation imagemagick recordmydesktop
+	fi
+    else
+	sudo apt-get -y install python-software-properties
+    fi
+    mkdir -p $SRC_DIR
     bash -e ./getsource.sh
     sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
     sed -i -e 's/exit 1/exit 0/g' $SRC_DIR/openhrp3/util/installPackages.sh
     sed -i -e "s/openrtm-aist-dev/#openrtm-aist-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.$UBUNTU_VER
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/choreonoid/misc/script/install-requisites-ubuntu-$UBUNTU_VER.sh
+	sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/choreonoid/misc/script/install-requisites-ubuntu-$UBUNTU_VER.sh
     else
-    sed -i -e "s/add-apt-repository -y ppa:hrg\/daily/add-apt-repository -y 'deb http:\/\/ppa.launchpad.net\/hrg\/daily\/ubuntu trusty main'/g" $SRC_DIR/openhrp3/util/pkg_install_ubuntu.sh
-    sed -i -e "s/libeigen3-dev/#libeigen3-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
-    sed -i -e "s/libboost1.54-dev/#libboost1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
-    sed -i -e "s/libboost-filesystem1.54-dev/#libboost-filesystem1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
-    sed -i -e "s/libboost-program-options1.54-dev/#libboost-program-options1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
-    sed -i -e "s/libboost-regex1.54-dev/#libboost-regex1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
-    sed -i -e "s/libboost-signals1.54-dev/#libboost-signals1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
-    sed -i -e "s/libboost-thread1.54-dev/#libboost-thread1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
-    sed -i -e "s/collada-dom-dev/#collada-dom-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
+	sed -i -e "s/add-apt-repository -y ppa:hrg\/daily/add-apt-repository -y 'deb http:\/\/ppa.launchpad.net\/hrg\/daily\/ubuntu trusty main'/g" $SRC_DIR/openhrp3/util/pkg_install_ubuntu.sh
+	sed -i -e "s/libeigen3-dev/#libeigen3-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
+	sed -i -e "s/libboost1.54-dev/#libboost1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
+	sed -i -e "s/libboost-filesystem1.54-dev/#libboost-filesystem1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
+	sed -i -e "s/libboost-program-options1.54-dev/#libboost-program-options1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
+	sed -i -e "s/libboost-regex1.54-dev/#libboost-regex1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
+	sed -i -e "s/libboost-signals1.54-dev/#libboost-signals1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
+	sed -i -e "s/libboost-thread1.54-dev/#libboost-thread1.54-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
+	sed -i -e "s/collada-dom-dev/#collada-dom-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.14.04
+    fi
+    if [ -s $WORKSPACE/changes.txt ]; then
+	bash -e ./checkout.sh
+    fi
+    bash -e ./setupenv.sh
+    mkdir -p $PREFIX
+    bash -e ./install.sh
+else #update
+    if [ -s $WORKSPACE/changes.txt ]; then
+	bash -e ./checkout.sh
+	VERBOSE=1 bash -e ./build.sh
     fi
 fi
 
-bash -e ./getsource.sh
-mkdir -p $PREFIX
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    sudo apt-get -y install software-properties-common
-else
-    sudo apt-get -y install python-software-properties
-fi
-bash -e ./setupenv.sh
-
-source .bashrc
-
-if [ -s $WORKSPACE/changes.txt ]; then
-    #bash -e ./update.sh
-    bash -e ./checkout.sh
-fi
-bash -e ./install.sh
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ -z "$DISPLAY" ]; then
-    sudo apt-get -y install lcov
-    sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
-    sudo apt-get -y install python-pip
-    sudo pip install lcov_cobertura
-    #sudo pip install nose
-    #sudo pip install unittest-xml-reporting
-    #sudo pip install coverage
     rm -f $SRC_DIR/*/build/Testing/*/Test.xml
     bash -e ./test.sh
     bash -e ./coverage.sh
-    #sudo apt-get -y install valgrind kcachegrind
-    #bash -e ./analysis.sh
-    sudo apt-get -y install cppcheck
-    #sudo apt-get -y install cccc
     bash -e ./inspection.sh
     fi
 fi
@@ -109,7 +118,6 @@ fi
 if [ "$1" = "task" ]; then
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -n "$DISPLAY" ]; then
-    sudo apt-get -y install xautomation imagemagick recordmydesktop
     mkdir -p $HOME/.config/Choreonoid
     cp $WORKSPACE/drcutil/.config/Choreonoid.conf $HOME/.config/Choreonoid
     sed -i -e "s/vagrant\/src/$USER\/workspace\/$JOB_NAME\/src/g" $HOME/.config/Choreonoid/Choreonoid.conf
