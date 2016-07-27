@@ -105,6 +105,13 @@ if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
   RESULT=$(cat ${WORKSPACE}/${TASK}-getTargetPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkTargetPos.py ${VR})
   echo "RESULT: ${RESULT}"
 fi
+if [ "${RESULT}" = "OK" ] && [ -e *.qRef ]; then
+    hrpsys-self-collision-checker ${WORKSPACE}/openrtp/share/OpenHRP-3.1/robot/${PROJECT}/model/${PROJECT}main.wrl *.qRef > ${WORKSPACE}/SeflCollision.txt
+    if [ -s ${WORKSPACE}/SelfCollision.txt ]; then
+	RESULT=SCOL
+	echo "RESULT* ${RESULT}"
+    fi
+fi
 
 RED=$(convert ${WORKSPACE}/task.png -format %c histogram:info: | grep red | cut -d: -f 1 | sed -e "s/ //g")
 echo "Red: ${RED}"
