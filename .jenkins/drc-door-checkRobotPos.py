@@ -14,6 +14,7 @@ for line in sys.stdin:
 
 if math.fabs(rotation[0] < 0.1) and \
    math.fabs(rotation[1] < 0.1):
+    if position[0] > 2.0:
         print "OK"
     else:
         print "STOP"
