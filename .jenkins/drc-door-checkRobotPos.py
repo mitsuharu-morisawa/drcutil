@@ -1,4 +1,5 @@
 import sys
+import math
 
 num = 0
 for line in sys.stdin:
@@ -11,10 +12,8 @@ for line in sys.stdin:
     if num == 3:
         rotation = eval(line)
 
-if rotation[0] > -0.1 and rotation[0] < 0.1 and \
-   rotation[1] > -0.1 and rotation[1] < 0.1 and \
-   rotation[2] > -2.0 and rotation[2] < 2.0:
-    if position[0] > 2.0:
+if math.fabs(rotation[0] < 0.1) and \
+   math.fabs(rotation[1] < 0.1):
         print "OK"
     else:
         print "STOP"
