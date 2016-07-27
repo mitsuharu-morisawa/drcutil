@@ -99,17 +99,17 @@ wait $RECORDMYDESKTOP || true
 
 python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
 RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
-echo "RESULT: ${RESULT}"
+echo "Robot: ${RESULT}"
 if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
   python ${WORKSPACE}/drcutil/.jenkins/getTargetPos.py ${TARGET} ${PORT} | tee ${WORKSPACE}/${TASK}-getTargetPos.txt
   RESULT=$(cat ${WORKSPACE}/${TASK}-getTargetPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkTargetPos.py ${VR})
-  echo "RESULT: ${RESULT}"
+  echo "Target: ${RESULT}"
 fi
 if [ "${RESULT}" = "OK" ] && [ -e *.qRef ]; then
-    hrpsys-self-collision-checker ${WORKSPACE}/openrtp/share/OpenHRP-3.1/robot/${PROJECT}/model/${PROJECT}main.wrl *.qRef > ${WORKSPACE}/SeflCollision.txt
+    hrpsys-self-collision-checker ${WORKSPACE}/openrtp/share/OpenHRP-3.1/robot/${PROJECT}/model/${PROJECT}main.wrl *.qRef > ${WORKSPACE}/SelfCollision.txt
     if [ -s ${WORKSPACE}/SelfCollision.txt ]; then
-	RESULT=SCOL
-	echo "RESULT* ${RESULT}"
+	RESULT="SCOL"
+	echo "SelfCollision: ${RESULT}"
     fi
 fi
 
