@@ -1,8 +1,8 @@
 cd ${WORKSPACE}
 
-rm -fr jenkinshrg.github.io
-git clone --branch master --single-branch https://github.com/jenkinshrg/jenkinshrg.github.io.git
-cd jenkinshrg.github.io
+rm -fr netlify-site
+git clone --branch master --single-branch https://github.com/jenkinshrg/netlify-site.git
+cd netlify-site
 
 JENKINS_URL=http://jenkinshrg.a01.aist.go.jp/
 
@@ -12,7 +12,7 @@ REPORT_JOBS="$(python ${WORKSPACE}/drcutil/.jenkins/getJobs.py ${JENKINS_URL})"
 
 for REPORT_JOB in ${REPORT_JOBS}
 do
-    wget -q -O ${WORKSPACE}/jenkinshrg.github.io/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
+    wget -q -O ${WORKSPACE}/netlify-site/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
     python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
 done
 

@@ -5,7 +5,7 @@ import sys, urllib2, json
 from datetime import datetime
 
 def printLatestResults(url, job, n):
-    print "|[" + job + "](http://jenkinshrg.github.io#" + job + ")|![Build Status](http://jenkinshrg.github.io/"+ job + ".svg)|",
+    print "|[" + job + "](http://hrg-test-results.netlify.com#" + job + ")|![Build Status](http://hrg-test-results.netlify.com/"+ job + ".svg)|",
     try:
         url = url + 'job/' + job + '/api/json?tree=builds[building,duration,number,result,timestamp,url]'
         r = urllib2.urlopen(url)
@@ -35,7 +35,7 @@ def printLatestResults(url, job, n):
                 color = "red"
             else:
                 color = "aborted"
-            print "![Jenkins Icon](http://jenkinshrg.github.io/images/24x24/"+ color + ".png)"+text,
+            print "![Jenkins Icon](http://hrg-test-results.netlify.com/images/24x24/"+ color + ".png)"+text,
         print "|",
     print 
 
