@@ -143,4 +143,4 @@ if __name__ == '__main__':
 		parent_id = file["id"]
 
 	file = upload_file(drive_service, parent_id, sys.argv[1], sys.argv[2], sys.argv[3])
-	print file["alternateLink"]
+	print "http://drive.google.com/uc?export=view&id=%s" % file["id"]
