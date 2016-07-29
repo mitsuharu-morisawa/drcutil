@@ -7,6 +7,7 @@ export MAKE_THREADS_NUMBER=2
 export BUILD_TYPE=Release
 export OCTOMAP_VERSION=1.8.0
 export ENABLE_ASAN=0
+export IS_VIRTUAL_BOX=0
 
 /bin/ping atom -c 1 &> /dev/null
 if [ $? -ne 0 ] 
