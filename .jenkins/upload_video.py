@@ -72,7 +72,7 @@ VALID_PRIVACY_STATUSES = ("public", "private", "unlisted")
 
 
 def get_authenticated_service(args):
-  storage = Storage("/home/jenkinshrg/.jenkinshrg/%s-oauth2.json" % sys.argv[0])
+  storage = Storage("/home/jenkinshrg/.jenkinshrg/upload_video.py-oauth2.json")
   credentials = storage.get()
 
   if credentials is None or credentials.invalid:
