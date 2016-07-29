@@ -13,7 +13,7 @@ upload() {
   if [ -s ${FILENAME} ]; then
       URL=${BUILD_URL}artifact/${FILENAME}
       echo "${LABEL},${FILENAME},${URL}" >> artifacts.txt
-      if [ "$LABEL"= "VIDEO" ]; then
+      if [ "$LABEL" = "VIDEO" ]; then
 	  URL=$(python ${WORKSPACE}/drcutil/.jenkins/upload_video.py --title=${TITLE} --file=${FILENAME} --privacyStatus=unlisted)
       else
 	  URL=$(python ${WORKSPACE}/drcutil/.jenkins/remoteBackup.py ${TITLE} ${MIMETYPE} ${FILENAME})
