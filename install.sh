@@ -71,7 +71,10 @@ cmake_install_with_option "hrpsys-private"
 cmake_install_with_option "state-observation" "-DCMAKE_INSTALL_LIBDIR=lib"
 cmake_install_with_option "hrpsys-state-observation"
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    cmake_install_with_option "choreonoid" "-DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_PCL_PLUGIN=ON -DBUILD_OPENHRP_PLUGIN=ON -DBUILD_GRXUI_PLUGIN=ON -DBODY_CUSTOMIZERS=$SRC_DIR/HRP2/customizer/HRP2Customizer;$SRC_DIR/HRP5P/customizer/HRP5PCustomizer -DBUILD_DRC_USER_INTERFACE_PLUGIN=ON"
+    if [ "$IS_VIRTUAL_BOX" -eq 1 ]; then
+      CHOREONOID_CMAKE_CXX_FLAGS="\"-DJOYSTICK_DEVICE_PATH=\\\"/dev/input/js1\\\"\" $CHOREONOID_CMAKE_CXX_FLAGS" #mouse integration uses /dev/input/js1 in virtualbox
+    fi
+    cmake_install_with_option "choreonoid" "-DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_PCL_PLUGIN=ON -DBUILD_OPENHRP_PLUGIN=ON -DBUILD_GRXUI_PLUGIN=ON -DBODY_CUSTOMIZERS=$SRC_DIR/HRP2/customizer/HRP2Customizer;$SRC_DIR/HRP5P/customizer/HRP5PCustomizer -DBUILD_DRC_USER_INTERFACE_PLUGIN=ON -DCMAKE_CXX_FLAGS=$CHOREONOID_CMAKE_CXX_FLAGS"
 else
     cmake_install_with_option "flexiport" "-DBUILD_DOCUMENTATION=OFF"
     cmake_install_with_option "hokuyoaist" "-DBUILD_DOCUMENTATION=OFF -DBUILD_PYTHON_BINDINGS=OFF"

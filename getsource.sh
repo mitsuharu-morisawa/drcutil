@@ -10,6 +10,10 @@ get_source() {
     fi
 }
 
+if [ ! -e $SRC_DIR ]; then
+  mkdir -p $SRC_DIR 
+fi
+
 cd $SRC_DIR
 
 get_source "svn co http://svn.openrtm.org/OpenRTM-aist/branches/RELENG_1_1/OpenRTM-aist" OpenRTM-aist
