@@ -119,7 +119,7 @@ if __name__ == '__main__':
 	drive_service = build_service()
 
 	query = "title != 'share'"
-	query += " and modifiedDate <'" + threshold_date_str(40) + "'"
+	query += " and modifiedDate <'" + threshold_date_str(120) + "'"
 	files = retrieve_files(drive_service, query)
 	for item in files:
 		delete_file(drive_service, item["id"])
