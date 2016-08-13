@@ -12,7 +12,7 @@ for line in sys.stdin:
         rotation = eval(line)
 
 if abs(rotation[0]) < 0.1 and abs(rotation[1]) < 0.1:
-    if abs(position[0] - 1.65) < 0.2 and abs(position[1] - -1.5) < 0.2:
+    if abs(position[0] - 1.65) < 0.2 and abs(position[1] - 0) < 0.2:
         print "OK"
     else:
         print "STOP"
