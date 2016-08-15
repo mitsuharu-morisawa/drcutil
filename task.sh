@@ -105,8 +105,8 @@ if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
   RESULT=$(cat ${WORKSPACE}/${TASK}-getTargetPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkTargetPos.py ${VR})
   echo "Target: ${RESULT}"
 fi
-if [ "${RESULT}" = "OK" ] && [ -e *.qRef ]; then
-    hrpsys-self-collision-checker ${WORKSPACE}/openrtp/share/OpenHRP-3.1/robot/${PROJECT}/model/${PROJECT}main.wrl *.qRef > ${WORKSPACE}/SelfCollision.txt
+if [ "${RESULT}" = "OK" ] && [ -e ${WORKSPACE}/*.qRef ]; then
+    hrpsys-self-collision-checker ${WORKSPACE}/openrtp/share/OpenHRP-3.1/robot/${PROJECT}/model/${PROJECT}main.wrl ${WORKSPACE}/*.qRef > ${WORKSPACE}/SelfCollision.txt
     if [ -s ${WORKSPACE}/SelfCollision.txt ]; then
 	RESULT="SCOL"
 	echo "SelfCollision: ${RESULT}"
