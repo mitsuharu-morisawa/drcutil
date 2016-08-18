@@ -58,9 +58,8 @@ cd ../..
 sudo rm -fr 3.2.5.tar.gz eigen-eigen-bdd17ee3b1b3
 
 sudo apt-get -y install libbz2-dev
-wget -q http://sourceforge.net/projects/boost/files/boost/1.54.0/boost_1_54_0.tar.gz
+wget http://sourceforge.net/projects/boost/files/boost/1.54.0/boost_1_54_0.tar.gz
 ls -al boost_1_54_0.tar.gz
-df
 tar zxvf boost_1_54_0.tar.gz
 cd boost_1_54_0
 ./bootstrap.sh
