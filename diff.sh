@@ -73,10 +73,10 @@ fetch_log_nolink_noverify() {
     done
 }
 
-fetch_log "openhrp3" "hrpsys-base"
+fetch_log "openhrp3" "hrpsys-base" "state-observation"
 
 if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
-    fetch_log_nolink "HRP2" "HRP2KAI" "HRP5P"
+    fetch_log_nolink "HRP2" "HRP2KAI" "HRP5P" "hrpsys-state-observation"
 fi
 
 fetch_log "hmc2" "hrpsys-humanoid"

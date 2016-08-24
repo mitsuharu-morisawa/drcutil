@@ -5,9 +5,9 @@ num = 0
 for line in sys.stdin:
     num += 1
     if num == 2:
-        radian = eval(line)
+        angles = eval(line)
 
-if math.fabs(radian[0] + math.pi) < 0.3:
+if angles[0] < -math.pi:
     print "OK"
 else:
     print "NG"
