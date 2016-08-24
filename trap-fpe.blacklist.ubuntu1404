@@ -1,0 +1,15 @@
+# List mangled function symbol names, or @file.so to blacklist
+# all dynamic symbols in file.so (which should be given by
+# full path or path relative to trap_fpe's build directory).
+# The resulting libtrap_fpe.so will load all of the .so files
+# listed in @-lines in the listed order, so beware of dependencies.
+@/usr/lib/libpcl_common.so.1.7
+@/usr/lib/libpcl_surface.so.1.7
+@/usr/lib/libpcl_search.so.1.7
+@/usr/lib/libpcl_features.so.1.7
+@/usr/lib/libpcl_kdtree.so.1.7
+@/usr/lib/libpcl_octree.so.1.7
+@/usr/lib/libpcl_segmentation.so.1.7
+@/usr/lib/libpcl_filters.so.1.7
+@/usr/lib/libpcl_sample_consensus.so.1.7
+@/usr/lib/libpcl_recognition.so.1.7
