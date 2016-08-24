@@ -1,0 +1,36 @@
+# List mangled function symbol names, or @file.so to blacklist
+# all dynamic symbols in file.so (which should be given by
+# full path or path relative to trap_fpe's build directory).
+# The resulting libtrap_fpe.so will load all of the .so files
+# listed in @-lines in the listed order, so beware of dependencies.
+@/usr/lib/x86_64-linux-gnu/libpcl_common.so.1.7
+@/usr/lib/x86_64-linux-gnu/libpcl_surface.so.1.7
+@/usr/lib/x86_64-linux-gnu/libpcl_search.so.1.7
+@/usr/lib/x86_64-linux-gnu/libpcl_features.so.1.7
+@/usr/lib/x86_64-linux-gnu/libpcl_kdtree.so.1.7
+@/usr/lib/x86_64-linux-gnu/libpcl_octree.so.1.7
+@/usr/lib/x86_64-linux-gnu/libpcl_segmentation.so.1.7
+@/usr/lib/x86_64-linux-gnu/libpcl_filters.so.1.7
+@/usr/lib/x86_64-linux-gnu/libpcl_sample_consensus.so.1.7
+@/usr/lib/x86_64-linux-gnu/libpcl_recognition.so.1.7
+@/usr/lib/liboctomap.so.1.6
+@/usr/lib/liboctomath.so.1.6
+@/usr/lib/x86_64-linux-gnu/libQtOpenGL.so.4
+@/usr/lib/x86_64-linux-gnu/libGLU.so.1
+@/usr/lib/x86_64-linux-gnu/mesa/libGL.so.1
+@/usr/lib/x86_64-linux-gnu/libGLEW.so.1.13
+@/usr/lib/x86_64-linux-gnu/libSM.so.6
+@/usr/lib/x86_64-linux-gnu/libXi.so.6
+@/usr/lib/x86_64-linux-gnu/libXrender.so.1
+@/usr/lib/x86_64-linux-gnu/libXext.so.6
+@/usr/lib/x86_64-linux-gnu/libX11.so.6
+@/usr/lib/x86_64-linux-gnu/libyaml-0.so.2
+@/usr/lib/x86_64-linux-gnu/libjpeg.so.8
+@/usr/lib/x86_64-linux-gnu/libogg.so.0
+@/usr/lib/x86_64-linux-gnu/libvorbis.so.0
+@/usr/lib/x86_64-linux-gnu/libavcodec-ffmpeg.so.56
+@/usr/lib/x86_64-linux-gnu/libavformat-ffmpeg.so.56
+@/usr/lib/x86_64-linux-gnu/libavutil-ffmpeg.so.54
+@/usr/lib/x86_64-linux-gnu/libswscale-ffmpeg.so.3
+@/usr/lib/x86_64-linux-gnu/libmp3lame.so.0
+
