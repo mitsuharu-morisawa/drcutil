@@ -76,9 +76,9 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     fi
     cmake_install_with_option "choreonoid" "-DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_PCL_PLUGIN=ON -DBUILD_OPENHRP_PLUGIN=ON -DBUILD_GRXUI_PLUGIN=ON -DBODY_CUSTOMIZERS=$SRC_DIR/HRP2/customizer/HRP2Customizer;$SRC_DIR/HRP5P/customizer/HRP5PCustomizer -DBUILD_DRC_USER_INTERFACE_PLUGIN=ON -DCMAKE_CXX_FLAGS=$CHOREONOID_CMAKE_CXX_FLAGS"
     if [ "$UBUNTU_VER" != "16.04" ]; then
-	cmake_install_with_option "trap-fpe" "-DTRAP_FPE_BLACKLIST= ../../drcutil/trap-fpe.blacklist.ubuntu1404"
+	cmake_install_with_option "trap-fpe" "-DTRAP_FPE_BLACKLIST=../../drcutil/trap-fpe.blacklist.ubuntu1404"
     else
-	cmake_install_with_option "trap-fpe" "-DTRAP_FPE_BLACKLIST= ../../drcutil/trap-fpe.blacklist.ubuntu1604"
+	cmake_install_with_option "trap-fpe" "-DTRAP_FPE_BLACKLIST=../../drcutil/trap-fpe.blacklist.ubuntu1604"
     fi
 else
     cmake_install_with_option "flexiport" "-DBUILD_DOCUMENTATION=OFF"
