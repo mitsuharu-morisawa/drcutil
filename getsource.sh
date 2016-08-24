@@ -47,7 +47,7 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     cd choreonoid/ext
     get_source "git clone https://github.com/jrl-umi3218/hrpcnoid" hrpcnoid
     cd ../..
-    get_source "git clone https://bitbucket.org/jun0/trap-fpe" trap-fpe
+    # get_source "git clone https://bitbucket.org/jun0/trap-fpe" trap-fpe
 else
     get_source "git clone https://github.com/gbiggs/flexiport" flexiport
     get_source "git clone https://github.com/fkanehiro/hokuyoaist" hokuyoaist
