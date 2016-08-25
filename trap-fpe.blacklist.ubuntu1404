@@ -14,3 +14,4 @@
 @/usr/lib/libpcl_sample_consensus.so.1.7
 @/usr/lib/libpcl_recognition.so.1.7
 @/usr/lib/x86_64-linux-gnu/gtk-2.0/2.10.0/engines/libmurrine.so
+_ZN12_GLOBAL__N_114VisionRenderer18getRangeCameraDataERN5cnoid5ImageERSt6vectorIN5Eigen6MatrixIfLi3ELi1ELi0ELi3ELi1EEESaIS7_EE
