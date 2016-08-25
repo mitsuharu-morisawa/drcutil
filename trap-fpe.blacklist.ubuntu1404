@@ -13,3 +13,4 @@
 @/usr/lib/libpcl_filters.so.1.7
 @/usr/lib/libpcl_sample_consensus.so.1.7
 @/usr/lib/libpcl_recognition.so.1.7
+@/usr/lib/x86_64-linux-gnu/gtk2.0/2.10.0/engines/libmurrine.so
