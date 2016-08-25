@@ -38,7 +38,7 @@ rm -f task_result.txt
 rm -rf PointCloud
 rm -f *.tau
 rm -f *.qRef
-CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
+LD_PRELOAD=${WORKSPACE}/openrtp/lib/libtrap_fpe.so CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
 sleep 15
