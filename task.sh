@@ -93,7 +93,8 @@ if [ "$FREE_BEFORE" != "" ] && [ "$FREE_AFTER" != "" ]; then
     echo $FREE_AFTER,$FREE_CHANGE >> $WORKSPACE/system.csv
 fi
 
-import -display :0 -window ${WINDOWSID} ${WORKSPACE}/task.png 2>&1 > /dev/null
+#import -display :0 -window ${WINDOWSID} ${WORKSPACE}/task.png 2>&1 > /dev/null
+gnome-screenshot -w -f ${WORKSPACE}/task.png
 kill -2 $RECORDMYDESKTOP || true
 wait $RECORDMYDESKTOP || true
 
