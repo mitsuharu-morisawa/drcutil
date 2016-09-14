@@ -33,21 +33,33 @@ killall -9 choreonoid || true
 killall -9 recordmydesktop || true
 cd ${WORKSPACE}/openrtp/share/hrpsys/samples/${PROJECT}
 rm -f core
-rm -f task_result.txt
+rm -f task_result.txt drc.py_start.txt drc.py_end.txt
 rm -rf PointCloud
 rm -f *.tau
 rm -f *.qRef
 LD_PRELOAD=${WORKSPACE}/openrtp/lib/libtrap_fpe.so CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
-sleep 15
+for ((i=0; i<30; i++)); do
+    if [ -e drc.py_start.txt ]; then
+	echo "beginning of drc.py is detected at $i[s]"
+	break
+    fi
+    sleep 1
+done
 
 WINDOWSID=$(xwininfo -display :0 -name "${TASK} - Choreonoid" | grep 'id: 0x' | grep -Eo '0x[a-z0-9]+')
 
 recordmydesktop --windowid ${WINDOWSID} --display :0 --no-sound --overwrite -o ${WORKSPACE}/task.ogv 2>&1 > /dev/null &
 RECORDMYDESKTOP=$(jobs -p %+)
 
-sleep 20
+for ((i=0; i<30; i++)); do
+    if [ -e drc.py_end.txt ]; then
+	echo "ending of drc.py is detected at $i[s]"
+	break
+    fi
+    sleep 1
+done
 
 if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-setTargetPos.py ]; then
     python ${WORKSPACE}/drcutil/.jenkins/${TASK}-setTargetPos.py
