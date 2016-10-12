@@ -37,6 +37,7 @@ rm -f task_result.txt drc.py_start.txt drc.py_end.txt
 rm -rf PointCloud
 rm -f *.tau
 rm -f *.qRef
+rm -f *.log
 LD_PRELOAD=${WORKSPACE}/openrtp/lib/libtrap_fpe.so CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
