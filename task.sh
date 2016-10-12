@@ -85,6 +85,7 @@ for ((i=0; i<${WAIT}; i++)); do
     fi
     sleep 1
 done
+mv *.log ${WORKSPACE} || true
 
 PS_AFTER=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
 if [ "$(lsb_release -rs)" != "16.04" ]; then
