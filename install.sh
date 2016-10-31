@@ -66,6 +66,7 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 else
     EXTRA_OPTION="-DGENERATE_FILES_FOR_SIMULATION=OFF"
 fi
+cmake_install_with_option "sch-core"
 cmake_install_with_option "hmc2" "-DCOMPILE_JAVA_STUFF=OFF $EXTRA_OPTION"
 cmake_install_with_option "hrpsys-humanoid" "-DCOMPILE_JAVA_STUFF=OFF $EXTRA_OPTION"
 cmake_install_with_option "hrpsys-private"
