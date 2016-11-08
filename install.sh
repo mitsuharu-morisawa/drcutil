@@ -12,7 +12,7 @@ export PATH=$PREFIX/bin:$PATH
 
 if [ "$ENABLE_ASAN" -eq 1 ]; then
     BUILD_TYPE=RelWithDebInfo
-    ASAN_OPTIONS="-DCMAKE_CXX_FLAGS_RELWITHDEBINFO=\"-O2 -g -DNDEBUG -fsanitize=address\" -DCMAKE_C_FLAGS_RELWITHDEBINFO=\"-O2 -g -DNDEBUG -fsanitize=address\""
+    ASAN_OPTIONS=" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO=\"-O2 -g -DNDEBUG -fsanitize=address\" -DCMAKE_C_FLAGS_RELWITHDEBINFO=\"-O2 -g -DNDEBUG -fsanitize=address\""
 else
     ASAN_OPTIONS=
 fi
@@ -28,9 +28,9 @@ cmake_install_with_option() {
     echo cmake $COMMON_OPTIONS
 
     if [ $# = 1 ]; then
-        cmake $COMMON_OPTIONS ..
+        eval "cmake $COMMON_OPTIONS .."
     else
-        cmake $COMMON_OPTIONS $2 ..
+        eval "cmake $COMMON_OPTIONS $2 .."
     fi
 
     $SUDO make -j$MAKE_THREADS_NUMBER install
@@ -46,7 +46,18 @@ else
     EXTRA_OPTION=
 fi
 ./configure --prefix=$PREFIX --without-doxygen $EXTRA_OPTION
-$SUDO make -j$MAKE_THREADS_NUMBER install
+
+if [ "$ENABLE_ASAN" -eq 1 ]; then
+    # We set -fsanitize=address here, after configure, because this
+    # flag interferes with detecting the flags needed for pthreads,
+    # causing problems later on.
+    EXTRA_OPTION="CXXFLAGS='-O2 -g3 -fsanitize=address' CFLAGS='-O2 -g3 -fsanitize=address'"
+    # Report, but don't fail on, leaks in program samples during build.
+    export LSAN_OPTIONS="exitcode=0"
+else
+    EXTRA_OPTION=
+fi
+eval "$SUDO make -j$MAKE_THREADS_NUMBER install $EXTRA_OPTION"
 
 cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST=$BUILD_GOOGLE_TEST -DOPENRTM_DIR=$PREFIX"
 
@@ -77,7 +88,7 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ "$IS_VIRTUAL_BOX" -eq 1 ]; then
       CHOREONOID_CMAKE_CXX_FLAGS="\"-DJOYSTICK_DEVICE_PATH=\\\"/dev/input/js1\\\"\" $CHOREONOID_CMAKE_CXX_FLAGS" #mouse integration uses /dev/input/js1 in virtualbox
     fi
-    cmake_install_with_option "choreonoid" "-DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_PCL_PLUGIN=ON -DBUILD_OPENHRP_PLUGIN=ON -DBUILD_GRXUI_PLUGIN=ON -DBODY_CUSTOMIZERS=$SRC_DIR/HRP2/customizer/HRP2Customizer;$SRC_DIR/HRP5P/customizer/HRP5PCustomizer -DBUILD_DRC_USER_INTERFACE_PLUGIN=ON -DCMAKE_CXX_FLAGS=$CHOREONOID_CMAKE_CXX_FLAGS"
+    cmake_install_with_option "choreonoid" "-DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_PCL_PLUGIN=ON -DBUILD_OPENHRP_PLUGIN=ON -DBUILD_GRXUI_PLUGIN=ON -DBODY_CUSTOMIZERS='$SRC_DIR/HRP2/customizer/HRP2Customizer;$SRC_DIR/HRP5P/customizer/HRP5PCustomizer' -DBUILD_DRC_USER_INTERFACE_PLUGIN=ON -DCMAKE_CXX_FLAGS='$CHOREONOID_CMAKE_CXX_FLAGS'"
     if [ "$UBUNTU_VER" != "16.04" ]; then
 	cmake_install_with_option "trap-fpe" "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.ubuntu1404"
     else
