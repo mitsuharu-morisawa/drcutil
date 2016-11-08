@@ -37,6 +37,7 @@ if [ "$1" = "build" ]; then
     sed -i -e "s/Release/Debug/g" config.sh
 else
     sed -i -e "s/Release/RelWithDebInfo/g" config.sh
+    sed -i -e "s/ENABLE_ASAN=0/ENABLE_ASAN=1/g" config.sh
     sed -i -e "s/MAKE_THREADS_NUMBER=2/MAKE_THREADS_NUMBER=4/g" config.sh
 fi
 
