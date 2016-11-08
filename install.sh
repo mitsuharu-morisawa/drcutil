@@ -8,6 +8,7 @@ RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 
 export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
+export PATH=$PREFIX/bin:$PATH
 
 if [ "$ENABLE_ASAN" -eq 1 ]; then
     BUILD_TYPE=RelWithDebInfo
@@ -47,7 +48,7 @@ fi
 ./configure --prefix=$PREFIX --without-doxygen $EXTRA_OPTION
 $SUDO make -j$MAKE_THREADS_NUMBER install
 
-cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST=$BUILD_GOOGLE_TEST"
+cmake_install_with_option "openhrp3" "-DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST=$BUILD_GOOGLE_TEST -DOPENRTM_DIR=$PREFIX"
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ "$UBUNTU_VER" != "16.04" ]; then
