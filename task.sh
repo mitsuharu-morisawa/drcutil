@@ -26,7 +26,7 @@ WAIT=${7}
 TARGET=${8}
 PORT=${9}
 
-export ASAN_OPTIONS="disable_core=0:unmap_shadow_on_exit=1:abort_on_error=1"
+export ASAN_OPTIONS="disable_coredump=0:unmap_shadow_on_exit=1:abort_on_error=1"
 # Report, but don't fail on, leaks in program samples during test.
 export LSAN_OPTIONS="exitcode=0"
 if [ "$(lsb_release -rs)" != "16.04" ]; then
