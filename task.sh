@@ -27,6 +27,11 @@ TARGET=${8}
 PORT=${9}
 
 export ASAN_OPTIONS="disable_core=0:unmap_shadow_on_exit=1:abort_on_error=1"
+if [ "$(lsb_release -rs)" != "16.04" ]; then
+    ASAN_LIB=/usr/lib/x86_64-linux-gnu/libasan.so.0
+else
+    ASAN_LIB=/usr/lib/x86_64-linux-gnu/libasan.so.2
+fi
 ulimit -c unlimited
 killall -9 openhrp-model-loader || true
 killall -9 choreonoid || true
@@ -38,7 +43,7 @@ rm -rf PointCloud
 rm -f *.tau
 rm -f *.qRef
 rm -f *.log
-LD_PRELOAD=${WORKSPACE}/openrtp/lib/libtrap_fpe.so CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
+LD_PRELOAD="${ASAN_LIB}:${WORKSPACE}/openrtp/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
 for ((i=0; i<30; i++)); do
