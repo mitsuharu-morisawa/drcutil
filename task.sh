@@ -48,7 +48,7 @@ rm -f *.log
 LD_PRELOAD="${ASAN_LIB}:${WORKSPACE}/openrtp/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
-for ((i=0; i<30; i++)); do
+for ((i=0; i<60; i++)); do
     if [ -e drc.py_start.txt ]; then
 	echo "beginning of drc.py is detected at $i[s]"
 	break
