@@ -53,6 +53,7 @@ for ((i=0; i<60; i++)); do
 	echo "beginning of drc.py is detected at $i[s]"
 	break
     fi
+    echo "waiting for beginning of drc.py: $i[s]"
     sleep 1
 done
 
