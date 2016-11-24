@@ -5,6 +5,7 @@ FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOU
 RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 
+export LSAN_OPTIONS="exitcode=0"
 
 cd $SRC_DIR
 
