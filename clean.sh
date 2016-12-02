@@ -2,6 +2,8 @@
 
 source config.sh
 
+cd $SRC_DIR/OpenRTM-aist
+make maintainer-clean
 rm -rf $SRC_DIR/openhrp3/build
 rm -rf $SRC_DIR/HRP2/build
 rm -rf $SRC_DIR/HRP2KAI/build
