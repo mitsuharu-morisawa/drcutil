@@ -48,7 +48,7 @@ rm -f *.log
 LD_PRELOAD="${ASAN_LIB}:${WORKSPACE}/openrtp/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
-for ((i=0; i<180; i++)); do
+for ((i=0; i<600; i++)); do
     if [ -e drc.py_start.txt ]; then
 	echo "beginning of drc.py is detected at $i[s]"
 	break
@@ -62,7 +62,7 @@ WINDOWSID=$(xwininfo -display :0 -name "${TASK} - Choreonoid" | grep 'id: 0x' | 
 recordmydesktop --windowid ${WINDOWSID} --display :0 --no-sound --overwrite -o ${WORKSPACE}/task.ogv 2>&1 > /dev/null &
 RECORDMYDESKTOP=$(jobs -p %+)
 
-for ((i=0; i<180; i++)); do
+for ((i=0; i<600; i++)); do
     if [ -e drc.py_end.txt ]; then
 	echo "ending of drc.py is detected at $i[s]"
 	break
