@@ -1,7 +1,7 @@
 cd ${WORKSPACE}
 
 rm -fr netlify-site
-git clone --branch master --single-branch https://jenkinshrg@bitbucket.org/jenkinshrg/netlify-site.git
+git clone --branch master --single-branch git@bitbucket.org:jenkinshrg/netlify-site.git
 cd netlify-site
 
 JENKINS_URL=http://jenkinshrg.a01.aist.go.jp/
