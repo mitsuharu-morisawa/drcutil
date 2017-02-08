@@ -9,7 +9,7 @@ export OCTOMAP_VERSION=1.8.0
 export ENABLE_ASAN=0
 export IS_VIRTUAL_BOX=0
 
-/bin/ping atom -c 1 &> /dev/null
+/bin/ping atom.a01.aist.go.jp -c 1 &> /dev/null
 if [ $? -ne 0 ] 
 then
     export HAVE_ATOM_ACCESS=0
