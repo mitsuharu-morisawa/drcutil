@@ -56,6 +56,10 @@ for ((i=0; i<600; i++)); do
     echo "waiting for beginning of drc.py: $i[s]"
     sleep 1
 done
+if [ $i == 600 ]; then
+    echo "drc.py didn't start in 600[s]"
+    exit
+fi
 
 WINDOWSID=$(xwininfo -display :0 -name "${TASK} - Choreonoid" | grep 'id: 0x' | grep -Eo '0x[a-z0-9]+')
 
@@ -70,6 +74,10 @@ for ((i=0; i<600; i++)); do
     echo "waiting for ending of drc.py: $i[s]"
     sleep 1
 done
+if [ $i == 600 ]; then
+    echo "drc.py didn't finish in 600[s]"
+    exit
+fi
 
 if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-setTargetPos.py ]; then
     python ${WORKSPACE}/drcutil/.jenkins/${TASK}-setTargetPos.py
