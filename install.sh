@@ -90,10 +90,13 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     # FIXME?: This doesn't look right.  CMAKE_CXX_FLAGS is ignored
     # unless CMAKE_BUILD_TYPE is empty, which it is not by default.
     cmake_install_with_option "choreonoid" -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_PCL_PLUGIN=ON -DBUILD_OPENHRP_PLUGIN=ON -DBUILD_GRXUI_PLUGIN=ON -DBODY_CUSTOMIZERS="$SRC_DIR/HRP2/customizer/HRP2Customizer;$SRC_DIR/HRP5P/customizer/HRP5PCustomizer" -DBUILD_DRC_USER_INTERFACE_PLUGIN=ON -DCMAKE_CXX_FLAGS="$CHOREONOID_CMAKE_CXX_FLAGS"
-    if [ "$UBUNTU_VER" != "16.04" ]; then
-	cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.ubuntu1404"
-    else
-	cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.ubuntu1604"
+    if [ "$BUILD_FRAP_FPE" -eq 1 ]; then
+	if [ "$ENABLE_ASAN" -eq 1 ]; then
+	    FRAP_FPE_EXTRA_OPTION=(-DTRAP_FPE_SANITIZER_WORKAROUND=ON)
+	else
+	    FRAP_FPE_EXTRA_OPTION=()
+	fi
+	cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.ubuntu$UBUNTU_VER" "${TRAP_FPE_EXTRA_OPTION[@]}"
     fi
 else
     cmake_install_with_option flexiport -DBUILD_DOCUMENTATION=OFF

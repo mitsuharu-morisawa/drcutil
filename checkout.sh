@@ -22,6 +22,7 @@ pull_source OpenRTM-aist openhrp3 hrpsys-base sch-core hmc2 hrpsys-private hrpsy
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     GIT_SSL_NO_VERIFY=1 pull_source choreonoid
     pull_source choreonoid/ext/hrpcnoid
+    pull_source trap-fpe
 else
     pull_source flexiport hokuyoaist rtchokuyoaist
 fi
