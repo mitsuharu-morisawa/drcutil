@@ -95,14 +95,23 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     else
 	cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.ubuntu1604"
     fi
+
+    mkdir -p $HOME/.config/Choreonoid
+    cp $DRCUTIL/.config/Choreonoid.conf $DRCUTIL
+    sed -i -e "s#/home/vagrant/src#$SRC_DIR#g" $DRCUTIL/Choreonoid.conf
+    sed -i -e "s#/home/vagrant/openrtp#$PREFIX#g" $DRCUTIL/Choreonoid.conf
+    if [ ! -e $HOME/.config/Choreonoid/Choreonoid.conf ];then
+	cp $DRCUTIL/Choreonoid.conf $HOME/.config/Choreonoid
+    fi
 else
     cmake_install_with_option flexiport -DBUILD_DOCUMENTATION=OFF
     cmake_install_with_option hokuyoaist -DBUILD_DOCUMENTATION=OFF -DBUILD_PYTHON_BINDINGS=OFF
     cmake_install_with_option rtchokuyoaist -DBUILD_DOCUMENTATION=OFF
 fi
 
-echo "add the following environmental variable settings to your .bashrc"
-echo "export PATH=$PREFIX/bin:\$PATH"
-echo "export LD_LIBRARY_PATH=$PREFIX/lib:\$LD_LIBRARY_PATH"
-echo "export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig"
-echo "export PYTHONPATH=$PREFIX/lib/python2.7/dist-packages/hrpsys:\$PYTHONPATH"
+echo "add the following line to your .bashrc"
+echo "source $DRCUTIL/setup.bash"
+echo "export PATH=$PREFIX/bin:\$PATH" > $DRCUTIL/setup.bash
+echo "export LD_LIBRARY_PATH=$PREFIX/lib:\$LD_LIBRARY_PATH" >> $DRCUTIL/setup.bash
+echo "export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig" >> $DRCUTIL/setup.bash
+echo "export PYTHONPATH=$PREFIX/lib/python2.7/dist-packages/hrpsys:\$PYTHONPATH" >> $DRCUTIL/setup.bash
