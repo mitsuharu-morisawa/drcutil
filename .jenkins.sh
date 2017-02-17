@@ -33,6 +33,7 @@ echo "`hostname`(`lsb_release -ds`)" > $WORKSPACE/env.txt
 
 cp config.sh.sample config.sh
 sed -i -e "s/HOME/WORKSPACE/g" config.sh
+sed -i -e "s/BUILD_TRAP_FPE=0/BUILD_TRAP_FPE=1/g" config.sh
 if [ "$1" = "build" ]; then
     sed -i -e "s/Release/Debug/g" config.sh
 else

@@ -8,6 +8,7 @@ export BUILD_TYPE=Release
 export OCTOMAP_VERSION=1.8.0
 export ENABLE_ASAN=0
 export IS_VIRTUAL_BOX=0
+export BUILD_FRAP_FPE=0
 
 /bin/ping atom.a01.aist.go.jp -c 1 &> /dev/null
 if [ $? -ne 0 ] 
