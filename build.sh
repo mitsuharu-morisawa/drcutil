@@ -33,7 +33,7 @@ build_install() {
 build_install "openhrp3" "hrpsys-base" "HRP2" "HRP2KAI" "HRP5P" "sch-core" "hmc2" "hrpsys-private" "hrpsys-humanoid" "state-observation" "hrpsys-state-observation"
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-build_install "choreonoid"
+build_install "choreonoid" "trap-fpe"
 else
 build_install "flexiport" "hokuyoaist" "rtchokuyoaist"
 fi
