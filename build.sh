@@ -9,6 +9,17 @@ export LSAN_OPTIONS="exitcode=0"
 
 cd $SRC_DIR
 
+cd OpenRTM-aist
+echo -n "building OpenRTM-aist ... "
+$SUDO make -j$MAKE_THREADS_NUMBER install > OpenRTM-aist.log 2>&1
+if [ "$?" -eq 0 ]
+then
+    echo "success"
+else
+    echo -e "\e[31mfail\e[m"
+fi
+cd ../
+
 build_install() {
     for dir_name in $@; do
 	if [ -e $dir_name ]; then
