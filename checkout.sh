@@ -10,7 +10,7 @@ pull_source() {
 	    else
 		git pull
 	    fi
-            cd ..
+            cd -
 	fi
     done
 }
