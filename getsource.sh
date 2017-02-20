@@ -48,7 +48,7 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     cd choreonoid/ext
     get_source "git clone https://github.com/jrl-umi3218/hrpcnoid" hrpcnoid
     cd ../..
-    if [ "$BUILD_FRAP_FPE" -eq 1 ]; then
+    if [ "$BUILD_TRAP_FPE" -eq 1 ]; then
 	get_source "git clone https://bitbucket.org/jun0/trap-fpe" trap-fpe
     fi
 else
