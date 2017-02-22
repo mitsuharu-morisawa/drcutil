@@ -7,6 +7,8 @@ export INTERNAL_MACHINE=0
 export MAKE_THREADS_NUMBER=2
 export BUILD_TYPE=Release
 export OCTOMAP_VERSION=1.8.0
+export DYNAMORIO_VERSION=Linux-6.2.0-2
+export DYNAMORIO_RELEASE=release_6_2_0
 export ENABLE_ASAN=0
 export IS_VIRTUAL_BOX=0
 export BUILD_TRAP_FPE=0
@@ -25,6 +27,19 @@ then
     export INTERNAL_MACHINE=1
     export UBUNTU_VER=14.04
 fi
+
+case $(uname -m) in
+    x86_64)
+        ARCH_BITS=64
+        ;;
+    x86|i[3-6]86)
+        ARCH_BITS=32
+        ;;
+    *)
+        echo 1>&2 "config.sh: error: unknown architecture: $(uname -m)"
+        exit 1
+        ;;
+esac
 
 BUILD_GOOGLE_TEST=ON
 

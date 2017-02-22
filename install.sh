@@ -103,7 +103,10 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 	else
 	    TRAP_FPE_EXTRA_OPTION=()
 	fi
-	cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.ubuntu$UBUNTU_VER" "${TRAP_FPE_EXTRA_OPTION[@]}"
+        # DynamoRIO doesn't seem to have an official install step.
+        # We just unpack the distribution directly into $PREFIX.
+        tar -zxf $SRC_DIR/DynamoRIO-$DYNAMORIO_VERSION.tar.gz -C $PREFIX/share
+	cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.ubuntu$UBUNTU_VER" "-DDynamoRIO_DIR=$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/cmake" "${TRAP_FPE_EXTRA_OPTION[@]}"
     fi
 
     mkdir -p $HOME/.config/Choreonoid
@@ -125,6 +128,6 @@ cp robot-sources.tar.bz2 $PREFIX/share/
 echo "add the following line to your .bashrc"
 echo "source $DRCUTIL/setup.bash"
 echo "export PATH=$PREFIX/bin:\$PATH" > $DRCUTIL/setup.bash
-echo "export LD_LIBRARY_PATH=$PREFIX/lib:\$LD_LIBRARY_PATH" >> $DRCUTIL/setup.bash
+echo "export LD_LIBRARY_PATH=$PREFIX/lib:$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/ext/lib$ARCH_BITS/release:\$LD_LIBRARY_PATH" >> $DRCUTIL/setup.bash
 echo "export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig" >> $DRCUTIL/setup.bash
 echo "export PYTHONPATH=$PREFIX/lib/python2.7/dist-packages/hrpsys:\$PYTHONPATH" >> $DRCUTIL/setup.bash

@@ -49,6 +49,9 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     get_source "git clone https://github.com/jrl-umi3218/hrpcnoid" hrpcnoid
     cd ../..
     if [ "$BUILD_TRAP_FPE" -eq 1 ]; then
+	if [ ! -e DynamoRIO-$DYNAMORIO_VERSION.tar.gz ]; then
+	    wget https://github.com/DynamoRIO/dynamorio/releases/download/$DYNAMORIO_RELEASE/DynamoRIO-$DYNAMORIO_VERSION.tar.gz
+	fi
 	get_source "git clone https://bitbucket.org/jun0/trap-fpe" trap-fpe
     fi
 else
