@@ -53,4 +53,4 @@ build_install "flexiport" "hokuyoaist" "rtchokuyoaist"
 fi
 
 packsrc $built_dirs
-cp robot-sources.tar.bz2 $PREFIX/share/
+$SUDO cp robot-sources.tar.bz2 $PREFIX/share/

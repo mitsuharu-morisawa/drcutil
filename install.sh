@@ -105,7 +105,7 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 	fi
         # DynamoRIO doesn't seem to have an official install step.
         # We just unpack the distribution directly into $PREFIX.
-        tar -zxf $SRC_DIR/DynamoRIO-$DYNAMORIO_VERSION.tar.gz -C $PREFIX/share
+        $SUDO tar -zxf $SRC_DIR/DynamoRIO-$DYNAMORIO_VERSION.tar.gz -C $PREFIX/share
 	cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.ubuntu$UBUNTU_VER" "-DDynamoRIO_DIR=$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/cmake" "${TRAP_FPE_EXTRA_OPTION[@]}"
     fi
 
@@ -123,7 +123,7 @@ else
 fi
 
 packsrc $built_dirs
-cp robot-sources.tar.bz2 $PREFIX/share/
+$SUDO cp robot-sources.tar.bz2 $PREFIX/share/
 
 echo "add the following line to your .bashrc"
 echo "source $DRCUTIL/setup.bash"
