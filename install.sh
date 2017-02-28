@@ -3,9 +3,11 @@
 DRCUTIL=$PWD
 
 source config.sh
+source packsrc.sh
 FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOURCE"))"
 RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
+built_dirs=
 
 export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 export PATH=$PREFIX/bin:$PATH
@@ -28,11 +30,13 @@ cmake_install_with_option() {
     cd "$SRC_DIR/$SUBDIR/build"
 
     COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" "${ASAN_OPTIONS[@]}")
-    echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@") ..
+    echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@") .. | tee config.log
 
-    cmake "${COMMON_OPTIONS[@]}" "$@" ..
+    cmake "${COMMON_OPTIONS[@]}" "$@" .. 2>&1 | tee -a config.log
 
-    $SUDO make -j$MAKE_THREADS_NUMBER install
+    $SUDO make -j$MAKE_THREADS_NUMBER install 2>&1 | tee $SRC_DIR/$SUBDIR.log
+
+    built_dirs="$built_dirs $SUBDIR"
 }
 
 cd $SRC_DIR/OpenRTM-aist
@@ -46,6 +50,8 @@ else
 fi
 ./configure --prefix="$PREFIX" --without-doxygen "${EXTRA_OPTION[@]}"
 
+built_dirs="$built_dirs OpenRTM-aist"
+
 if [ "$ENABLE_ASAN" -eq 1 ]; then
     # We set -fsanitize=address here, after configure, because this
     # flag interferes with detecting the flags needed for pthreads,
@@ -56,7 +62,8 @@ if [ "$ENABLE_ASAN" -eq 1 ]; then
 else
     EXTRA_OPTION=()
 fi
-$SUDO make -j$MAKE_THREADS_NUMBER install "${EXTRA_OPTION[@]}"
+$SUDO make -j$MAKE_THREADS_NUMBER install "${EXTRA_OPTION[@]}" \
+   | tee $SRC_DIR/OpenRTM-aist.log
 
 cmake_install_with_option "openhrp3" -DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST="$BUILD_GOOGLE_TEST" -DOPENRTM_DIR="$PREFIX"
 
@@ -96,7 +103,10 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 	else
 	    TRAP_FPE_EXTRA_OPTION=()
 	fi
-	cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.ubuntu$UBUNTU_VER" "${TRAP_FPE_EXTRA_OPTION[@]}"
+        # DynamoRIO doesn't seem to have an official install step.
+        # We just unpack the distribution directly into $PREFIX.
+        $SUDO tar -zxf $SRC_DIR/DynamoRIO-$DYNAMORIO_VERSION.tar.gz -C $PREFIX/share
+	cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.ubuntu$UBUNTU_VER" "-DDynamoRIO_DIR=$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/cmake" "${TRAP_FPE_EXTRA_OPTION[@]}"
     fi
 
     mkdir -p $HOME/.config/Choreonoid
@@ -112,9 +122,12 @@ else
     cmake_install_with_option rtchokuyoaist -DBUILD_DOCUMENTATION=OFF
 fi
 
+packsrc $built_dirs
+$SUDO cp robot-sources.tar.bz2 $PREFIX/share/
+
 echo "add the following line to your .bashrc"
 echo "source $DRCUTIL/setup.bash"
 echo "export PATH=$PREFIX/bin:\$PATH" > $DRCUTIL/setup.bash
-echo "export LD_LIBRARY_PATH=$PREFIX/lib:\$LD_LIBRARY_PATH" >> $DRCUTIL/setup.bash
+echo "export LD_LIBRARY_PATH=$PREFIX/lib:$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/ext/lib$ARCH_BITS/release:\$LD_LIBRARY_PATH" >> $DRCUTIL/setup.bash
 echo "export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig" >> $DRCUTIL/setup.bash
 echo "export PYTHONPATH=$PREFIX/lib/python2.7/dist-packages/hrpsys:\$PYTHONPATH" >> $DRCUTIL/setup.bash
