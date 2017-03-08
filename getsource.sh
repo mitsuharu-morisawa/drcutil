@@ -37,6 +37,9 @@ get_source "git clone --recursive https://github.com/mehdi-benallegue/state-obse
 get_source "git clone https://github.com/jrl-umi3218/hmc2" hmc2
 get_source "git clone https://github.com/jrl-umi3218/hrpsys-humanoid" hrpsys-humanoid
 get_source "git clone --recursive https://github.com/mehdi-benallegue/sch-core" sch-core
+if [ "$ENABLE_SAVEDBG" -eq 1 ]; then
+    get_source "git clone https://bitbucket.org/jun0/savedbg" savedbg
+fi
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ "$UBUNTU_VER" != "16.04" ]; then
 	if [ ! -e octomap-$OCTOMAP_VERSION ]; then

@@ -86,10 +86,13 @@ else
 fi
 cmake_install_with_option sch-core
 cmake_install_with_option hmc2 -DCOMPILE_JAVA_STUFF=OFF "${EXTRA_OPTION[@]}"
-cmake_install_with_option hrpsys-humanoid -DCOMPILE_JAVA_STUFF=OFF "${EXTRA_OPTION[@]}"
+cmake_install_with_option hrpsys-humanoid -DCOMPILE_JAVA_STUFF=OFF -DENABLE_SAVEDBG=$ENABLE_SAVEDBG "${EXTRA_OPTION[@]}"
 cmake_install_with_option hrpsys-private
 cmake_install_with_option state-observation -DCMAKE_INSTALL_LIBDIR=lib
 cmake_install_with_option hrpsys-state-observation
+if [ "$ENABLE_SAVEDBG" -eq 1 ]; then
+    cmake_install_with_option savedbg -DSAVEDBG_FRONTEND_NAME=savedbg-hrp -DSAVEDBG_FRONTEND_ARGS="-P 'dpkg -l > dpkg' -f '$PREFIX/share/robot-sources.tar.bz2'"
+fi
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     if [ "$IS_VIRTUAL_BOX" -eq 1 ]; then
       CHOREONOID_CMAKE_CXX_FLAGS="-DJOYSTICK_DEVICE_PATH=\"/dev/input/js1\" $CHOREONOID_CMAKE_CXX_FLAGS" #mouse integration uses /dev/input/js1 in virtualbox
