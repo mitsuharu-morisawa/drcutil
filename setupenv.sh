@@ -38,6 +38,10 @@ sudo apt-get -y install libxml2-dev libsdl-dev libglew-dev libopencv-dev libcvau
 #hmc2
 sudo apt-get -y install libyaml-dev libncurses5-dev
 
+if [ "$ENABLE_SAVEDBG" -eq 1 ]; then
+    sudo apt-get -y install elfutils
+fi
+
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 cd $SRC_DIR/choreonoid/misc/script
 ./install-requisites-ubuntu-$UBUNTU_VER.sh

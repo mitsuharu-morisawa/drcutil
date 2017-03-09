@@ -17,3 +17,4 @@ rm -rf $SRC_DIR/hmc2/build
 rm -rf $SRC_DIR/choreonoid/build
 rm -rf $SRC_DIR/sch-core/build
 rm -rf $SRC_DIR/trap-fpe/build
+rm -rf $SRC_DIR/savedbg/build

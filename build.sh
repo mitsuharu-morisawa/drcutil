@@ -44,7 +44,7 @@ build_install() {
 }
 
 built_dirs=
-build_install "openhrp3" "hrpsys-base" "HRP2" "HRP2KAI" "HRP5P" "sch-core" "hmc2" "hrpsys-private" "hrpsys-humanoid" "state-observation" "hrpsys-state-observation"
+build_install "openhrp3" "hrpsys-base" "HRP2" "HRP2KAI" "HRP5P" "sch-core" "hmc2" "hrpsys-private" "hrpsys-humanoid" "state-observation" "hrpsys-state-observation" "savedbg"
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 build_install "choreonoid" "trap-fpe"

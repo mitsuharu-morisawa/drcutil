@@ -19,6 +19,9 @@ cd $SRC_DIR
 
 pull_source OpenRTM-aist openhrp3 hrpsys-base sch-core hmc2 hrpsys-private hrpsys-humanoid HRP2 HRP2KAI HRP5P state-observation hrpsys-state-observation
 
+if [ "$ENABLE_SAVEDBG" -eq 1 ]; then
+    pull_source savedbg
+fi
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
     GIT_SSL_NO_VERIFY=1 pull_source choreonoid
     pull_source choreonoid/ext/hrpcnoid

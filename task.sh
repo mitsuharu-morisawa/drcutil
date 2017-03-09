@@ -45,7 +45,15 @@ rm -rf PointCloud
 rm -f *.tau
 rm -f *.qRef
 rm -f *.log
-LD_PRELOAD="${ASAN_LIB}:${WORKSPACE}/openrtp/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
+
+if [ "$ENABLE_SAVEDBG" -eq 1 ]
+then
+    SAVEDBG_HRP=savedbg-hrp
+else
+    SAVEDBG_HRP=
+fi
+
+$SAVEDBG_HRP LD_PRELOAD="${ASAN_LIB}:${WORKSPACE}/openrtp/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
 for ((i=0; i<900; i++)); do
