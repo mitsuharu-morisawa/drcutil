@@ -10,7 +10,8 @@ check_core(){
     if [ -e core ]; then
 	echo bt | gdb choreonoid core
     fi
-    mv *.bz2 ${WORKSPACE}
+    mv ${WORKSPACE}/openrtp/share/robot-sources.tar.bz2 ${WORKSPACE} || true
+    mv *.bz2 ${WORKSPACE} || true
 }
 
 trap check_core EXIT
@@ -40,7 +41,7 @@ killall -9 openhrp-model-loader || true
 killall -9 choreonoid || true
 killall -9 recordmydesktop || true
 cd ${WORKSPACE}/openrtp/share/hrpsys/samples/${PROJECT}
-rm -f core
+rm -f core core*.bz2
 rm -f task_result.txt drc.py_start.txt drc.py_end.txt
 rm -rf PointCloud
 rm -f *.tau
