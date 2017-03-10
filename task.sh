@@ -97,6 +97,7 @@ else
     FREE_BEFORE=$(free -m | awk 'NR==2 { print $7 }')
 fi
 PS_BEFORE=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
+echo "PS_BEFORE=$PS_BEFORE"
 
 xte -x :0 "mousemove ${AUTOPOSX} ${AUTOPOSY}" && xte "mouseclick 1"
 sleep 1
@@ -113,6 +114,7 @@ done
 mv *.log ${WORKSPACE} || true
 
 PS_AFTER=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
+echo "PS_AFTER=$PS_AFTER"
 if [ "$(lsb_release -rs)" != "16.04" ]; then
     FREE_AFTER=$(free -m | awk 'NR==3 { print $3 }')
 else
