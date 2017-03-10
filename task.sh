@@ -10,6 +10,7 @@ check_core(){
     if [ -e core ]; then
 	echo bt | gdb choreonoid core
     fi
+    mv *.bz2 ${WORKSPACE}
 }
 
 trap check_core EXIT

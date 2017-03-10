@@ -7,6 +7,7 @@ rm -f $WORKSPACE/*.xml
 rm -f $WORKSPACE/*.tau
 rm -f $WORKSPACE/*.q
 rm -f $WORKSPACE/*.qRef
+rm -f $WORKSPACE/core*.bz2
 
 upload() {
     wget -q -O $WORKSPACE/console.log $BUILD_URL/consoleText || true
