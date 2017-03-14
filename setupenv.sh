@@ -39,7 +39,12 @@ sudo apt-get -y install libxml2-dev libsdl-dev libglew-dev libopencv-dev libcvau
 sudo apt-get -y install libyaml-dev libncurses5-dev
 
 if [ "$ENABLE_SAVEDBG" -eq 1 ]; then
-    sudo apt-get -y install elfutils
+    if [ "$UBUNTU_VER" = 14.04 ]; then
+        REALPATH=realpath
+    else
+        REALPATH=
+    fi
+    sudo apt-get -y install elfutils $REALPATH
 fi
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
