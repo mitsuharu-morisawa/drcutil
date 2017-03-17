@@ -3,14 +3,17 @@ source config.sh
 pull_source() {
     for dir_name in $@; do
 	if [ -e $dir_name ]; then
-	    echo $dir_name
+	    PREV_DIR=$PWD
             cd "$dir_name"
 	    if [ -e .svn ]; then
+		echo $dir_name
 		svn update
 	    else
+		BRANCH=`git branch --contains HEAD`
+		echo "$dir_name (${BRANCH:2})"
 		git pull
 	    fi
-            cd -
+            cd $PREV_DIR
 	fi
     done
 }
