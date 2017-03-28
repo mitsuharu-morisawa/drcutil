@@ -23,6 +23,10 @@ cmake_install_with_option() {
     SUBDIR="$1"
     shift
 
+    if [ ! -d "$SRC_DIR/$SUBDIR" ]; then
+	return
+    fi
+
     # check existence of the build directory
     if [ ! -d "$SRC_DIR/$SUBDIR/build" ]; then
         mkdir "$SRC_DIR/$SUBDIR/build"
