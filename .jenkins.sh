@@ -81,7 +81,6 @@ if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
     fi
     mkdir -p $SRC_DIR
     bash -e ./getsource.sh
-    sed -i -e 's/apt-get /apt-get -y /g' $SRC_DIR/openhrp3/util/installPackages.sh
     sed -i -e 's/exit 1/exit 0/g' $SRC_DIR/openhrp3/util/installPackages.sh
     sed -i -e "s/openrtm-aist-dev/#openrtm-aist-dev/g" $SRC_DIR/openhrp3/util/packages.list.ubuntu.$UBUNTU_VER
     if [ "$INTERNAL_MACHINE" -eq 1 ]; then
