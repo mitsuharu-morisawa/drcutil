@@ -72,7 +72,7 @@ $SUDO make -j$MAKE_THREADS_NUMBER install "${EXTRA_OPTION[@]}" \
 cmake_install_with_option "openhrp3" -DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST="$BUILD_GOOGLE_TEST" -DOPENRTM_DIR="$PREFIX"
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    if [ "$UBUNTU_VER" != "16.04" ]; then
+    if [ "$DIST_VER" = "14.04" ]; then
 	cmake_install_with_option "octomap-$OCTOMAP_VERSION"
     fi
     EXTRA_OPTION=()
@@ -113,7 +113,7 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
         # DynamoRIO doesn't seem to have an official install step.
         # We just unpack the distribution directly into $PREFIX.
         $SUDO tar -zxf $SRC_DIR/DynamoRIO-$DYNAMORIO_VERSION.tar.gz -C $PREFIX/share
-	cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.ubuntu$UBUNTU_VER" "-DDynamoRIO_DIR=$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/cmake" "${TRAP_FPE_EXTRA_OPTION[@]}"
+	cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.$DIST_KIND$DIST_VER" "-DDynamoRIO_DIR=$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/cmake" "${TRAP_FPE_EXTRA_OPTION[@]}"
     fi
 
     mkdir -p $HOME/.config/Choreonoid

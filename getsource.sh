@@ -41,7 +41,7 @@ if [ "$ENABLE_SAVEDBG" -eq 1 ]; then
     get_source "git clone https://bitbucket.org/jun0/savedbg" savedbg
 fi
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    if [ "$UBUNTU_VER" != "16.04" ]; then
+    if [ "$DIST_VER" != "16.04" ]; then
 	if [ ! -e octomap-$OCTOMAP_VERSION ]; then
 	    wget https://github.com/OctoMap/octomap/archive/v$OCTOMAP_VERSION.tar.gz
 	    tar zxvf v$OCTOMAP_VERSION.tar.gz

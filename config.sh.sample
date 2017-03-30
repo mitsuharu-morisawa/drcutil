@@ -1,3 +1,4 @@
+######## Please edit from here ########
 export SRC_DIR=$HOME/src
 export PREFIX=$HOME/openrtp
 export HAVE_ATOM_ACCESS=1
@@ -15,18 +16,34 @@ export BUILD_TRAP_FPE=0
 export ROBOT_HOSTNAME=localhost
 export ENABLE_SAVEDBG=0
 
+######## Please don't edit from here ########
 /bin/ping atom.a01.aist.go.jp -c 1 &> /dev/null
 if [ $? -ne 0 ] 
 then
     export HAVE_ATOM_ACCESS=0
 fi
 
-export UBUNTU_VER="$(lsb_release -rs)"
+case $(lsb_release -is) in
+    Debian)
+        DIST_KIND=debian
+	DIST_FULL_VER="$(lsb_release -rs)"
+	DIST_VER="${DIST_FULL_VER:0:1}"
+        ;;
+    Ubuntu)
+        DIST_KIND=ubuntu
+	DIST_VER="$(lsb_release -rs)"
+        ;;
+    *)
+        echo 1>&2 "config.sh: error: unknown distribution: $(lsb_release -is)"
+        exit 1
+        ;;
+esac
 
-if [ "$(lsb_release -is)" == "Debian" ]
+if [ "$DIST_KIND" == "debian" ] && [ "$DIST_VER" == "7" ]
 then
     export INTERNAL_MACHINE=1
-    export UBUNTU_VER=14.04
+    export DIST_KIND=ubuntu
+    export DIST_VER=14.04
 fi
 
 case $(uname -m) in
