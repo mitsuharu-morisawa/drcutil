@@ -42,7 +42,7 @@ sudo apt-get -y install libyaml-dev libncurses5-dev
 
 #state-observation
 if [ "$DIST_VER" = "8" ]; then
-    sudo apt-get install libboost-test-dev
+    sudo apt-get -y install libboost-test-dev
 fi
 
 #savedbg
