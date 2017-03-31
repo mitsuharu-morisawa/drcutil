@@ -35,13 +35,6 @@ case $(lsb_release -is) in
         ;;
 esac
 
-if [ "$DIST_KIND" == "debian" ] && [ "$DIST_VER" == "7" ]
-then
-    export INTERNAL_MACHINE=1
-    export DIST_KIND=ubuntu
-    export DIST_VER=14.04
-fi
-
 case $(uname -m) in
     x86_64)
         ARCH_BITS=64
