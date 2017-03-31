@@ -19,13 +19,41 @@ then
     export HAVE_ATOM_ACCESS=0
 fi
 
-export DIST_VER="$(lsb_release -rs)"
+case $(lsb_release -is) in
+    Debian)
+        DIST_KIND=debian
+	DIST_FULL_VER="$(lsb_release -rs)"
+	DIST_VER="${DIST_FULL_VER:0:1}"
+        ;;
+    Ubuntu)
+        DIST_KIND=ubuntu
+	DIST_VER="$(lsb_release -rs)"
+        ;;
+    *)
+        echo 1>&2 "config.sh: error: unknown distribution: $(lsb_release -is)"
+        exit 1
+        ;;
+esac
 
-if [ "$(lsb_release -is)" == "Debian" ]
+if [ "$DIST_KIND" == "debian" ] && [ "$DIST_VER" == "7" ]
 then
     export INTERNAL_MACHINE=1
+    export DIST_KIND=ubuntu
     export DIST_VER=14.04
 fi
+
+case $(uname -m) in
+    x86_64)
+        ARCH_BITS=64
+        ;;
+    x86|i[3-6]86)
+        ARCH_BITS=32
+        ;;
+    *)
+        echo 1>&2 "config.sh: error: unknown architecture: $(uname -m)"
+        exit 1
+        ;;
+esac
 
 BUILD_GOOGLE_TEST=ON
 
