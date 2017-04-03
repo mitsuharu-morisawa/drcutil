@@ -73,23 +73,17 @@ fetch_log_nolink_noverify() {
     done
 }
 
-fetch_log "openhrp3" "hrpsys-base" "state-observation" "sch-core"
-
-fetch_log_nolink "HRP2" "HRP2KAI" "HRP5P" "hrpsys-private" "hrpsys-state-observation"
-
-fetch_log "hmc2" "hrpsys-humanoid"
-
-fetch_log_nolink "hrpsys-private"
+fetch_log "openhrp3" "hrpsys-base" "state-observation" "sch-core" "HRP2" "HRP2KAI" "HRP5P" "hrpsys-private" "hrpsys-state-observation" "hmc2" "hrpsys-humanoid"
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-fetch_log_nolink_noverify "choreonoid"
-fetch_log "trap-fpe"
+    fetch_log_nolink_noverify "choreonoid"
+    fetch_log "trap-fpe"
 
-if [ -e choreonoid/ext ]; then
-    cd choreonoid/ext
-    fetch_log "hrpcnoid"
-    cd ../..
-fi
+    if [ -e choreonoid/ext ]; then
+	cd choreonoid/ext
+	fetch_log "hrpcnoid"
+	cd ../..
+    fi
 else
     fetch_log "flexiport" "hokuyoaist" "rtchokuyoaist"
 fi
