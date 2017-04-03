@@ -41,7 +41,7 @@ sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv
 sudo apt-get -y install libyaml-dev libncurses5-dev
 
 #state-observation
-if [ "$DIST_VER" = "8" ]; then
+if [ "$DIST_KIND" = "debian" ]; then
     sudo apt-get -y install libboost-test-dev
 fi
 
@@ -62,39 +62,5 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 
     #hrpcnoid
     sudo apt-get -y install libzbar-dev python-matplotlib
-else
-    if [ "$DIST_VER" = 7 ]; then
-	cd $WORKSPACE
-	sudo rm -fr 3.2.5.tar.gz eigen-eigen-bdd17ee3b1b3
-	wget -q http://bitbucket.org/eigen/eigen/get/3.2.5.tar.gz
-	tar zxvf 3.2.5.tar.gz
-	cd eigen-eigen-bdd17ee3b1b3
-	mkdir build
-	cd build
-	cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..
-	sudo make -j$MAKE_THREADS_NUMBER install
-	cd ../..
-	sudo rm -fr 3.2.5.tar.gz eigen-eigen-bdd17ee3b1b3
-	
-	sudo apt-get -y install libbz2-dev
-	rm -f boost_1_54_0.tar.gz
-	wget -q http://sourceforge.net/projects/boost/files/boost/1.54.0/boost_1_54_0.tar.gz
-	tar zxvf boost_1_54_0.tar.gz
-	cd boost_1_54_0
-	./bootstrap.sh
-	sudo ./b2 install -j2 --prefix=/usr/local
-	cd ..
-	sudo rm -fr boost_1_54_0.tar.gz boost_1_54_0
-	
-	wget -q http://sourceforge.net/projects/collada-dom/files/Collada%20DOM/Collada%20DOM%202.4/collada-dom-2.4.0.tgz
-	tar zxvf collada-dom-2.4.0.tgz
-	cd collada-dom-2.4.0
-	mkdir build
-	cd build
-	cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..
-	sudo make -j$MAKE_THREADS_NUMBER install
-	cd ../..
-	sudo rm -fr collada-dom-2.4.0.tgz collada-dom-2.4.0
-    fi
 fi
 
