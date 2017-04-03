@@ -18,19 +18,11 @@ cd $SRC_DIR
 
 get_source "svn co http://svn.openrtm.org/OpenRTM-aist/branches/RELENG_1_1/OpenRTM-aist" OpenRTM-aist
 get_source "git clone https://github.com/fkanehiro/openhrp3.git" openhrp3
-if [ $HAVE_ATOM_ACCESS -eq 1 ]; then
-    get_source "git clone ssh://$ATOM_USER_NAME@atom.a01.aist.go.jp/git/HRP2" HRP2
-    get_source "git clone ssh://$ATOM_USER_NAME@atom.a01.aist.go.jp/git/HRP2KAI" HRP2KAI
-    get_source "git clone ssh://$ATOM_USER_NAME@atom.a01.aist.go.jp/git/HRP5P" HRP5P
-    get_source "git clone ssh://$ATOM_USER_NAME@atom.a01.aist.go.jp/git/hrpsys-private" hrpsys-private
-    get_source "git clone --recursive ssh://$ATOM_USER_NAME@atom.a01.aist.go.jp/usr/users/benallegue/git/hrpsys-state-observation" hrpsys-state-observation
-else
-    get_source "git clone https://bitbucket.org/fkanehiro/hrp2" HRP2
-    get_source "git clone https://bitbucket.org/fkanehiro/hrp2-kai" HRP2KAI
-    get_source "git clone https://bitbucket.org/fkanehiro/hrp5p" HRP5P
-    get_source "git clone https://bitbucket.org/fkanehiro/hrpsys-private" hrpsys-private
-    get_source "git clone --recursive https://bitbucket.org/fkanehiro/hrpsys-state-observation" hrpsys-state-observation
-fi
+get_source "git clone https://github.com/isri-aist/hrp2" HRP2
+get_source "git clone https://github.com/isri-aist/hrp2kai" HRP2KAI
+get_source "git clone https://github.com/isri-aist/hrp5p" HRP5P
+get_source "git clone https://github.com/isri-aist/hrpsys-private" hrpsys-private
+get_source "git clone --recursive https://github.com/isri-aist/hrpsys-state-observation" hrpsys-state-observation
 
 get_source "git clone https://github.com/fkanehiro/hrpsys-base" hrpsys-base
 get_source "git clone --recursive https://github.com/mehdi-benallegue/state-observation" state-observation

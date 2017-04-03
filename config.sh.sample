@@ -1,8 +1,6 @@
 ######## Please edit from here ########
 export SRC_DIR=$HOME/src
 export PREFIX=$HOME/openrtp
-export HAVE_ATOM_ACCESS=1
-export ATOM_USER_NAME=jenkinshrg
 export SUDO=
 export INTERNAL_MACHINE=0
 export MAKE_THREADS_NUMBER=2
@@ -17,12 +15,6 @@ export ROBOT_HOSTNAME=localhost
 export ENABLE_SAVEDBG=0
 
 ######## Please don't edit from here ########
-/bin/ping atom.a01.aist.go.jp -c 1 &> /dev/null
-if [ $? -ne 0 ] 
-then
-    export HAVE_ATOM_ACCESS=0
-fi
-
 case $(lsb_release -is) in
     Debian)
         DIST_KIND=debian

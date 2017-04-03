@@ -75,15 +75,11 @@ fetch_log_nolink_noverify() {
 
 fetch_log "openhrp3" "hrpsys-base" "state-observation" "sch-core"
 
-if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
-    fetch_log_nolink "HRP2" "HRP2KAI" "HRP5P" "hrpsys-private" "hrpsys-state-observation"
-fi
+fetch_log_nolink "HRP2" "HRP2KAI" "HRP5P" "hrpsys-private" "hrpsys-state-observation"
 
 fetch_log "hmc2" "hrpsys-humanoid"
 
-if [ "$HAVE_ATOM_ACCESS" -eq 1 ]; then
-    fetch_log_nolink "hrpsys-private"
-fi
+fetch_log_nolink "hrpsys-private"
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 fetch_log_nolink_noverify "choreonoid"

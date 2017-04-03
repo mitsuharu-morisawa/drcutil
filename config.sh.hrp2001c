@@ -1,7 +1,5 @@
 export SRC_DIR=$HOME/src
 export PREFIX=/usr/local
-export HAVE_ATOM_ACCESS=1
-export ATOM_USER_NAME=jenkinshrg
 export SUDO=sudo
 export INTERNAL_MACHINE=1
 export MAKE_THREADS_NUMBER=8
@@ -12,12 +10,6 @@ export IS_VIRTUAL_BOX=0
 export BUILD_TRAP_FPE=0
 export ROBOT_HOSTNAME=localhost
 export ENABLE_SAVEDBG=1
-
-/bin/ping atom.a01.aist.go.jp -c 1 &> /dev/null
-if [ $? -ne 0 ] 
-then
-    export HAVE_ATOM_ACCESS=0
-fi
 
 case $(lsb_release -is) in
     Debian)

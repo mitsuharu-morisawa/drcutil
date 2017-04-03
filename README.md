@@ -8,7 +8,6 @@ First copy config.sh.sample.
 ```
 
 Edit contents of config.sh. ubuntu14.04LTS 64bit is highly recommended.
-Set HAVE_ATOM_ACCESS zero, if you don't have access to atom.
 
 Fetch source codes.
 ```
