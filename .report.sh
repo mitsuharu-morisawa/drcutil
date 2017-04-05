@@ -16,6 +16,9 @@ do
     python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
 done
 
+git checkout --orphan report-new
 git add --all
 git commit -m "update report"
-git push origin master
+git branch -D master
+git branch -m master
+git push -f origin master
