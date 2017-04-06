@@ -9,6 +9,11 @@ First copy config.sh.sample.
 
 Edit contents of config.sh. ubuntu14.04LTS 64bit is highly recommended.
 
+Executing the following command is recommended.
+```
+% git config --global credential.helper cache
+```
+
 Fetch source codes.
 ```
 % ./getsource.sh
