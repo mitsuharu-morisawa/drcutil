@@ -200,7 +200,7 @@ if [ $# = 0 ]; then # full install
 	install_savedbg
     fi
     if [ "$BUILD_TRAP_FPE" -eq 1 ]; then
-	install_trp-fpe
+	install_trap-fpe
     fi
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 	install_choreonoid
