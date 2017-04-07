@@ -180,7 +180,7 @@ install_rtchokuyoaist() {
     cmake_install_with_option rtchokuyoaist -DBUILD_DOCUMENTATION=OFF
 }
 
-if [ $# = 0]; then # full install
+if [ $# = 0 ]; then # full install
     install_OpenRTM-aist
     install_openhrp3
     if [ "$INTERNAL_MACHINE" -eq 0 ] && [ "$DIST_VER" = "14.04" ]; then
@@ -251,6 +251,7 @@ else
     elif [ $1 = "frap-fpe" ]; then
 	install_trap-fpe
     elif [ $1 = "choreonoid" ]; then
+	install_choreonoid
     elif [ $1 = "flexiport" ]; then
 	install_flexiport
     elif [ $1 = "hokuyoaist" ]; then
