@@ -240,7 +240,7 @@ else
 	install_sch-core
     elif [ $1 = "hmc2" ]; then
 	install_hmc2
-    elif [ $1 = "hrpsys-humaonid" ]; then
+    elif [ $1 = "hrpsys-humanoid" ]; then
 	install_hrpsys-humanoid
     elif [ $1 = "hrpsys-private" ]; then
 	install_hrpsys-private
