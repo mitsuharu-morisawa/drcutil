@@ -9,7 +9,11 @@ fetch_log() {
         cd "$dir_name"
         echo -n > $SRC_DIR/${dir_name}.diff
         URL=$(git config --get remote.origin.url)
-        LOCAL_ID=$(git log -1 HEAD --pretty=format:"%H")
+	if [ -e $WORKSPACE/$dir_name.rev ]; then
+	    LOCAL_ID=$(cat $WORKSPACE/$dir_name.rev)
+	else
+            LOCAL_ID=$(git log -1 HEAD --pretty=format:"%H")
+	fi
         git fetch
         git log origin HEAD --pretty=format:"%H,%h" | while read line
         do
@@ -20,6 +24,9 @@ fetch_log() {
             SHORT_ID=$(echo "${line}" | cut -d "," -f 2)
             echo "${dir_name},$SHORT_ID,${URL%.git}/commit/$REMOTE_ID" >> $SRC_DIR/${dir_name}.diff
         done
+	if [ -v WORKSPACE ]; then
+            echo $(git log -1 HEAD --pretty=format:"%H") > $WORKSPACE/$dir_name.rev
+	fi
         cd ..
     done
 }
@@ -32,7 +39,11 @@ fetch_log_nolink() {
         cd "$dir_name"
         echo -n > $SRC_DIR/${dir_name}.diff
         URL=$(git config --get remote.origin.url)
-        LOCAL_ID=$(git log -1 HEAD --pretty=format:"%H")
+	if [ -e $WORKSPACE/$dir_name.rev ]; then
+	    LOCAL_ID=$(cat $WORKSPACE/$dir_name.rev)
+	else
+            LOCAL_ID=$(git log -1 HEAD --pretty=format:"%H")
+	fi
         git fetch
         git log origin HEAD --pretty=format:"%H,%h" | while read line
         do
@@ -43,6 +54,9 @@ fetch_log_nolink() {
             SHORT_ID=$(echo "${line}" | cut -d "," -f 2)
             echo "${dir_name},$SHORT_ID," >> $SRC_DIR/${dir_name}.diff
         done
+	if [ -v WORKSPACE ]; then
+            echo $(git log -1 HEAD --pretty=format:"%H") > $WORKSPACE/$dir_name.rev
+	fi
         cd ..
     done
 }
@@ -56,7 +70,11 @@ fetch_log_nolink_noverify() {
         echo -n > $SRC_DIR/${dir_name}.diff
         #URL=$(git config --get remote.origin.url)
         URL=https://github.com/s-nakaoka/choreonoid.git
-        LOCAL_ID=$(git log -1 HEAD --pretty=format:"%H")
+	if [ -e $WORKSPACE/$dir_name.rev ]; then
+	    LOCAL_ID=$(cat $WORKSPACE/$dir_name.rev)
+	else
+            LOCAL_ID=$(git log -1 HEAD --pretty=format:"%H")
+	fi
         GIT_SSL_NO_VERIFY=1 git fetch
         git log origin HEAD --pretty=format:"%H,%h" | while read line
         do
@@ -69,6 +87,9 @@ fetch_log_nolink_noverify() {
             #echo "${dir_name},$SHORT_ID,${URL%.git}/commit/$REMOTE_ID" >> $SRC_DIR/${dir_name}.diff
 	    echo "${dir_name},$SHORT_ID,https://www.choreonoid.org/redmine/projects/choreonoid/repository/revisions/$REMOTE_ID/diff" >> $SRC_DIR/${dir_name}.diff
         done
+	if [ -v WORKSPACE ]; then
+            echo $(git log -1 HEAD --pretty=format:"%H") > $WORKSPACE/$dir_name.rev
+	fi
         cd ..
     done
 }
