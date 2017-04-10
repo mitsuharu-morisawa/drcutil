@@ -7,10 +7,12 @@ source packsrc.sh
 FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOURCE"))"
 RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
+set -E -o pipefail
 built_dirs=
 
 export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 export PATH=$PREFIX/bin:$PATH
+export LD_LIBRARY_PATH=$PREFIX/lib
 
 if [ "$ENABLE_ASAN" -eq 1 ]; then
     BUILD_TYPE=RelWithDebInfo
@@ -136,7 +138,7 @@ install_hrpsys-state-observation() {
 }
 
 install_savedbg() {
-    cmake_install_with_option savedbg -DSAVEDBG_FRONTEND_NAME=savedbg-hrp -DSAVEDBG_FRONTEND_ARGS="-P 'dpkg -l > dpkg' -f '$PREFIX/share/robot-sources.tar.bz2'"
+    cmake_install_with_option savedbg -DSAVEDBG_FRONTEND_NAME=savedbg-hrp -DSAVEDBG_FRONTEND_ARGS="-v -P 'dpkg -l > dpkg' -f '$PREFIX/share/robot-sources.tar.bz2'"
 }
 
 install_trap-fpe() {
@@ -200,7 +202,7 @@ if [ $# = 0 ]; then # full install
 	install_savedbg
     fi
     if [ "$BUILD_TRAP_FPE" -eq 1 ]; then
-	install_trp-fpe
+	install_trap-fpe
     fi
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 	install_choreonoid
@@ -238,7 +240,7 @@ else
 	install_sch-core
     elif [ $1 = "hmc2" ]; then
 	install_hmc2
-    elif [ $1 = "hrpsys-humaonid" ]; then
+    elif [ $1 = "hrpsys-humanoid" ]; then
 	install_hrpsys-humanoid
     elif [ $1 = "hrpsys-private" ]; then
 	install_hrpsys-private

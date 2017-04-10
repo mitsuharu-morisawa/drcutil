@@ -5,6 +5,7 @@ source packsrc.sh
 FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOURCE"))"
 RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
+set -E -o pipefail
 
 export LSAN_OPTIONS="exitcode=0"
 
