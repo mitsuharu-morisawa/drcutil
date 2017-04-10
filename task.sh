@@ -10,13 +10,11 @@ check_core(){
     if [ -e core ]; then
 	echo bt | gdb choreonoid core
     fi
-    mv ${WORKSPACE}/openrtp/share/robot-sources.tar.bz2 ${WORKSPACE} || true
+    mv ${PREFIX}/share/robot-sources.tar.bz2 ${WORKSPACE} || true
     mv *.bz2 ${WORKSPACE} || true
 }
 
 trap check_core EXIT
-
-cd ${WORKSPACE}
 
 PROJECT=${1}
 TASK=${2}
@@ -40,7 +38,7 @@ ulimit -c unlimited
 killall -9 openhrp-model-loader || true
 killall -9 choreonoid || true
 killall -9 recordmydesktop || true
-cd ${WORKSPACE}/openrtp/share/hrpsys/samples/${PROJECT}
+cd ${PREFIX}/share/hrpsys/samples/${PROJECT}
 rm -f core core*.bz2
 rm -f task_result.txt drc.py_start.txt drc.py_end.txt
 rm -rf PointCloud
@@ -55,7 +53,7 @@ else
     SAVEDBG_HRP=
 fi
 
-$SAVEDBG_HRP LD_PRELOAD="${ASAN_LIB}:${WORKSPACE}/openrtp/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
+$SAVEDBG_HRP LD_PRELOAD="${ASAN_LIB}:${PREFIX}/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
 for ((i=0; i<900; i++)); do
@@ -149,7 +147,7 @@ if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
   echo "Target: ${RESULT}"
 fi
 if [ "${RESULT}" = "OK" ] && [ -e ${WORKSPACE}/*.qRef ]; then
-    hrpsys-self-collision-checker ${WORKSPACE}/openrtp/share/OpenHRP-3.1/robot/${PROJECT}/model/${PROJECT}main.wrl ${WORKSPACE}/*.qRef > ${WORKSPACE}/SelfCollision.txt
+    hrpsys-self-collision-checker ${PREFIX}/share/OpenHRP-3.1/robot/${PROJECT}/model/${PROJECT}main.wrl ${WORKSPACE}/*.qRef > ${WORKSPACE}/SelfCollision.txt
     if [ -s ${WORKSPACE}/SelfCollision.txt ]; then
 	RESULT="SCOL"
 	echo "SelfCollision: ${RESULT}"

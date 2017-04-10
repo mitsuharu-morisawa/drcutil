@@ -33,8 +33,8 @@ echo $CURRENT_REVISION > $WORKSPACE/drcutil.rev
 echo "`hostname`(`lsb_release -ds`)" > $WORKSPACE/env.txt
 
 cp config.sh.sample config.sh
-sed -i -e "s/HOME/WORKSPACE/g" config.sh
 if [ "$1" = "build" ]; then
+    sed -i -e "s/HOME/WORKSPACE/g" config.sh
     sed -i -e "s/Release/Debug/g" config.sh
 else
     sed -i -e "s/BUILD_TRAP_FPE=0/BUILD_TRAP_FPE=1/g" config.sh
@@ -56,8 +56,8 @@ fi
 awk -F, '{print $1"\t"$3"\t"}' $WORKSPACE/changes.txt > $WORKSPACE/changes_email.txt
 
 if [ "$1" = "build" ]; then
-    rm -fr $WORKSPACE/src
-    rm -fr $WORKSPACE/openrtp
+    rm -fr $SRC_DIR
+    rm -fr $PREFIX
 fi
 
 source .bashrc
@@ -110,8 +110,8 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -n "$DISPLAY" ]; then
     mkdir -p $HOME/.config/Choreonoid
     cp $WORKSPACE/drcutil/.config/Choreonoid.conf $HOME/.config/Choreonoid
-    sed -i -e "s/vagrant\/src/$USER\/workspace\/$JOB_NAME\/src/g" $HOME/.config/Choreonoid/Choreonoid.conf
-    sed -i -e "s/vagrant\/openrtp/$USER\/workspace\/$JOB_NAME\/openrtp/g" $HOME/.config/Choreonoid/Choreonoid.conf
+    sed -i -e "s/vagrant\/src/$USER\/src/g" $HOME/.config/Choreonoid/Choreonoid.conf
+    sed -i -e "s/vagrant\/openrtp/$USER\/openrtp/g" $HOME/.config/Choreonoid/Choreonoid.conf
     bash -e ./task.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
 fi
 fi
