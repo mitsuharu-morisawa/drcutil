@@ -37,7 +37,7 @@ cmake_install_with_option() {
     fi
     cd "$SRC_DIR/$SUBDIR/build"
 
-    COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" "${ASAN_OPTIONS[@]}")
+    COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "${ASAN_OPTIONS[@]}")
     echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@") .. | tee config.log
 
     cmake "${COMMON_OPTIONS[@]}" "$@" .. 2>&1 | tee -a config.log
