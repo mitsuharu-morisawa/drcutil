@@ -41,9 +41,7 @@ sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv
 sudo apt-get -y install libyaml-dev libncurses5-dev
 
 #state-observation
-if [ "$DIST_KIND" = "debian" ]; then
-    sudo apt-get -y install libboost-test-dev
-fi
+sudo apt-get -y install libboost-test-dev
 
 #savedbg
 if [ "$ENABLE_SAVEDBG" -eq 1 ]; then
