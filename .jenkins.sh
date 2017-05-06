@@ -41,7 +41,9 @@ else
     sed -i -e "s/ENABLE_SAVEDBG=0/ENABLE_SAVEDBG=1/g" config.sh
     sed -i -e "s/Release/RelWithDebInfo/g" config.sh
     sed -i -e "s/ENABLE_ASAN=0/ENABLE_ASAN=1/g" config.sh
-    sed -i -e "s/MAKE_THREADS_NUMBER=2/MAKE_THREADS_NUMBER=4/g" config.sh
+    if [ `hostname` != "slave3" ]; then
+	sed -i -e "s/MAKE_THREADS_NUMBER=2/MAKE_THREADS_NUMBER=4/g" config.sh
+    fi
 fi
 
 source config.sh
