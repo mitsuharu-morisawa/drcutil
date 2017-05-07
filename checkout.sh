@@ -9,7 +9,7 @@ pull_source() {
             cd "$dir_name"
 	    if [ -e .svn ]; then
 		echo $dir_name
-		svn update
+		svn update 2>&1 | tee svn.log
 	    else
 		BRANCH=`git branch --contains HEAD`
 		echo "$dir_name (${BRANCH:2})"

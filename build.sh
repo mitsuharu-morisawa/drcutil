@@ -12,13 +12,15 @@ export LSAN_OPTIONS="exitcode=0"
 cd $SRC_DIR
 
 cd OpenRTM-aist
-echo -n "building OpenRTM-aist ... "
-$SUDO make -j$MAKE_THREADS_NUMBER install > $SRC_DIR/OpenRTM-aist.log 2>&1
-if [ "$?" -eq 0 ]
-then
-    echo "success"
-else
-    echo -e "\e[31mfail\e[m"
+if [ `cat svn.log | wc -l` != 2 ]; then
+    echo -n "building OpenRTM-aist ... "
+    $SUDO make -j$MAKE_THREADS_NUMBER install > $SRC_DIR/OpenRTM-aist.log 2>&1
+    if [ "$?" -eq 0 ]
+    then
+	echo "success"
+    else
+	echo -e "\e[31mfail\e[m"
+    fi
 fi
 cd ../
 
