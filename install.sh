@@ -32,15 +32,15 @@ cmake_install_with_option() {
     fi
 
     # check existence of the build directory
-    if [ ! -d "$SRC_DIR/$SUBDIR/build" ]; then
-        mkdir "$SRC_DIR/$SUBDIR/build"
+    if [ ! -d "$SRC_DIR/$SUBDIR/$BUILD_SUBDIR" ]; then
+        mkdir "$SRC_DIR/$SUBDIR/$BUILD_SUBDIR"
     fi
-    cd "$SRC_DIR/$SUBDIR/build"
+    cd "$SRC_DIR/$SUBDIR/$BUILD_SUBDIR"
 
     COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "${ASAN_OPTIONS[@]}")
-    echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@") .. | tee config.log
+    echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@" "$CMAKE_ADDITIONAL_OPTIONS") .. | tee config.log
 
-    cmake "${COMMON_OPTIONS[@]}" "$@" .. 2>&1 | tee -a config.log
+    cmake "${COMMON_OPTIONS[@]}" "$@" "$CMAKE_ADDITIONAL_OPTIONS" .. 2>&1 | tee -a config.log
 
     $SUDO make -j$MAKE_THREADS_NUMBER install 2>&1 | tee $SRC_DIR/$SUBDIR.log
 
