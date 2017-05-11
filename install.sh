@@ -193,10 +193,10 @@ if [ $# = 0 ]; then # full install
     install_HRP2KAI
     install_HRP5P
     install_sch-core
+    install_state-observation
     install_hmc2
     install_hrpsys-humanoid
     install_hrpsys-private
-    install_state-observation
     install_hrpsys-state-observation
     if [ "$ENABLE_SAVEDBG" -eq 1 ]; then
 	install_savedbg
