@@ -182,6 +182,13 @@ install_rtchokuyoaist() {
     cmake_install_with_option rtchokuyoaist -DBUILD_DOCUMENTATION=OFF
 }
 
+gen_setup_bash() {
+    echo "export PATH=$PREFIX/bin:\$PATH" > $DRCUTIL/setup.bash
+    echo "export LD_LIBRARY_PATH=$PREFIX/lib:$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/ext/lib$ARCH_BITS/release:\$LD_LIBRARY_PATH" >> $DRCUTIL/setup.bash
+    echo "export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig" >> $DRCUTIL/setup.bash
+    echo "export PYTHONPATH=$PREFIX/lib/python2.7/dist-packages/hrpsys:\$PYTHONPATH" >> $DRCUTIL/setup.bash
+}
+
 if [ $# = 0 ]; then # full install
     install_OpenRTM-aist
     install_openhrp3
@@ -217,10 +224,7 @@ if [ $# = 0 ]; then # full install
 
     echo "add the following line to your .bashrc"
     echo "source $DRCUTIL/setup.bash"
-    echo "export PATH=$PREFIX/bin:\$PATH" > $DRCUTIL/setup.bash
-    echo "export LD_LIBRARY_PATH=$PREFIX/lib:$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/ext/lib$ARCH_BITS/release:\$LD_LIBRARY_PATH" >> $DRCUTIL/setup.bash
-    echo "export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig" >> $DRCUTIL/setup.bash
-    echo "export PYTHONPATH=$PREFIX/lib/python2.7/dist-packages/hrpsys:\$PYTHONPATH" >> $DRCUTIL/setup.bash
+    gen_setup_bash
 else
     if [ $1 = "OpenRTM-aist" ]; then
 	install_OpenRTM-aist
@@ -260,6 +264,8 @@ else
 	install_hokuyoaist
     elif [ $1 = "rtchokuyoaist" ]; then
 	install_rtchokuyoaist
+    elif [ $1 = "setup.bash" ]; then
+	gen_setup_bash
     else
 	echo "unknown software package"
     fi
