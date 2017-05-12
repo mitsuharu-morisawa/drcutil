@@ -32,17 +32,17 @@ packsrc () {
     cd $SRC_DIR
     revs "$@" > revisions 2>&1
     tar -jcf "robot-sources.tar.bz2" \
-        --exclude-vcs --exclude=build --exclude=.libs --exclude='*.o' \
+        --exclude-vcs --exclude="$BUILD_SUBDIR" --exclude-tag-all="CMakeCache.txt" --exclude=.libs --exclude='*.o' \
         --exclude='*.lo' --exclude='*.a' --exclude='*.la' \
         revisions \
         "$@" \
         $(for d in $*; do \
               [ -f "$d/config.log" ] \
                   && echo "$d/config.log"; \
-              [ -f "$d/build/config.log" ] \
-                  && echo "$d/build/config.log"; \
-              [ -f "$d/build/CMakeCache.txt" ] \
-                  && echo "$d/build/CMakeCache.txt"; \
+              [ -f "$d/$BUILD_SUBDIR/config.log" ] \
+                  && echo "$d/$BUILD_SUBDIR/config.log"; \
+              [ -f "$d/$BUILD_SUBDIR/CMakeCache.txt" ] \
+                  && echo "$d/$BUILD_SUBDIR/CMakeCache.txt"; \
               echo "$d.log"; \
           done)
     rm -f revisions

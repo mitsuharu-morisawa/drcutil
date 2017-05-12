@@ -3,7 +3,7 @@ cd $SRC_DIR
 
 ctest_exec() {
     for dir_name in $@; do
-        cd "$dir_name/build"
+        cd "$dir_name/$BUILD_SUBDIR"
 	echo -n "testing $dir_name ... "
         ctest --verbose --test-action Test || true
         cd ../../
