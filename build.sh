@@ -27,7 +27,7 @@ cd ../
 build_install() {
     for dir_name in $@; do
 	if [ -e $dir_name ]; then
-            cd "$dir_name/build"
+            cd "$dir_name/$BUILD_SUBDIR"
 	    echo -n "building $dir_name ... "
 	    if [ "${VERBOSE-0}" -eq 0 ]; then
 		$SUDO make -j$MAKE_THREADS_NUMBER install > $SRC_DIR/${dir_name}.log 2>&1
