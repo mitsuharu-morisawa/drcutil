@@ -31,19 +31,18 @@ packsrc () {
     echo "packing source trees"
     cd $SRC_DIR
     revs "$@" > revisions 2>&1
-    tar -jcf "robot-sources.tar.bz2" \
-        --exclude-vcs --exclude="$BUILD_SUBDIR" --exclude-tag-all="CMakeCache.txt" --exclude=.libs --exclude='*.o' \
-        --exclude='*.lo' --exclude='*.a' --exclude='*.la' \
-        revisions \
-        "$@" \
-        $(for d in $*; do \
+    { find $@  \(  \! \( -iwholename "*/.git*" -prune  -o  -iwholename "*/.svn*" -prune  -o -iwholename "./$BUILD_SUBDIR/" -prune -o  -exec test -e '{}/CMakeCache.txt' \; -prune -o  -name '*.o' \
+      -o -name '*.lo' -o -name '*.a' -o -name '*.la' \) -a -type f \) -print0;
+    for d in $*; do \
               [ -f "$d/config.log" ] \
-                  && echo "$d/config.log"; \
+                  && printf "$d/config.log\0"; \
               [ -f "$d/$BUILD_SUBDIR/config.log" ] \
-                  && echo "$d/$BUILD_SUBDIR/config.log"; \
+                  && printf  "$d/$BUILD_SUBDIR/config.log\0"; \
               [ -f "$d/$BUILD_SUBDIR/CMakeCache.txt" ] \
-                  && echo "$d/$BUILD_SUBDIR/CMakeCache.txt"; \
-              echo "$d.log"; \
-          done)
+                  && printf  "$d/$BUILD_SUBDIR/CMakeCache.txt\0"; \
+              printf "$d.log\0"; \
+    done;
+    printf "revisions\0" ; } \
+    | tar -jcf "robot-sources.tar.bz2" --null -T -
     rm -f revisions
 }
