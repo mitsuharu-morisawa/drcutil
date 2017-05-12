@@ -40,7 +40,7 @@ packsrc () {
                   && printf  "$d/$BUILD_SUBDIR/config.log\0"; \
               [ -f "$d/$BUILD_SUBDIR/CMakeCache.txt" ] \
                   && printf  "$d/$BUILD_SUBDIR/CMakeCache.txt\0"; \
-              printf "$d.log\0";\
+              printf "$d.log\0"; \
     done;
     printf "revisions\0" ; } \
     | tar -jcf "robot-sources.tar.bz2" --null -T -
