@@ -40,7 +40,7 @@ cmake_install_with_option() {
     COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "${ASAN_OPTIONS[@]}")
     echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@" "$CMAKE_ADDITIONAL_OPTIONS") .. | tee config.log
 
-    cmake "${COMMON_OPTIONS[@]}" "$@" "$CMAKE_ADDITIONAL_OPTIONS" .. 2>&1 | tee -a config.log
+    eval cmake '${COMMON_OPTIONS[@]}' '$@' $CMAKE_ADDITIONAL_OPTIONS ..  2>&1 | tee -a config.log
 
     $SUDO make -j$MAKE_THREADS_NUMBER install 2>&1 | tee $SRC_DIR/$SUBDIR.log
 
