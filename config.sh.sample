@@ -16,6 +16,7 @@ export IS_VIRTUAL_BOX=0
 export BUILD_TRAP_FPE=0
 export ROBOT_HOSTNAME=localhost
 export ENABLE_SAVEDBG=0
+export VERBOUS_SCRIPT=0
 
 ######## Please don't edit from here ########
 source definitions.sh
