@@ -8,7 +8,7 @@ FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOU
 RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 set -E -o pipefail
-if [ "VERBOUS_SCRIPT" -eq 1 ]; then
+if [ "VERBOSE_SCRIPT" -eq 1 ]; then
 	set -v
 fi
 built_dirs=
