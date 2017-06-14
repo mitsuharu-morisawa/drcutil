@@ -95,23 +95,19 @@ else #update
     fi
 fi
 
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    if [ -z "$DISPLAY" ]; then
+if [ -z "$DISPLAY" ]; then
     rm -f $SRC_DIR/*/build/Testing/*/Test.xml
     bash -e ./test.sh
     bash -e ./coverage.sh
     bash -e ./inspection.sh
-    fi
 fi
 
 if [ "$1" = "task" ]; then
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 if [ -n "$DISPLAY" ]; then
     mkdir -p $HOME/.config/Choreonoid
     cp $WORKSPACE/drcutil/.config/Choreonoid.conf $HOME/.config/Choreonoid
     sed -i -e "s/vagrant\/src/$USER\/src/g" $HOME/.config/Choreonoid/Choreonoid.conf
     sed -i -e "s/vagrant\/openrtp/$USER\/openrtp/g" $HOME/.config/Choreonoid/Choreonoid.conf
     bash -e ./task.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
-fi
 fi
 fi
