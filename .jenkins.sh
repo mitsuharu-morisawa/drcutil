@@ -69,7 +69,7 @@ if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
     sudo apt-get -y install python-pip python-dev
     sudo pip install google-api-python-client
     # for add-apt-repository
-    if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+    if [ "$DIST_KIND" = "ubuntu" ]; then
 	sudo apt-get -y install software-properties-common
 	if [ -z "$DISPLAY" ]; then
 	    sudo apt-get -y install lcov
