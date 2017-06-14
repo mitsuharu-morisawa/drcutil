@@ -87,6 +87,10 @@ install_octomap() {
     fi
 }
 
+install_pcl() {
+    :
+}
+
 install_hrpsys-base() {
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 	EXTRA_OPTION=()

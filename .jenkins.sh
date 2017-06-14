@@ -32,7 +32,11 @@ fi
 echo $CURRENT_REVISION > $WORKSPACE/drcutil.rev
 echo "`hostname`(`lsb_release -ds`)" > $WORKSPACE/env.txt
 
-cp config.sh.jenkins config.sh
+if [ "$DIST_KIND" = "debian" ]; then
+    cp config.sh.hrp2001c  config.sh
+else
+    cp config.sh.jenkins config.sh
+fi
 if [ "$1" = "build" ]; then
     sed -i -e "s/HOME/WORKSPACE/g" config.sh
     sed -i -e "s/Release/Debug/g" config.sh

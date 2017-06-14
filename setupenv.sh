@@ -25,7 +25,7 @@ setupenv_openhrp3() {
     fi
 }
 
-setupenv_hrpsys-base() {
+setupenv_pcl() {
     if [ "$DIST_VER" = "14.04" ]; then
 	sudo add-apt-repository -y ppa:v-launchpad-jochen-sprickerhof-de/pcl
 	sudo apt-get update || true #ignore checksum error
@@ -34,6 +34,9 @@ setupenv_hrpsys-base() {
 	sudo apt-get -y install libpcl-dev libproj-dev
 	sudo apt-get -y install liboctomap-dev
     fi
+}
+
+setupenv_hrpsys-base() {
     sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libcvaux-dev libhighgui-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
 }
 
