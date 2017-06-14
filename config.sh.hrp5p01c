@@ -5,6 +5,7 @@ export PREFIX=/usr/local
 export SUDO=sudo
 export MAKE_THREADS_NUMBER=8
 export BUILD_TYPE=RelWithDebInfo
+export INTERNAL_MACHINE=1
 export PACKAGES="OpenRTM-aist openhrp3 hrpsys-base hrp5p sch-core state-observation hmc2 hrpsys-humanoid hrpsys-state-observation savedbg"
 
 ######## Please don't edit from here ########
