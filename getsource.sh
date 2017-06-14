@@ -84,7 +84,7 @@ get_source_choreonoid() {
     cd ../..
 }
 
-get_source_trapfpe() {
+get_source_trap-fpe() {
     if [ ! -e DynamoRIO-$DYNAMORIO_VERSION.tar.gz ]; then
 	wget https://github.com/DynamoRIO/dynamorio/releases/download/$DYNAMORIO_RELEASE/DynamoRIO-$DYNAMORIO_VERSION.tar.gz
     fi
