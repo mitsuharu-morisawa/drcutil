@@ -1,3 +1,5 @@
+source config.sh.defaults
+######## Please edit from here ########
 export SRC_DIR=$HOME/src
 export PREFIX=$HOME/openrtp
 export SUDO=
@@ -8,8 +10,11 @@ export CMAKE_ADDITIONAL_OPTIONS=
 export OCTOMAP_VERSION=1.8.0
 export DYNAMORIO_VERSION=Linux-6.2.0-2
 export DYNAMORIO_RELEASE=release_6_2_0
-export ENABLE_ASAN=0
+export ENABLE_ASAN=1
 export IS_VIRTUAL_BOX=0
 export ROBOT_HOSTNAME=localhost
 export VERBOSE_SCRIPT=0
-export PACKAGES="OpenRTM-aist openhrp3 hrpsys-base hrp2 hrp2kai hrp5p sch-core state-observation hmc2 hrpsys-humanoid hrpsys-private hrpsys-state-observation choreonoid"
+export PACKAGES="OpenRTM-aist openhrp3 hrpsys-base hrp2 hrp2kai hrp5p sch-core state-observation hmc2 hrpsys-humanoid hrpsys-private hrpsys-state-observation choreonoid savedbg trap-fpe"
+
+######## Please don't edit from here ########
+source definitions.sh

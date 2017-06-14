@@ -11,49 +11,56 @@ export LSAN_OPTIONS="exitcode=0"
 
 cd $SRC_DIR
 
-cd OpenRTM-aist
-if [ `cat svn.log | wc -l` != 2 ]; then
-    echo -n "building OpenRTM-aist ... "
-    $SUDO make -j$MAKE_THREADS_NUMBER install > $SRC_DIR/OpenRTM-aist.log 2>&1
-    if [ "$?" -eq 0 ]
-    then
-	echo "success"
-    else
-	echo -e "\e[31mfail\e[m"
+build_install_OpenRTM-aist() {
+    cd OpenRTM-aist
+    if [ `cat svn.log | wc -l` != 2 ]; then
+        echo -n "building OpenRTM-aist ... "
+        $SUDO make -j$MAKE_THREADS_NUMBER install > $SRC_DIR/OpenRTM-aist.log 2>&1
+        if [ "$?" -eq 0 ]
+        then
+	    echo "success"
+        else
+	    echo -e "\e[31mfail\e[m"
+        fi
     fi
-fi
-cd ../
+    cd ../
+}
 
 build_install() {
-    for dir_name in $@; do
-	if [ -e $dir_name ]; then
-            cd "$dir_name/$BUILD_SUBDIR"
-	    echo -n "building $dir_name ... "
-	    if [ "${VERBOSE-0}" -eq 0 ]; then
-		$SUDO make -j$MAKE_THREADS_NUMBER install > $SRC_DIR/${dir_name}.log 2>&1
-	    else
-		$SUDO make -j$MAKE_THREADS_NUMBER install 2>&1 | tee $SRC_DIR/${dir_name}.log
-	    fi
-	    if [ "$?" -eq 0 ]
-	    then
-		echo "success"
-                built_dirs="$built_dirs $dir_name"
-	    else
-		echo -e "\e[31mfail\e[m"
-	    fi
-            cd ../../
+    dir_name=$1
+    if [ -e $dir_name ]; then
+        cd "$dir_name/$BUILD_SUBDIR"
+	echo -n "building $dir_name ... "
+	if [ "${VERBOSE-0}" -eq 0 ]; then
+	    $SUDO make -j$MAKE_THREADS_NUMBER install > $SRC_DIR/${dir_name}.log 2>&1
+	else
+	    $SUDO make -j$MAKE_THREADS_NUMBER install 2>&1 | tee $SRC_DIR/${dir_name}.log
 	fi
-    done
+	if [ "$?" -eq 0 ]
+	then
+	    echo "success"
+            built_dirs="$built_dirs $dir_name"
+	else
+	    echo -e "\e[31mfail\e[m"
+	fi
+        cd ../../
+    fi
 }
 
 built_dirs=
-build_install "openhrp3" "hrpsys-base" "HRP2" "HRP2KAI" "HRP5P" "sch-core" "state-observation" "hmc2" "hrpsys-private" "hrpsys-humanoid" "hrpsys-state-observation" "savedbg"
-
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-build_install "choreonoid" "trap-fpe"
-else
-build_install "flexiport" "hokuyoaist" "rtchokuyoaist"
+if [ ! $# -eq 0 ]; then
+    PACKAGES=$@
 fi
 
-packsrc $built_dirs
-$SUDO mv robot-sources.tar.bz2 $PREFIX/share/
+for package in $PACKAGES; do
+    if [ $package = "OpenRTM-aist" ]; then
+        build_install_OpenRTM-aist
+    else
+        build_install $package
+    fi
+done
+
+if [ $# = 0 ]; then
+    packsrc $built_dirs
+    $SUDO mv robot-sources.tar.bz2 $PREFIX/share/
+fi

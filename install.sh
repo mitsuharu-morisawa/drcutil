@@ -81,8 +81,10 @@ install_openhrp3() {
     cmake_install_with_option "openhrp3" -DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST="$BUILD_GOOGLE_TEST" -DOPENRTM_DIR="$PREFIX"
 }
 
-install_octomap() { 
-    cmake_install_with_option "octomap-$OCTOMAP_VERSION"
+install_octomap() {
+    if [ "$DIST_VER" = "14.04" ]; then
+        cmake_install_with_option "octomap-$OCTOMAP_VERSION"
+    fi
 }
 
 install_hrpsys-base() {
@@ -94,15 +96,15 @@ install_hrpsys-base() {
     cmake_install_with_option hrpsys-base -DCOMPILE_JAVA_STUFF=OFF -DBUILD_KALMAN_FILTER=OFF -DBUILD_STABILIZER=OFF -DENABLE_DOXYGEN=OFF "${EXTRA_OPTION[@]}"
 }
 
-install_HRP2() {
+install_hrp2() {
     cmake_install_with_option HRP2 -DROBOT_NAME=HRP2KAI
 }
 
-install_HRP2KAI() {
+install_hrp2kai() {
     cmake_install_with_option HRP2KAI
 }
 
-install_HRP5P() {
+install_hrp5p() {
     cmake_install_with_option HRP5P
 }
 
@@ -185,92 +187,25 @@ install_rtchokuyoaist() {
     cmake_install_with_option rtchokuyoaist -DBUILD_DOCUMENTATION=OFF
 }
 
-gen_setup_bash() {
+install_setup.bash() {
     echo "export PATH=$PREFIX/bin:\$PATH" > $DRCUTIL/setup.bash
     echo "export LD_LIBRARY_PATH=$PREFIX/lib:$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/ext/lib$ARCH_BITS/release:\$LD_LIBRARY_PATH" >> $DRCUTIL/setup.bash
     echo "export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig" >> $DRCUTIL/setup.bash
     echo "export PYTHONPATH=$PREFIX/lib/python2.7/dist-packages/hrpsys:\$PYTHONPATH" >> $DRCUTIL/setup.bash
+    echo "add the following line to you .bashrc"
+    echo "source $DRCUTIL/setup.bash"
 }
 
-if [ $# = 0 ]; then # full install
-    install_OpenRTM-aist
-    install_openhrp3
-    if [ "$INTERNAL_MACHINE" -eq 0 ] && [ "$DIST_VER" = "14.04" ]; then
-	install_octomap
-    fi
-    install_hrpsys-base
-    install_HRP2
-    install_HRP2KAI
-    install_HRP5P
-    install_sch-core
-    install_state-observation
-    install_hmc2
-    install_hrpsys-humanoid
-    install_hrpsys-private
-    install_hrpsys-state-observation
-    if [ "$ENABLE_SAVEDBG" -eq 1 ]; then
-	install_savedbg
-    fi
-    if [ "$BUILD_TRAP_FPE" -eq 1 ]; then
-	install_trap-fpe
-    fi
-    if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-	install_choreonoid
-    else
-	install_flexiport
-	install_hokuyoaist
-	install_rtchokuyoaist
-    fi
+if [ ! $# -eq 0 ]; then
+    PACKAGES=$@
+fi
 
+for package in $PACKAGES; do
+    install_$package
+done
+
+if [ $# = 0 ]; then
     packsrc $built_dirs
     $SUDO cp robot-sources.tar.bz2 $PREFIX/share/
-
-    echo "add the following line to your .bashrc"
-    echo "source $DRCUTIL/setup.bash"
-    gen_setup_bash
-else
-    if [ $1 = "OpenRTM-aist" ]; then
-	install_OpenRTM-aist
-    elif [ $1 = "openhrp3" ]; then
-	install_openhrp3
-    elif [ $1 = "octomap" ]; then
-	install_octomap
-    elif [ $1 = "hrpsys-base" ]; then
-	install_hrpsys-base
-    elif [ $1 = "HRP2" ]; then
-	install_HRP2
-    elif [ $1 = "HRP2KAI" ]; then
-	install_HRP2KAI
-    elif [ $1 = "HRP5P" ]; then
-	install_HRP5P
-    elif [ $1 = "sch-core" ]; then
-	install_sch-core
-    elif [ $1 = "hmc2" ]; then
-	install_hmc2
-    elif [ $1 = "hrpsys-humanoid" ]; then
-	install_hrpsys-humanoid
-    elif [ $1 = "hrpsys-private" ]; then
-	install_hrpsys-private
-    elif [ $1 = "state-observation" ]; then
-	install_state-observation
-    elif [ $1 = "hrpsys-state-observation" ]; then
-	install_hrpsys-state-observation
-    elif [ $1 = "savedbg" ]; then
-	install_savedbg
-    elif [ $1 = "frap-fpe" ]; then
-	install_trap-fpe
-    elif [ $1 = "choreonoid" ]; then
-	install_choreonoid
-    elif [ $1 = "flexiport" ]; then
-	install_flexiport
-    elif [ $1 = "hokuyoaist" ]; then
-	install_hokuyoaist
-    elif [ $1 = "rtchokuyoaist" ]; then
-	install_rtchokuyoaist
-    elif [ $1 = "setup.bash" ]; then
-	gen_setup_bash
-    else
-	echo "unknown software package"
-    fi
 fi
 

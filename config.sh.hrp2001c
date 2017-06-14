@@ -4,15 +4,13 @@ source config.sh.defaults
 export SRC_DIR=$HOME/src
 export PREFIX=/usr/local
 export SUDO=sudo
-export INTERNAL_MACHINE=1
 export MAKE_THREADS_NUMBER=8
 export BUILD_TYPE=RelWithDebInfo
 export OCTOMAP_VERSION=1.8.0
 export ENABLE_ASAN=0
 export IS_VIRTUAL_BOX=0
-export BUILD_TRAP_FPE=0
 export ROBOT_HOSTNAME=localhost
-export ENABLE_SAVEDBG=1
+export PACKAGES="OpenRTM-aist openhrp3 hrpsys-base hrp2 hrp2kai sch-core state-observation hmc2 hrpsys-humanoid hrpsys-private hrpsys-state-observation flexiport hokuyoaist rtchokuyoaist savedbg"
 
 ######## Please don't edit from here ########
 source definitions.sh

@@ -3,7 +3,6 @@ source config.sh.defaults
 export SRC_DIR=$HOME/src
 export PREFIX=$HOME/openrtp
 export SUDO=
-export INTERNAL_MACHINE=0
 export MAKE_THREADS_NUMBER=2
 export BUILD_TYPE=Release
 export BUILD_SUBDIR=build
@@ -13,9 +12,7 @@ export DYNAMORIO_VERSION=Linux-6.2.0-2
 export DYNAMORIO_RELEASE=release_6_2_0
 export ENABLE_ASAN=0
 export IS_VIRTUAL_BOX=0
-export BUILD_TRAP_FPE=0
 export ROBOT_HOSTNAME=localhost
-export ENABLE_SAVEDBG=0
 export VERBOSE_SCRIPT=0
 
 ######## Please don't edit from here ########

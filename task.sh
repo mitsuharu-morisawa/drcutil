@@ -46,7 +46,7 @@ rm -f *.tau
 rm -f *.qRef
 rm -f *.log
 
-if [ "$ENABLE_SAVEDBG" -eq 1 ]
+if type savedbg-hrp > /dev/null 2>&1
 then
     SAVEDBG_HRP=savedbg-hrp
 else

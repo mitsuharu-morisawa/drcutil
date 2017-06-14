@@ -5,25 +5,27 @@ FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOU
 RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 
-#OpenRTM-aist
-sudo apt-get -y install autoconf
-if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ]; then
-    sudo apt-get -y install libtool-bin
-else
-    sudo apt-get -y install libtool
-fi
+setupenv_OpenRTM-aist() {
+    sudo apt-get -y install autoconf
+    if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ]; then
+        sudo apt-get -y install libtool-bin
+    else
+        sudo apt-get -y install libtool
+    fi
+}
 
-#openhrp3
-cd $SRC_DIR/openhrp3/util
-./installPackages.sh packages.list.$DIST_KIND.$DIST_VER
+setupenv_openhrp3() {
+    cd $SRC_DIR/openhrp3/util
+    ./installPackages.sh packages.list.$DIST_KIND.$DIST_VER
 
-sudo sed -i -e 's/giopMaxMsgSize = 2097152/giopMaxMsgSize = 2147483648/g' /etc/omniORB.cfg
+    sudo sed -i -e 's/giopMaxMsgSize = 2097152/giopMaxMsgSize = 2147483648/g' /etc/omniORB.cfg
 
-if [ "$BUILD_GOOGLE_TEST" = "ON" ]; then
-    sudo apt-get -y install libgtest-dev
-fi
+    if [ "$BUILD_GOOGLE_TEST" = "ON" ]; then
+        sudo apt-get -y install libgtest-dev
+    fi
+}
 
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+setupenv_hrpsys-base() {
     if [ "$DIST_VER" = "14.04" ]; then
 	sudo add-apt-repository -y ppa:v-launchpad-jochen-sprickerhof-de/pcl
 	sudo apt-get update || true #ignore checksum error
@@ -32,33 +34,72 @@ if [ "$INTERNAL_MACHINE" -eq 0 ]; then
 	sudo apt-get -y install libpcl-dev libproj-dev
 	sudo apt-get -y install liboctomap-dev
     fi
-fi
+    sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libcvaux-dev libhighgui-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
+}
 
-#hrpsys-base
-sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libcvaux-dev libhighgui-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
+setupenv_hrp2() {
+    :
+}
 
-#hmc2
-sudo apt-get -y install libyaml-dev libncurses5-dev
+setupenv_hrp2kai() {
+    :
+}
 
-#state-observation
-sudo apt-get -y install libboost-test-dev
+setupenv_hrp5p() {
+    :
+}
 
-#savedbg
-if [ "$ENABLE_SAVEDBG" -eq 1 ]; then
+setupenv_sch-core() {
+    :
+}
+    
+setupenv_state-observation() {
+    sudo apt-get -y install libboost-test-dev
+}
+
+setupenv_hmc2() {
+    sudo apt-get -y install libyaml-dev libncurses5-dev
+}
+
+setupenv_hrpsys-private() {
+    :
+}
+
+setupenv_hrpsys-humanoid() {
+    :
+}
+
+setupenv_hrpsys-state-observation() {
+    :
+}
+
+setupenv_trap-fpe() {
+    :
+}
+
+setupenv_savedbg() {
     if [ "$DIST_VER" = 14.04 ]; then
         REALPATH=realpath
     else
         REALPATH=
     fi
     sudo apt-get -y install elfutils $REALPATH
-fi
+}
 
-if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+setupenv_choreonoid() {
     #choreonoid
     cd $SRC_DIR/choreonoid/misc/script
     ./install-requisites-$DIST_KIND-$DIST_VER.sh
 
     #hrpcnoid
     sudo apt-get -y install libzbar-dev python-matplotlib
+}
+
+if [ ! $# -eq 0 ]; then
+    PACKAGES=$@
 fi
+
+for package in $PACKAGES; do
+    setupenv_$package
+done
 
