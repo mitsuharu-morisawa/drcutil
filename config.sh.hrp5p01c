@@ -1,15 +1,10 @@
 source config.sh.defaults
 
 ######## Please edit from here ########
-export SRC_DIR=$HOME/src
 export PREFIX=/usr/local
 export SUDO=sudo
 export MAKE_THREADS_NUMBER=8
 export BUILD_TYPE=RelWithDebInfo
-export OCTOMAP_VERSION=1.8.0
-export ENABLE_ASAN=0
-export IS_VIRTUAL_BOX=0
-export ROBOT_HOSTNAME=localhost
 export PACKAGES="OpenRTM-aist openhrp3 hrpsys-base hrp5p sch-core state-observation hmc2 hrpsys-humanoid hrpsys-state-observation savedbg"
 
 ######## Please don't edit from here ########
