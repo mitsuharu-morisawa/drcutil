@@ -20,6 +20,10 @@ get_source_OpenRTM-aist() {
     get_source "svn co http://svn.openrtm.org/OpenRTM-aist/branches/RELENG_1_1/OpenRTM-aist" OpenRTM-aist
 }
 
+get_source_pcl() {
+    :
+}
+
 get_source_openhrp3() {
     get_source "git clone https://github.com/fkanehiro/openhrp3.git" openhrp3
 }
