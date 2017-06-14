@@ -41,9 +41,9 @@ cmake_install_with_option() {
     cd "$SRC_DIR/$SUBDIR/$BUILD_SUBDIR"
 
     COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "${ASAN_OPTIONS[@]}")
-    echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@" "$CMAKE_ADDITIONAL_OPTIONS") .. | tee config.log
+    echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}") .. | tee config.log
 
-    eval cmake '${COMMON_OPTIONS[@]}' "$@" $CMAKE_ADDITIONAL_OPTIONS ..  2>&1 | tee -a config.log
+    cmake "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}" ..  2>&1 | tee -a config.log
 
     $SUDO make -j$MAKE_THREADS_NUMBER install 2>&1 | tee $SRC_DIR/$SUBDIR.log
 
@@ -143,7 +143,7 @@ install_hrpsys-state-observation() {
 }
 
 install_savedbg() {
-    cmake_install_with_option savedbg -DSAVEDBG_FRONTEND_NAME=savedbg-hrp -DSAVEDBG_FRONTEND_ARGS=\"-v -P 'dpkg -l > dpkg' -f '$PREFIX/share/robot-sources.tar.bz2'\"
+    cmake_install_with_option savedbg -DSAVEDBG_FRONTEND_NAME=savedbg-hrp -DSAVEDBG_FRONTEND_ARGS="-v -P 'dpkg -l > dpkg' -f '$PREFIX/share/robot-sources.tar.bz2'"
 }
 
 install_trap-fpe() {
@@ -164,7 +164,7 @@ install_choreonoid() {
     fi
     # FIXME?: This doesn't look right.  CMAKE_CXX_FLAGS is ignored
     # unless CMAKE_BUILD_TYPE is empty, which it is not by default.
-    cmake_install_with_option "choreonoid" -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_PCL_PLUGIN=ON -DBUILD_OPENHRP_PLUGIN=ON -DBUILD_GRXUI_PLUGIN=ON -DBODY_CUSTOMIZERS=\"$SRC_DIR/HRP2/customizer/HRP2Customizer\;$SRC_DIR/HRP5P/customizer/HRP5PCustomizer\" -DBUILD_DRC_USER_INTERFACE_PLUGIN=ON -DCMAKE_CXX_FLAGS="$CHOREONOID_CMAKE_CXX_FLAGS" -DROBOT_HOSTNAME="$ROBOT_HOSTNAME" -DBUILD_ASSIMP_PLUGIN=OFF
+    cmake_install_with_option "choreonoid" -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_PCL_PLUGIN=ON -DBUILD_OPENHRP_PLUGIN=ON -DBUILD_GRXUI_PLUGIN=ON -DBODY_CUSTOMIZERS="$SRC_DIR/HRP2/customizer/HRP2Customizer;$SRC_DIR/HRP5P/customizer/HRP5PCustomizer" -DBUILD_DRC_USER_INTERFACE_PLUGIN=ON -DCMAKE_CXX_FLAGS="$CHOREONOID_CMAKE_CXX_FLAGS" -DROBOT_HOSTNAME="$ROBOT_HOSTNAME" -DBUILD_ASSIMP_PLUGIN=OFF
 
     mkdir -p $HOME/.config/Choreonoid
     cp $DRCUTIL/.config/Choreonoid.conf $DRCUTIL
