@@ -32,6 +32,8 @@ fi
 echo $CURRENT_REVISION > $WORKSPACE/drcutil.rev
 echo "`hostname`(`lsb_release -ds`)" > $WORKSPACE/env.txt
 
+source definitions.sh # for $DIST_KIND
+
 cp config.sh.$DIST_KIND config.sh
 if [ "$1" = "build" ]; then
     sed -i -e "s/HOME/WORKSPACE/g" config.sh
