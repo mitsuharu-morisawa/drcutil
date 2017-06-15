@@ -118,7 +118,7 @@ install_sch-core() {
 
 install_hmc2() { 
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-	EXTRA_OPTION=()
+	EXTRA_OPTION=(-DGENERATE_FILES_FOR_SIMULATION=ON)
     else
 	EXTRA_OPTION=(-DGENERATE_FILES_FOR_SIMULATION=OFF)
     fi
@@ -127,7 +127,7 @@ install_hmc2() {
 
 install_hrpsys-humanoid() { 
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-	EXTRA_OPTION=()
+	EXTRA_OPTION=(-DGENERATE_FILES_FOR_SIMULATION=ON)
     else
 	EXTRA_OPTION=(-DGENERATE_FILES_FOR_SIMULATION=OFF)
     fi
