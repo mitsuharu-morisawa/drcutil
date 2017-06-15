@@ -93,7 +93,7 @@ install_pcl() {
 
 install_hrpsys-base() {
     if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-	EXTRA_OPTION=()
+	EXTRA_OPTION=(-DINSTALL_HRPIO=ON)
     else
 	EXTRA_OPTION=(-DINSTALL_HRPIO=OFF)
     fi
