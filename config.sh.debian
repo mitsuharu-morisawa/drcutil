@@ -4,7 +4,6 @@ export SRC_DIR=$HOME/src
 export PREFIX=$HOME/openrtp
 export MAKE_THREADS_NUMBER=2
 export BUILD_TYPE=Release
-export ENABLE_ASAN=1
 export PACKAGES="OpenRTM-aist openhrp3 hrpsys-base hrp2 hrp2kai hrp5p sch-core state-observation hmc2 hrpsys-humanoid hrpsys-private hrpsys-state-observation"
 
 ######## Please don't edit from here ########
