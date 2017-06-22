@@ -66,15 +66,14 @@ source .bashrc
 if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
     sudo apt-get -y install python-pip python-dev
     sudo pip install google-api-python-client
+    sudo apt-get -y install lcov
+    sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
+    sudo pip install lcov_cobertura
+    sudo apt-get -y install cppcheck
     # for add-apt-repository
     if [ "$DIST_KIND" = "ubuntu" ]; then
 	sudo apt-get -y install software-properties-common
-	if [ -z "$DISPLAY" ]; then
-	    sudo apt-get -y install lcov
-	    sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
-	    sudo pip install lcov_cobertura
-	    sudo apt-get -y install cppcheck
-	else
+	if [ -n "$DISPLAY" ]; then
 	    sudo apt-get -y install xautomation imagemagick recordmydesktop
 	fi
     else
