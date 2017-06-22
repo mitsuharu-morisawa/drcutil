@@ -136,7 +136,6 @@ fi
 #import -display :0 -window ${WINDOWSID} ${WORKSPACE}/task.png 2>&1 > /dev/null
 gnome-screenshot -w -f ${WORKSPACE}/task.png
 kill -2 $RECORDMYDESKTOP || true
-wait $RECORDMYDESKTOP || true
 
 python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
 RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
@@ -164,6 +163,8 @@ fi
 echo "EMA: ${EMA}"
 
 kill -9 $CHOREONOID || true
+
+wait $RECORDMYDESKTOP || true
 wait $CHOREONOID || true
 
 echo ${RESULT} > ${WORKSPACE}/task_result.txt
