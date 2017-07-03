@@ -15,7 +15,7 @@ export IS_VIRTUAL_BOX=0
 export ROBOT_HOSTNAME=localhost
 export VERBOSE_SCRIPT=0
 export INTERNAL_MACHINE=0
-export PACKAGES="OpenRTM-aist openhrp3 pcl hrpsys-base hrp2 hrp2kai hrp5p sch-core state-observation hmc2 hrpsys-humanoid hrpsys-private hrpsys-state-observation choreonoid"
+export PACKAGES="OpenRTM-aist openhrp3 pcl octomap hrpsys-base hrp2 hrp2kai hrp5p sch-core state-observation hmc2 hrpsys-humanoid hrpsys-private hrpsys-state-observation choreonoid"
 
 ######## Please don't edit from here ########
 source definitions.sh
