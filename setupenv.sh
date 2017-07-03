@@ -32,6 +32,11 @@ setupenv_pcl() {
 	sudo apt-get -y install libpcl-all
     else
 	sudo apt-get -y install libpcl-dev libproj-dev
+    fi
+}
+
+setupenv_octomap() {
+    if [ "$DIST_VER" = "16.04" ]; then
 	sudo apt-get -y install liboctomap-dev
     fi
 }
