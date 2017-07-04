@@ -216,6 +216,7 @@ for package in $PACKAGES; do
 done
 
 if [ $# = 0 ]; then
+    install_setup.bash
     packsrc $built_dirs
     $SUDO cp robot-sources.tar.bz2 $PREFIX/share/
 fi
