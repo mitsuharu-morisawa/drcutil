@@ -100,15 +100,15 @@ install_hrpsys-base() {
     cmake_install_with_option hrpsys-base -DCOMPILE_JAVA_STUFF=OFF -DBUILD_KALMAN_FILTER=OFF -DBUILD_STABILIZER=OFF -DENABLE_DOXYGEN=OFF "${EXTRA_OPTION[@]}"
 }
 
-install_hrp2() {
+install_HRP2() {
     cmake_install_with_option HRP2 -DROBOT_NAME=HRP2KAI
 }
 
-install_hrp2kai() {
+install_HRP2KAI() {
     cmake_install_with_option HRP2KAI
 }
 
-install_hrp5p() {
+install_HRP5P() {
     cmake_install_with_option HRP5P
 }
 

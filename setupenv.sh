@@ -45,15 +45,15 @@ setupenv_hrpsys-base() {
     sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libcvaux-dev libhighgui-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
 }
 
-setupenv_hrp2() {
+setupenv_HRP2() {
     :
 }
 
-setupenv_hrp2kai() {
+setupenv_HRP2KAI() {
     :
 }
 
-setupenv_hrp5p() {
+setupenv_HRP5P() {
     :
 }
 

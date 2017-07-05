@@ -6,7 +6,7 @@ export SUDO=sudo
 export MAKE_THREADS_NUMBER=8
 export BUILD_TYPE=RelWithDebInfo
 export INTERNAL_MACHINE=1
-export PACKAGES="OpenRTM-aist openhrp3 hrpsys-base hrp2 hrp2kai sch-core state-observation hmc2 hrpsys-humanoid hrpsys-private hrpsys-state-observation flexiport hokuyoaist rtchokuyoaist savedbg"
+export PACKAGES="OpenRTM-aist openhrp3 hrpsys-base HRP2 HRP2KAI sch-core state-observation hmc2 hrpsys-humanoid hrpsys-private hrpsys-state-observation flexiport hokuyoaist rtchokuyoaist savedbg"
 
 ######## Please don't edit from here ########
 source definitions.sh

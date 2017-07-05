@@ -5,7 +5,7 @@ export PREFIX=$HOME/usr
 export MAKE_THREADS_NUMBER=8
 export BUILD_TYPE=RelWithDebInfo
 export ROBOT_HOSTNAME=hrp2001c
-export PACKAGES="OpenRTM-aist openhrp3 pcl octomap hrpsys-base hrp2 hrp2kai sch-core state-observation hmc2 hrpsys-humanoid choreonoid"
+export PACKAGES="OpenRTM-aist openhrp3 pcl octomap hrpsys-base HRP2 HRP2KAI sch-core state-observation hmc2 hrpsys-humanoid choreonoid"
 
 ######## Please don't edit from here ########
 source definitions.sh

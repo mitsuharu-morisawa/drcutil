@@ -28,15 +28,15 @@ get_source_openhrp3() {
     get_source "git clone https://github.com/fkanehiro/openhrp3.git" openhrp3
 }
 
-get_source_hrp2() {
+get_source_HRP2() {
     get_source "git clone https://github.com/isri-aist/hrp2" HRP2
 }
 
-get_source_hrp2kai() {
+get_source_HRP2KAI() {
     get_source "git clone https://github.com/isri-aist/hrp2kai" HRP2KAI
 }
 
-get_source_hrp5p() {
+get_source_HRP5P() {
     get_source "git clone https://github.com/isri-aist/hrp5p" HRP5P
 }
 
