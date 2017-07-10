@@ -3,7 +3,9 @@ import rtm, OpenHRP
 rtm.nsport = 2809
 rtm.initCORBA()
 
-rg = rtm.findRTC("rg")
-data = rtm.readDataPort(rg.port("event"))
-print data.actual.p
-print data.actual.rpy
+rh = rtm.findRTC("VirtualRobotHardware0")
+data = rtm.readDataPort(rh.port("waistAbsTransform"))
+pos = data.data.position
+rpy = data.data.orientation
+print [pos.x,pos.y,pos.z]
+print [rpy.r,rpy.p,rpy.y]
