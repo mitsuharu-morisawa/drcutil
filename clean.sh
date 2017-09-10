@@ -8,6 +8,7 @@ rm -rf $SRC_DIR/openhrp3/$BUILD_SUBDIR
 rm -rf $SRC_DIR/HRP2/$BUILD_SUBDIR
 rm -rf $SRC_DIR/HRP2KAI/$BUILD_SUBDIR
 rm -rf $SRC_DIR/HRP5P/$BUILD_SUBDIR
+rm -rf $SRC_DIR/octomap-$OCTOMAP-VERSION/$BUILD_SUBDIR
 rm -rf $SRC_DIR/hrpsys-base/$BUILD_SUBDIR
 rm -rf $SRC_DIR/hrpsys-private/$BUILD_SUBDIR
 rm -rf $SRC_DIR/hrpsys-humanoid/$BUILD_SUBDIR
