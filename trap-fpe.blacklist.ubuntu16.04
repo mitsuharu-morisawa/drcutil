@@ -15,7 +15,6 @@
 @/usr/lib/x86_64-linux-gnu/libpcl_recognition.so.1.7
 @/usr/lib/liboctomap.so.1.6
 @/usr/lib/liboctomath.so.1.6
-@/usr/lib/x86_64-linux-gnu/libQtOpenGL.so.5
 @/usr/lib/x86_64-linux-gnu/libGLU.so.1
 @/usr/lib/x86_64-linux-gnu/mesa/libGL.so.1
 @/usr/lib/x86_64-linux-gnu/libGLEW.so.1.13
