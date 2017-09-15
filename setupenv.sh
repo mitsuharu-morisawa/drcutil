@@ -74,7 +74,7 @@ setupenv_hrpsys-private() {
 }
 
 setupenv_hrpsys-humanoid() {
-    :
+    sudo apt-get -y install libusb-dev
 }
 
 setupenv_hrpsys-state-observation() {
