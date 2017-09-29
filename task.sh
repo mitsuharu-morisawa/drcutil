@@ -146,7 +146,10 @@ if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
   echo "Target: ${RESULT}"
 fi
 if [ "${RESULT}" = "OK" ] && [ -e ${WORKSPACE}/*.qRef ]; then
-    hrpsys-self-collision-checker ${PREFIX}/share/OpenHRP-3.1/robot/${PROJECT}/model/${PROJECT}main.wrl ${WORKSPACE}/*.qRef > ${WORKSPACE}/SelfCollision.txt
+    if [ "${PROJECT}" == "HRP5P" ]; then
+        BLACKLIST="HP:motor_joint"
+    fi
+    hrpsys-self-collision-checker ${PREFIX}/share/OpenHRP-3.1/robot/${PROJECT}/model/${PROJECT}main.wrl ${WORKSPACE}/*.qRef ${BLACKLIST} > ${WORKSPACE}/SelfCollision.txt
     if [ -s ${WORKSPACE}/SelfCollision.txt ]; then
 	RESULT="SCOL"
 	echo "SelfCollision: ${RESULT}"
