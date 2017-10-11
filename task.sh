@@ -138,7 +138,11 @@ gnome-screenshot -w -f ${WORKSPACE}/task.png
 kill -2 $RECORDMYDESKTOP || true
 
 python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
-RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
+if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py ]; then
+    RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
+else
+    RESULT="OK"
+fi
 echo "Robot: ${RESULT}"
 if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
   python ${WORKSPACE}/drcutil/.jenkins/getTargetPos.py ${TARGET} ${PORT} | tee ${WORKSPACE}/${TASK}-getTargetPos.txt
