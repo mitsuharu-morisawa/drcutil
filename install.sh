@@ -18,7 +18,6 @@ export PATH=$PREFIX/bin:$PATH
 export LD_LIBRARY_PATH=$PREFIX/lib
 
 if [ "$ENABLE_ASAN" -eq 1 ]; then
-    BUILD_TYPE=RelWithDebInfo
     ASAN_OPTIONS=(-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O2 -g -DNDEBUG -fsanitize=address" -DCMAKE_C_FLAGS_RELWITHDEBINFO="-O2 -g -DNDEBUG -fsanitize=address")
     # Report, but don't fail on, leaks in program samples during build.
     export LSAN_OPTIONS="exitcode=0"
@@ -55,20 +54,26 @@ install_OpenRTM-aist() {
     if [ ! -e configure ]; then
 	./build/autogen
     fi
-    if [ $BUILD_TYPE != "Release" ]; then
-	EXTRA_OPTION=(--enable-debug)
-    else
-	EXTRA_OPTION=()
-    fi
-    ./configure --prefix="$PREFIX" --without-doxygen "${EXTRA_OPTION[@]}"
+    # Don't use --enable-debug, since that disables optimization
+    # in OpenRTM.  Using -g also doesn't work because OpenRTM's
+    # configure removes -g from CXXFLAGS.
+    CXXFLAGS+=" -g3" \
+    ./configure --prefix="$PREFIX" --without-doxygen
 
     built_dirs="$built_dirs OpenRTM-aist"
 
     if [ "$ENABLE_ASAN" -eq 1 ]; then
-	# We set -fsanitize=address here, after configure, because this
-	# flag interferes with detecting the flags needed for pthreads,
-	# causing problems later on.
-	EXTRA_OPTION=(CXXFLAGS="-O2 -g3 -fsanitize=address" CFLAGS="-O2 -g3 -fsanitize=address")
+	# We set -fsanitize=address here, after configure, because
+	# this flag interferes with detecting the flags needed for
+	# pthreads, causing problems later on.  We can safely assume
+	# we're using gcc or clang, so the compiler flags are quite
+	# predictable.
+        if [ $BUILD_TYPE = "Debug" ]; then
+            OPT=-O2
+        else
+            OPT=
+        fi
+	EXTRA_OPTION=(CXXFLAGS="$OPT -g3 -fsanitize=address" CFLAGS="$OPT -g3 -fsanitize=address")
     else
 	EXTRA_OPTION=()
     fi
