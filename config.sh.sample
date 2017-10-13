@@ -10,6 +10,7 @@ export CMAKE_ADDITIONAL_OPTIONS=
 export OCTOMAP_VERSION=1.8.0
 export DYNAMORIO_VERSION=Linux-6.2.0-2
 export DYNAMORIO_RELEASE=release_6_2_0
+# ENABLE_ASAN= 0 to disable, 1 to enable, w to enable for writes only.
 export ENABLE_ASAN=0
 export IS_VIRTUAL_BOX=0
 export ROBOT_HOSTNAME=localhost

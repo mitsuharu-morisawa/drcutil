@@ -17,13 +17,30 @@ export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 export PATH=$PREFIX/bin:$PATH
 export LD_LIBRARY_PATH=$PREFIX/lib
 
-if [ "$ENABLE_ASAN" -eq 1 ]; then
-    ASAN_OPTIONS=(-DCMAKE_CXX_FLAGS="-O2 -g -DNDEBUG -fsanitize=address" -DCMAKE_C_FLAGS="-O2 -g -DNDEBUG -fsanitize=address")
-    # Report, but don't fail on, leaks in program samples during build.
-    export LSAN_OPTIONS="exitcode=0"
-else
-    ASAN_OPTIONS=()
-fi
+case $ENABLE_ASAN in
+    1|w)
+        if [ "$ENABLE_ASAN" = w ]; then
+            # NB: undocumented flags, may be subject to change or deprecation.
+            if "${CXX:-c++}" --version | grep -q 'clang '; then
+                ASAN_WRITES_ONLY="-mllvm -asan-instrument-reads=false"
+            else
+                ASAN_WRITES_ONLY="--param asan-instrument-reads=0"
+            fi
+        else
+            ASAN_WRITES_ONLY=
+        fi
+        ASAN_CXXFLAGS="-g3 -fsanitize=address $ASAN_WRITES_ONLY"
+        ASAN_CFLAGS="-g3 -fsanitize=address $ASAN_WRITES_ONLY"
+        ASAN_LDFLAGS="-g3 -fsanitize=address"
+        # Report, but don't fail on, leaks in program samples during build.
+        export LSAN_OPTIONS="exitcode=0"
+        ;;
+    0)
+        ASAN_CXXFLAGS=
+        ASAN_CFLAGS=
+        ASAN_LDFLAGS=
+        ;;
+esac
 
 cmake_install_with_option() {
     SUBDIR="$1"
@@ -39,7 +56,7 @@ cmake_install_with_option() {
     fi
     cd "$SRC_DIR/$SUBDIR/$BUILD_SUBDIR"
 
-    COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "${ASAN_OPTIONS[@]}")
+    COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_FLAGS="$CFLAGS $ASAN_CFLAGS" -DCMAKE_CXX_FLAGS="-g $CXXFLAGS $ASAN_CXXFLAGS")
     echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}") .. | tee config.log
 
     cmake "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}" ..  2>&1 | tee -a config.log
@@ -62,7 +79,7 @@ install_OpenRTM-aist() {
 
     built_dirs="$built_dirs OpenRTM-aist"
 
-    if [ "$ENABLE_ASAN" -eq 1 ]; then
+    if [ "$ENABLE_ASAN" != 0 ]; then
 	# We set -fsanitize=address here, after configure, because
 	# this flag interferes with detecting the flags needed for
 	# pthreads, causing problems later on.  We can safely assume
@@ -73,7 +90,7 @@ install_OpenRTM-aist() {
         else
             OPT=
         fi
-	EXTRA_OPTION=(CXXFLAGS="$OPT -g3 -fsanitize=address" CFLAGS="$OPT -g3 -fsanitize=address")
+	EXTRA_OPTION=(CXXFLAGS="$OPT $ASAN_CXXFLAGS" CFLAGS="$OPT $ASAN_CFLAGS")
     else
 	EXTRA_OPTION=()
     fi
