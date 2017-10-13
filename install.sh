@@ -18,7 +18,7 @@ export PATH=$PREFIX/bin:$PATH
 export LD_LIBRARY_PATH=$PREFIX/lib
 
 if [ "$ENABLE_ASAN" -eq 1 ]; then
-    ASAN_OPTIONS=(-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O2 -g -DNDEBUG -fsanitize=address" -DCMAKE_C_FLAGS_RELWITHDEBINFO="-O2 -g -DNDEBUG -fsanitize=address")
+    ASAN_OPTIONS=(-DCMAKE_CXX_FLAGS="-O2 -g -DNDEBUG -fsanitize=address" -DCMAKE_C_FLAGS="-O2 -g -DNDEBUG -fsanitize=address")
     # Report, but don't fail on, leaks in program samples during build.
     export LSAN_OPTIONS="exitcode=0"
 else
