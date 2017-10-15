@@ -151,7 +151,7 @@ if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
 fi
 if [ "${RESULT}" = "OK" ] && [ -e ${WORKSPACE}/*.qRef ]; then
     if [ "${PROJECT}" == "HRP5P" ]; then
-        BLACKLIST="HP:motor_joint HY:motor_joint RCY:LCY"
+        BLACKLIST="HP:motor_joint HY:motor_joint WY:motor_joint RCY:LCY"
     fi
     hrpsys-self-collision-checker ${PREFIX}/share/OpenHRP-3.1/robot/${PROJECT}/model/${PROJECT}main.wrl ${WORKSPACE}/*.qRef ${BLACKLIST} > ${WORKSPACE}/SelfCollision.txt
     if [ -s ${WORKSPACE}/SelfCollision.txt ]; then
