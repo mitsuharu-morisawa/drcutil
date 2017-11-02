@@ -36,12 +36,13 @@ err_report() {
     echo "Stopping the script $(basename "$3")."
 }
 
-
-ASAN_CXXFLAGS=
-ASAN_CFLAGS=
+ENABLE_SAN=0
+SAN_CXXFLAGS=()
+SAN_CFLAGS=()
 
 case $ENABLE_ASAN in
     1|w)
+        ENABLE_SAN=1
         if [ "$ENABLE_ASAN" = w ]; then
             # NB: undocumented flags, may be subject to change or deprecation.
             if "${CXX:-c++}" --version | grep -q 'clang '; then
@@ -52,25 +53,28 @@ case $ENABLE_ASAN in
         else
             ASAN_WRITES_ONLY=
         fi
-        ASAN_CXXFLAGS="-g3 -fsanitize=address $ASAN_WRITES_ONLY"
-        ASAN_CFLAGS="-g3 -fsanitize=address $ASAN_WRITES_ONLY"
-        ASAN_LDFLAGS="-g3 -fsanitize=address $ASAN_WRITES_ONLY"
+        SAN_CXXFLAGS+=" -fsanitize=address $ASAN_WRITES_ONLY"
+        SAN_CFLAGS+=" -fsanitize=address $ASAN_WRITES_ONLY"
+        SAN_LDFLAGS+=" -fsanitize=address"
         # Report, but don't fail on, leaks in program samples during build.
         export LSAN_OPTIONS="exitcode=0"
         ;;
     0)
-        ASAN_CXXFLAGS=
-        ASAN_CFLAGS=
-        ASAN_LDFLAGS=
         ;;
 esac
 
-if [ "$ENABLE_ASAN" != 0 ]; then
+if [ "$ENABLE_TSAN" = 1 ]; then
+    ENABLE_SAN=1
+    SAN_CXXFLAGS+=" -fsanitize=thread"
+    SAN_CFLAGS+=" -fsanitize=thread"
+fi
+
+if [ "$ENABLE_SAN" = 1 ]; then
     # For autoconf-based packages, sanitizer flags should NOT be
     # passed into configure because they interfere with detecting the
     # flags needed for pthreads, causing problems later on.  They are
     # instead collected in a dedicated array to be passed into make.
-    ASAN_FLAGS=(CXXFLAGS="$ASAN_CXXFLAGS" CFLAGS="$ASAN_CFLAGS")
+    SAN_FLAGS=(CXXFLAGS="$SAN_CXXFLAGS" CFLAGS="$SAN_CFLAGS")
 else
-    ASAN_FLAGS=()
+    SAN_FLAGS=()
 fi

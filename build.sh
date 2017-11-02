@@ -37,9 +37,9 @@ build_install() {
         cd "$dir_name/$BUILD_SUBDIR"
 	echo -n "building $dir_name ... "
 	if [ "${VERBOSE-0}" -eq 0 ]; then
-	    $SUDO make -j$MAKE_THREADS_NUMBER install > $SRC_DIR/${dir_name}.log 2>&1
+	    $SUDO make -j$MAKE_THREADS_NUMBER "${SAN_FLAGS[@]}" install > $SRC_DIR/${dir_name}.log 2>&1
 	else
-	    $SUDO make -j$MAKE_THREADS_NUMBER install 2>&1 | tee $SRC_DIR/${dir_name}.log
+	    $SUDO make -j$MAKE_THREADS_NUMBER "${SAN_FLAGS[@]}" install 2>&1 | tee $SRC_DIR/${dir_name}.log
 	fi
 	if [ "$?" -eq 0 ]
 	then

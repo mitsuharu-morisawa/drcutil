@@ -31,7 +31,7 @@ cmake_install_with_option() {
     fi
     cd "$SRC_DIR/$SUBDIR/$BUILD_SUBDIR"
 
-    COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_FLAGS="$CFLAGS $ASAN_CFLAGS" -DCMAKE_CXX_FLAGS="-g $CXXFLAGS $ASAN_CXXFLAGS")
+    COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_FLAGS="$CFLAGS ${SAN_CFLAGS[@]}" -DCMAKE_CXX_FLAGS="-g $CXXFLAGS ${SAN_CXXFLAGS[@]}")
     echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}") .. | tee config.log
 
     cmake "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}" ..  2>&1 | tee -a config.log
@@ -60,7 +60,7 @@ install_OpenRTM-aist() {
 
     built_dirs="$built_dirs OpenRTM-aist"
 
-    $SUDO make -j$MAKE_THREADS_NUMBER install "${ASAN_FLAGS[@]}" \
+    $SUDO make -j$MAKE_THREADS_NUMBER install "${SAN_FLAGS[@]}" \
 	| tee $SRC_DIR/OpenRTM-aist.log
 }
 
@@ -138,15 +138,13 @@ install_savedbg() {
 }
 
 install_trap-fpe() {
-    if [ "$ENABLE_ASAN" -eq 1 ]; then
-	TRAP_FPE_EXTRA_OPTION=(-DTRAP_FPE_ASAN_WORKAROUND=ON)
-    else
-	TRAP_FPE_EXTRA_OPTION=()
-    fi
+    EXTRA_OPTION=()
+    [ "$ENABLE_ASAN" != 0 ] && EXTRA_OPTION+=(-DTRAP_FPE_ASAN_WORKAROUND=ON)
+    [ "$ENABLE_TSAN" != 0 ] && EXTRA_OPTION+=(-DTRAP_FPE_TSAN_WORKAROUND=ON)
     # DynamoRIO doesn't seem to have an official install step.
     # We just unpack the distribution directly into $PREFIX.
     $SUDO tar -zxf $SRC_DIR/DynamoRIO-$DYNAMORIO_VERSION.tar.gz -C $PREFIX/share
-    cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.$DIST_KIND$DIST_VER" "-DDynamoRIO_DIR=$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/cmake" "${TRAP_FPE_EXTRA_OPTION[@]}"
+    cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.$DIST_KIND$DIST_VER" "-DDynamoRIO_DIR=$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/cmake" "${EXTRA_OPTION[@]}"
 }
 
 install_choreonoid() {

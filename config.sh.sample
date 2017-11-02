@@ -12,6 +12,8 @@ export DYNAMORIO_VERSION=Linux-6.2.0-2
 export DYNAMORIO_RELEASE=release_6_2_0
 # ENABLE_ASAN= 0 to disable, 1 to enable, w to enable for writes only.
 export ENABLE_ASAN=0
+# Incompatible with ENABLE_ASAN.  Choose and enable at most one.
+export ENABLE_TSAN=0
 export IS_VIRTUAL_BOX=0
 export ROBOT_HOSTNAME=localhost
 export VERBOSE_SCRIPT=0
