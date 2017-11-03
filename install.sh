@@ -17,31 +17,6 @@ export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 export PATH=$PREFIX/bin:$PATH
 export LD_LIBRARY_PATH=$PREFIX/lib
 
-case $ENABLE_ASAN in
-    1|w)
-        if [ "$ENABLE_ASAN" = w ]; then
-            # NB: undocumented flags, may be subject to change or deprecation.
-            if "${CXX:-c++}" --version | grep -q 'clang '; then
-                ASAN_WRITES_ONLY="-mllvm -asan-instrument-reads=false"
-            else
-                ASAN_WRITES_ONLY="--param asan-instrument-reads=0"
-            fi
-        else
-            ASAN_WRITES_ONLY=
-        fi
-        ASAN_CXXFLAGS="-g3 -fsanitize=address $ASAN_WRITES_ONLY"
-        ASAN_CFLAGS="-g3 -fsanitize=address $ASAN_WRITES_ONLY"
-        ASAN_LDFLAGS="-g3 -fsanitize=address"
-        # Report, but don't fail on, leaks in program samples during build.
-        export LSAN_OPTIONS="exitcode=0"
-        ;;
-    0)
-        ASAN_CXXFLAGS=
-        ASAN_CFLAGS=
-        ASAN_LDFLAGS=
-        ;;
-esac
-
 cmake_install_with_option() {
     SUBDIR="$1"
     shift
@@ -71,31 +46,21 @@ install_OpenRTM-aist() {
     if [ ! -e configure ]; then
 	./build/autogen
     fi
-    # Don't use --enable-debug, since that disables optimization
-    # in OpenRTM.  Using -g also doesn't work because OpenRTM's
-    # configure removes -g from CXXFLAGS.
+    # Don't use --enable-debug for RelWithDebInfo, since that disables
+    # optimization in OpenRTM.  Instead attach a debug info flag to
+    # CXXFLAGS.  Using -g doesn't work because OpenRTM's configure
+    # removes -g from CXXFLAGS.
+    if [ $BUILD_TYPE = Debug ]; then
+        ENABLE_DEBUG=--enable-debug
+    else
+        ENABLE_DEBUG=
+    fi
     CXXFLAGS+=" -g3" \
-    ./configure --prefix="$PREFIX" --without-doxygen
+    ./configure --prefix="$PREFIX" --without-doxygen $ENABLE_DEBUG
 
     built_dirs="$built_dirs OpenRTM-aist"
 
-    if [ "$ENABLE_ASAN" != 0 ]; then
-	# We set -fsanitize=address here, after configure, because
-	# this flag interferes with detecting the flags needed for
-	# pthreads, causing problems later on.  We can safely assume
-	# we're using gcc or clang, so the compiler flags are quite
-	# predictable.
-        if [ $BUILD_TYPE = "Debug" ]; then
-            OPT=-O2
-        else
-            OPT=
-        fi
-	EXTRA_OPTION=(CXXFLAGS="$OPT $ASAN_CXXFLAGS" CFLAGS="$OPT $ASAN_CFLAGS")
-    else
-	EXTRA_OPTION=()
-    fi
-
-    $SUDO make -j$MAKE_THREADS_NUMBER install "${EXTRA_OPTION[@]}" \
+    $SUDO make -j$MAKE_THREADS_NUMBER install "${ASAN_FLAGS[@]}" \
 	| tee $SRC_DIR/OpenRTM-aist.log
 }
 

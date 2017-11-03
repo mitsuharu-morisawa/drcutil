@@ -15,7 +15,12 @@ build_install_OpenRTM-aist() {
     cd OpenRTM-aist
     if [ `cat svn.log | wc -l` != 2 ]; then
         echo -n "building OpenRTM-aist ... "
-        $SUDO make -j$MAKE_THREADS_NUMBER install > $SRC_DIR/OpenRTM-aist.log 2>&1
+	if [ "${VERBOSE-0}" -eq 0 ]; then
+	    $SUDO make -j$MAKE_THREADS_NUMBER "${ASAN_FLAGS[@]}" install > $SRC_DIR/OpenRTM-aist.log 2>&1
+	else
+	    $SUDO make -j$MAKE_THREADS_NUMBER "${ASAN_FLAGS[@]}" install 2>&1 | tee $SRC_DIR/OpenRTM-aist.log
+	fi
+
         if [ "$?" -eq 0 ]
         then
 	    echo "success"
