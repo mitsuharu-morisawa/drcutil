@@ -157,7 +157,7 @@ install_savedbg() {
 
 install_trap-fpe() {
     if [ "$ENABLE_ASAN" -eq 1 ]; then
-	TRAP_FPE_EXTRA_OPTION=(-DTRAP_FPE_SANITIZER_WORKAROUND=ON)
+	TRAP_FPE_EXTRA_OPTION=(-DTRAP_FPE_ASAN_WORKAROUND=ON)
     else
 	TRAP_FPE_EXTRA_OPTION=()
     fi
