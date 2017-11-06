@@ -17,14 +17,6 @@ export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 export PATH=$PREFIX/bin:$PATH
 export LD_LIBRARY_PATH=$PREFIX/lib
 
-if [ "$ENABLE_ASAN" -eq 1 ]; then
-    ASAN_OPTIONS=(-DCMAKE_CXX_FLAGS="-O2 -g -DNDEBUG -fsanitize=address" -DCMAKE_C_FLAGS="-O2 -g -DNDEBUG -fsanitize=address")
-    # Report, but don't fail on, leaks in program samples during build.
-    export LSAN_OPTIONS="exitcode=0"
-else
-    ASAN_OPTIONS=()
-fi
-
 cmake_install_with_option() {
     SUBDIR="$1"
     shift
@@ -39,7 +31,7 @@ cmake_install_with_option() {
     fi
     cd "$SRC_DIR/$SUBDIR/$BUILD_SUBDIR"
 
-    COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "${ASAN_OPTIONS[@]}")
+    COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_FLAGS="$CFLAGS ${SAN_CFLAGS[@]}" -DCMAKE_CXX_FLAGS="-g $CXXFLAGS ${SAN_CXXFLAGS[@]}")
     echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}") .. | tee config.log
 
     cmake "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}" ..  2>&1 | tee -a config.log
@@ -54,31 +46,21 @@ install_OpenRTM-aist() {
     if [ ! -e configure ]; then
 	./build/autogen
     fi
-    # Don't use --enable-debug, since that disables optimization
-    # in OpenRTM.  Using -g also doesn't work because OpenRTM's
-    # configure removes -g from CXXFLAGS.
+    # Don't use --enable-debug for RelWithDebInfo, since that disables
+    # optimization in OpenRTM.  Instead attach a debug info flag to
+    # CXXFLAGS.  Using -g doesn't work because OpenRTM's configure
+    # removes -g from CXXFLAGS.
+    if [ $BUILD_TYPE = Debug ]; then
+        ENABLE_DEBUG=--enable-debug
+    else
+        ENABLE_DEBUG=
+    fi
     CXXFLAGS+=" -g3" \
-    ./configure --prefix="$PREFIX" --without-doxygen
+    ./configure --prefix="$PREFIX" --without-doxygen $ENABLE_DEBUG
 
     built_dirs="$built_dirs OpenRTM-aist"
 
-    if [ "$ENABLE_ASAN" -eq 1 ]; then
-	# We set -fsanitize=address here, after configure, because
-	# this flag interferes with detecting the flags needed for
-	# pthreads, causing problems later on.  We can safely assume
-	# we're using gcc or clang, so the compiler flags are quite
-	# predictable.
-        if [ $BUILD_TYPE = "Debug" ]; then
-            OPT=-O2
-        else
-            OPT=
-        fi
-	EXTRA_OPTION=(CXXFLAGS="$OPT -g3 -fsanitize=address" CFLAGS="$OPT -g3 -fsanitize=address")
-    else
-	EXTRA_OPTION=()
-    fi
-
-    $SUDO make -j$MAKE_THREADS_NUMBER install "${EXTRA_OPTION[@]}" \
+    $SUDO make -j$MAKE_THREADS_NUMBER install "${SAN_FLAGS[@]}" \
 	| tee $SRC_DIR/OpenRTM-aist.log
 }
 
@@ -156,15 +138,13 @@ install_savedbg() {
 }
 
 install_trap-fpe() {
-    if [ "$ENABLE_ASAN" -eq 1 ]; then
-	TRAP_FPE_EXTRA_OPTION=(-DTRAP_FPE_ASAN_WORKAROUND=ON)
-    else
-	TRAP_FPE_EXTRA_OPTION=()
-    fi
+    EXTRA_OPTION=()
+    [ "$ENABLE_ASAN" != 0 ] && EXTRA_OPTION+=(-DTRAP_FPE_ASAN_WORKAROUND=ON)
+    [ "$ENABLE_TSAN" != 0 ] && EXTRA_OPTION+=(-DTRAP_FPE_TSAN_WORKAROUND=ON)
     # DynamoRIO doesn't seem to have an official install step.
     # We just unpack the distribution directly into $PREFIX.
     $SUDO tar -zxf $SRC_DIR/DynamoRIO-$DYNAMORIO_VERSION.tar.gz -C $PREFIX/share
-    cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.$DIST_KIND$DIST_VER" "-DDynamoRIO_DIR=$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/cmake" "${TRAP_FPE_EXTRA_OPTION[@]}"
+    cmake_install_with_option trap-fpe "-DTRAP_FPE_BLACKLIST=$DRCUTIL/trap-fpe.blacklist.$DIST_KIND$DIST_VER" "-DDynamoRIO_DIR=$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/cmake" "${EXTRA_OPTION[@]}"
 }
 
 install_choreonoid() {
