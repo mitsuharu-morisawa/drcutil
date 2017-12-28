@@ -1,8 +1,8 @@
 cd ${WORKSPACE}
 
-rm -fr netlify-site
-git clone --branch master --single-branch git@bitbucket.org:jenkinshrg/netlify-site.git
-cd netlify-site
+rm -fr hrg-ci-results.wiki
+git clone https://github.com/isri-aist/hrg-ci-results.wiki.git
+cd hrg-ci-results.wiki
 
 JENKINS_URL=http://jenkinshrg.a01.aist.go.jp/
 
@@ -12,8 +12,7 @@ REPORT_JOBS="$(python ${WORKSPACE}/drcutil/.jenkins/getJobs.py ${JENKINS_URL})"
 
 for REPORT_JOB in ${REPORT_JOBS}
 do
-    wget -q -O ${WORKSPACE}/netlify-site/${REPORT_JOB}.svg ${JENKINS_URL}/job/${REPORT_JOB}/badge/icon
-    python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> index.md
+    python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> ${REPORT_JOB}.md
 done
 
 #git checkout --orphan report-new

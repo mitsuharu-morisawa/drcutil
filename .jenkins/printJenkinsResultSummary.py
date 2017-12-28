@@ -5,7 +5,7 @@ import sys, urllib2, json
 from datetime import datetime
 
 def printLatestResults(url, job, n):
-    print "|[" + job + "](http://hrg-test-results.netlify.com#" + job + ")|![Build Status](http://hrg-test-results.netlify.com/"+ job + ".svg)|",
+    print "|[[" + job + "]]|",
     try:
         url = url + 'job/' + job + '/api/json?tree=builds[building,duration,number,result,timestamp,url]'
         r = urllib2.urlopen(url)
@@ -35,7 +35,7 @@ def printLatestResults(url, job, n):
                 color = "red"
             else:
                 color = "aborted"
-            print "![Jenkins Icon](http://hrg-test-results.netlify.com/images/24x24/"+ color + ".png)"+text,
+            print "!["+color+"](images/"+ color + ".png)"+text,
         print "|",
     print 
 
@@ -57,17 +57,13 @@ finally:
 
 njob = 10
 
-print "---"
-print "layout: default"
-print "---"
-print ""
 print "Last update : " + datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 print ""
 print "### Job Summary"
 print "___"
 print ""
-print "|Name|Status|Latest Results"+"|"*njob
-print "|---|---|"+"--|"*njob
+print "|Name|Latest Results"+"|"*njob
+print "|---|"+"--|"*njob
 for job in jobs:
     if job['name'] != "drcutil" and job['name'] != "drcutil-upload":
         printLatestResults(topurl, job['name'], njob)
