@@ -12,7 +12,7 @@ REPORT_JOBS="$(python ${WORKSPACE}/drcutil/.jenkins/getJobs.py ${JENKINS_URL})"
 
 for REPORT_JOB in ${REPORT_JOBS}
 do
-    python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} >> ${REPORT_JOB}.md
+    python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} > ${REPORT_JOB}.md
 done
 
 #git checkout --orphan report-new
