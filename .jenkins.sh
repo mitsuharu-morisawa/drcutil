@@ -65,12 +65,14 @@ fi
 source .bashrc
 
 if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
-    sudo apt-get -y install python-pip python-dev
+    sudo apt-get -y install python-dev
     if [ "$DIST_KIND" = "debian" ]; then
-        sudo apt-get install python-googleapi
+        wget https://bootstrap.pypa.io/get-pip.py
+        sudo python get-pip.py
     else
-        sudo pip install google-api-python-client
+        sudo apt-get -y install python-pip
     fi
+    sudo pip install google-api-python-client
     sudo apt-get -y install lcov
     sudo sed -i -e 's/lcov_branch_coverage = 0/lcov_branch_coverage = 1/g' /etc/lcovrc
     sudo pip install lcov_cobertura
