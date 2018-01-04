@@ -5,6 +5,15 @@ FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOU
 RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 
+if [ "$DIST_KIND" = "debian" ]; then
+    wget https://cmake.org/files/v2.8/cmake-2.8.12.tar.gz
+    tar zxvf cmake-2.8.12.tar.gz
+    cd cmake-2.8.12
+    ./bootstrap
+    make -j$MAKE_THREADS_NUMBER
+    sudo make install
+fi
+
 setupenv_OpenRTM-aist() {
     sudo apt-get -y install autoconf
     if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ]; then
