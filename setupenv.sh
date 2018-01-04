@@ -6,13 +6,13 @@ RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 
 if [ "$DIST_KIND" = "debian" ]; then
+    sudo rm -rf cmake-2.8.12
     wget https://cmake.org/files/v2.8/cmake-2.8.12.tar.gz
     tar zxvf cmake-2.8.12.tar.gz
     cd cmake-2.8.12
     ./bootstrap
     make -j$MAKE_THREADS_NUMBER
     sudo make install
-    sudo rm -rf cmake-2.8.12
 fi
 
 setupenv_OpenRTM-aist() {
