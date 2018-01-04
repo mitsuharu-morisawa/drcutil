@@ -12,6 +12,7 @@ if [ "$DIST_KIND" = "debian" ]; then
     ./bootstrap
     make -j$MAKE_THREADS_NUMBER
     sudo make install
+    sudo rm -rf cmake-2.8.12
 fi
 
 setupenv_OpenRTM-aist() {
