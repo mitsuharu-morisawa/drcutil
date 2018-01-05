@@ -13,6 +13,16 @@ if [ "$DIST_KIND" = "debian" ]; then
     ./bootstrap
     make -j$MAKE_THREADS_NUMBER
     sudo make install
+    cd ../
+
+    wget https://github.com/eigenteam/eigen-git-mirror/archive/3.2.5.tar.gz
+    tar zxvf eigen-git-mirror-3.2.5.tar.gz
+    cd eigen-git-mirror-3.2.5
+    mkdir build
+    cd build
+    cmake ../
+    sudo make install
+    cd ../../
 fi
 
 setupenv_OpenRTM-aist() {
