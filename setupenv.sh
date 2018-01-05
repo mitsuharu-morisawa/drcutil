@@ -20,7 +20,7 @@ if [ "$DIST_KIND" = "debian" ]; then
     cd eigen-git-mirror-3.2.5
     mkdir build
     cd build
-    cmake ../
+    cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
     sudo make install
     cd ../../
 fi
