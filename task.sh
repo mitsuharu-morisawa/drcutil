@@ -10,7 +10,7 @@ check_core(){
     if [ -e core ]; then
 	echo bt | gdb choreonoid core
     fi
-    mv ${PREFIX}/share/robot-sources.tar.bz2 ${WORKSPACE} || true
+    cp ${PREFIX}/share/robot-sources.tar.bz2 ${WORKSPACE} || true
     mv *.bz2 ${WORKSPACE} || true
 }
 
