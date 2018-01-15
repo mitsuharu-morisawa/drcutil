@@ -16,6 +16,7 @@ built_dirs=
 export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 export PATH=$PREFIX/bin:$PATH
 export LD_LIBRARY_PATH=$PREFIX/lib
+export CMAKE_PREFIX_PATH=
 
 cmake_install_with_option() {
     SUBDIR="$1"
