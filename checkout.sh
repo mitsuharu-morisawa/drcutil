@@ -12,7 +12,7 @@ pull_source() {
 	    svn update 2>&1 | tee svn.log
 	else
 	    BRANCH=`git branch --contains HEAD`
-            SREF=`git symbolic-ref HEAD -q`
+            SREF=`git symbolic-ref HEAD -q` || true
 	    echo "$dir_name (${BRANCH:2})"
             if [ ! -z $SREF ]; then
 	       git pull
