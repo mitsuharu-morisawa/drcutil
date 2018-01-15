@@ -25,7 +25,6 @@ pull_source() {
 pull_source_choreonoid() {
     GIT_SSL_NO_VERIFY=1 pull_source choreonoid
     pull_source choreonoid/ext/hrpcnoid
-    pull_source trap-fpe
 }
 
 cd $SRC_DIR
