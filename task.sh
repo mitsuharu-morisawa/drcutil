@@ -155,7 +155,7 @@ if [ "${RESULT}" = "OK" ] && [ -e ${WORKSPACE}/*.qRef ]; then
     else
         BLACKLIST="RARM_JOINT6:LHAND_JOINT0"
     fi
-    hrpsys-self-collision-checker ${PREFIX}/share/OpenHRP-3.1/robot/${PROJECT}/model/${PROJECT}main.wrl ${WORKSPACE}/*.qRef ${BLACKLIST} > ${WORKSPACE}/SelfCollision.txt || true
+    hrpsys-self-collision-checker ${PREFIX}/share/OpenHRP-3.1/robot/${PROJECT}/model/${PROJECT}main.wrl ${WORKSPACE}/*.qRef ${BLACKLIST} || true > ${WORKSPACE}/SelfCollision.txt
     if [ -s ${WORKSPACE}/SelfCollision.txt ]; then
 	RESULT="SCOL"
 	echo "SelfCollision: ${RESULT}"
