@@ -15,7 +15,8 @@ pull_source() {
             SREF=`git symbolic-ref HEAD -q` || true
 	    echo "$dir_name (${BRANCH:2})"
             if [ ! -z $SREF ]; then
-	       git pull
+            	git submodule update --init
+            	git pull
             fi
 	fi
         cd $PREV_DIR
