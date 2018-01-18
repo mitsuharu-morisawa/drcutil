@@ -3,6 +3,7 @@
 # full path or path relative to trap_fpe's build directory).
 # The resulting libtrap_fpe.so will load all of the .so files
 # listed in @-lines in the listed order, so beware of dependencies.
+@/lib/x86_64-linux-gnu/libc.so.6
 @/usr/lib/libpcl_common.so.1.7
 @/usr/lib/libpcl_surface.so.1.7
 @/usr/lib/libpcl_search.so.1.7
