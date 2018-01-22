@@ -37,7 +37,7 @@ setupenv_OpenRTM-aist() {
 setupenv_openhrp3() {
     cd $SRC_DIR/openhrp3/util
     ./installPackages.sh packages.list.$DIST_KIND.$DIST_VER
-    sudo apt-get remove openrtm-aist-dev openrtm-aist # install from source
+    sudo apt-get -y remove openrtm-aist-dev openrtm-aist # install from source
 
     sudo sed -i -e 's/giopMaxMsgSize = 2097152/giopMaxMsgSize = 2147483648/g' /etc/omniORB.cfg
 
