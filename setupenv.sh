@@ -25,6 +25,18 @@ if [ "$DIST_KIND" = "debian" ]; then
     cd ../../
 fi
 
+if [ "$DIST_KIN" = "ubuntu"] && [ "$DIST_VER" = "14.04" ]; then
+    sudo rm -rf gcc-7.3.0
+    wget http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-7.3.0/gcc-7.3.0.tar.gz
+    tar zxvf gcc-7.3.0.tar.gz
+    cd gcc-7.3.0
+    ./contrib/download_prerequistites
+    mkdir build
+    cd build
+    ../configure --enable-languages=c,c++ --prefix=$PREFIX --disable-bootstrap --disable-multilib
+    $SUDO make install
+fi
+
 setupenv_OpenRTM-aist() {
     sudo apt-get -y install autoconf
     if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ]; then
