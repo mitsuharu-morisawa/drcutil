@@ -25,7 +25,7 @@ if [ "$DIST_KIND" = "debian" ]; then
     cd ../../
 fi
 
-if [ "$DIST_KIN" = "ubuntu"] && [ "$DIST_VER" = "14.04" ]; then
+if [ "$DIST_KIND" = "ubuntu"] && [ "$DIST_VER" = "14.04" ]; then
     sudo rm -rf gcc-7.3.0
     wget http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-7.3.0/gcc-7.3.0.tar.gz
     tar zxvf gcc-7.3.0.tar.gz
