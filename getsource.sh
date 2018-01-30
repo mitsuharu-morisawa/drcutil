@@ -17,7 +17,7 @@ fi
 cd $SRC_DIR
 
 get_source_OpenRTM-aist() {
-    get_source "svn co http://svn.openrtm.org/OpenRTM-aist/branches/RELENG_1_1/OpenRTM-aist" OpenRTM-aist
+    get_source "svn co https://svn.openrtm.org/OpenRTM-aist/branches/RELENG_1_1/OpenRTM-aist" OpenRTM-aist
 }
 
 get_source_pcl() {
