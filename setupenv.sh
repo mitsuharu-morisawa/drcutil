@@ -34,7 +34,8 @@ if [ "$DIST_KIND" = "ubuntu" ] && [ "$DIST_VER" = "14.04" ]; then
     mkdir build
     cd build
     ../configure --enable-languages=c,c++ --prefix=$PREFIX --disable-bootstrap --disable-multilib
-    $SUDO make install
+    make -j$MAKE_THREADS_NUMBER
+    $SUDO make -j$MAKE_THREADS_NUMBER install
 fi
 
 setupenv_OpenRTM-aist() {
