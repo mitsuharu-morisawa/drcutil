@@ -17,6 +17,7 @@ export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 export PATH=$PREFIX/bin:$PATH
 export LD_LIBRARY_PATH=$PREFIX/lib
 export CMAKE_PREFIX_PATH=
+WARNINGS="-w -Wno-c++11-narrowing -Wno-return-type -Wno-error=vla"
 
 cmake_install_with_option() {
     SUBDIR="$1"
@@ -32,7 +33,23 @@ cmake_install_with_option() {
     fi
     cd "$SRC_DIR/$SUBDIR/$BUILD_SUBDIR"
 
-    COMMON_OPTIONS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_FLAGS="$CFLAGS ${SAN_CFLAGS[@]}" -DCMAKE_CXX_FLAGS="-g $CXXFLAGS ${SAN_CXXFLAGS[@]}")
+    if [ "$USE_CLANG" -eq 1 ]; then
+        echo -e "\n==============\nUsing clang to build...\n==============\n"
+        WARNINGS="-w -Wno-c++11-narrowing -Wno-return-type -Wno-error=vla"
+        CMAKE_C_COMPILER_OPT=clang
+        CMAKE_CXX_COMPILER_OPT=clang++
+        CMAKE_C_FLAGS_OPT="-shared -fPIC $CFLAGS ${SAN_CFLAGS[@]} $WARNINGS"
+        CMAKE_CXX_FLAGS_OPT="-g -shared -fPIC -std=c++11 -fdelayed-template-parsing $WARNINGS $CXXFLAGS ${SAN_CXXFLAGS[@]}"
+    else
+        echo -e "\n==============\nUsing default compiler to build...\n==============\n"
+        CMAKE_C_COMPILER_OPT=${COMPILER_CC}
+        CMAKE_CXX_COMPILER_OPT=${COMPILER_CPP}
+        CMAKE_C_FLAGS_OPT="$CFLAGS ${SAN_CFLAGS[@]}"
+        CMAKE_CXX_FLAGS_OPT="-g $CXXFLAGS ${SAN_CXXFLAGS[@]}"
+    fi   
+
+    COMMON_OPTIONS=(-DCMAKE_C_COMPILER="$CMAKE_C_COMPILER_OPT" -DCMAKE_C_FLAGS="$CMAKE_C_FLAGS_OPT" -DCMAKE_CXX_COMPILER="$CMAKE_CXX_COMPILER_OPT" -DCMAKE_CXX_FLAGS="$CMAKE_CXX_FLAGS_OPT" -DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON )
+
     echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}") .. | tee config.log
 
     cmake "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}" ..  2>&1 | tee -a config.log
@@ -55,6 +72,10 @@ install_OpenRTM-aist() {
         ENABLE_DEBUG=--enable-debug
     else
         ENABLE_DEBUG=
+    fi
+    if [ "$USE_CLANG" -eq 1 ]; then
+	export CXX=clang++
+	export CC=clang
     fi
     CXXFLAGS+=" -g3" \
     ./configure --prefix="$PREFIX" --without-doxygen $ENABLE_DEBUG
