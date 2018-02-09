@@ -33,7 +33,7 @@ cmake_install_with_option() {
     fi
     cd "$SRC_DIR/$SUBDIR/$BUILD_SUBDIR"
 
-    if [ "$USE_CLANG" -eq 1 ]; then
+    if [ "$USE_CLANG" -eq 1 ] && [ "$SUBDIR" != "choreonoid" ]; then
         echo -e "\n==============\nUsing clang to build...\n==============\n"
         WARNINGS="-w -Wno-c++11-narrowing -Wno-return-type -Wno-error=vla"
         CMAKE_C_COMPILER_OPT=clang
