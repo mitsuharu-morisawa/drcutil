@@ -36,8 +36,8 @@ packsrc () {
     for d in $*; do \
               [ -f "$d/config.log" ] \
                   && printf "$d/config.log\0"; \
-              [ -f "$d/$BUILD_SUBDIR/config.log" ] \
-                  && printf  "$d/$BUILD_SUBDIR/config.log\0"; \
+              [ -f "$d/$BUILD_SUBDIR/cmake.log" ] \
+                  && printf  "$d/$BUILD_SUBDIR/cmake.log\0"; \
               [ -f "$d/$BUILD_SUBDIR/CMakeCache.txt" ] \
                   && printf  "$d/$BUILD_SUBDIR/CMakeCache.txt\0"; \
               printf "$d.log\0"; \
