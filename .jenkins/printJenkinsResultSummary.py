@@ -1,14 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys, urllib2, json
+import sys, urllib2, json, base64
 from datetime import datetime
 
-def printLatestResults(url, job, n):
+def printLatestResults(url, username, passowrd, job, n):
     print "|[[" + job + "]]|",
     try:
         url = url + 'job/' + job + '/api/json?tree=builds[building,duration,number,result,timestamp,url]'
-        r = urllib2.urlopen(url)
+        request = urllib2.Request(url)
+        base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
+        request.add_header("Authorization", "Basic %s" % base64string) 
+        r = urllib2.urlopen(request)
         root = json.loads(r.read())
         builds = root['builds']
     except:
@@ -42,12 +45,19 @@ def printLatestResults(url, job, n):
 
 if len(sys.argv) > 1:
     topurl = sys.argv[1]
+    username = sys.argv[2]
+    password = sys.argv[3]
 else:
     topurl = "http://localhost:8080/"
+    username = "user"
+    passowrd = "passwd"
 
 try:
     url = topurl + 'api/json?tree=jobs[name,lastStableBuild]'
-    r = urllib2.urlopen(url)
+    request = urllib2.Request(url)
+    base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
+    request.add_header("Authorization", "Basic %s" % base64string) 
+    r = urllib2.urlopen(request)
     root = json.loads(r.read())
     jobs = root['jobs']
 except:
@@ -66,5 +76,5 @@ print "|Name|Latest Results"+"|"*njob
 print "|---|"+"--|"*njob
 for job in jobs:
     if job['name'] != "drcutil" and job['name'] != "drcutil-upload":
-        printLatestResults(topurl, job['name'], njob)
+        printLatestResults(topurl, username, password, job['name'], njob)
 print ""

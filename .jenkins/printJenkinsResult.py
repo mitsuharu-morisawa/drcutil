@@ -1,18 +1,27 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys, urllib2, json
+import sys, urllib2, json, base64
 from datetime import datetime
+
+def urlread(url, username, password):
+    request = urllib2.Request(url)
+    base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
+    request.add_header("Authorization", "Basic %s" % base64string) 
+    return urllib2.urlopen(request)
 
 name = sys.argv[1]
 if len(sys.argv) > 2:
     url = sys.argv[2]
+    username = sys.argv[3]
+    password = sys.argv[4]
 else:
     url = "http://localhost:8080/"
-
+    username = "user"
+    password = "passwd"
 try:
     url = url + 'job/' + name + '/api/json?tree=builds[building,duration,number,result,timestamp,url]'
-    r = urllib2.urlopen(url)
+    r = urlread(url, username, password)
     root = json.loads(r.read())
     builds = root['builds']
 except:
@@ -75,7 +84,7 @@ for build in builds:
     elif result == "UNSTABLE":
         color = "yellow"
         try:
-            r = urllib2.urlopen(build['url'] + "artifact/task_result.txt")
+            r = urlread(build['url'] + "artifact/task_result.txt", username, password)
             line = r.readline()
             result = line[0:len(line)-1]
         except:
@@ -89,7 +98,7 @@ for build in builds:
     failCount = ""
     try:
         url = build['url'] + "testReport/api/json?tree=failCount"
-        r = urllib2.urlopen(url)
+        r = urlread(url, username, password)
         root = json.loads(r.read())
         failCount = root['failCount']
     except:
@@ -101,7 +110,7 @@ for build in builds:
     ratio = ""
     try:
         url = build['url'] + "cobertura/api/json?tree=results[elements[*]]"
-        r = urllib2.urlopen(url)
+        r = urlread(url, username, password)
         root = json.loads(r.read())
         elements = root['results']['elements']
         n = 0
@@ -118,7 +127,7 @@ for build in builds:
     numberErrorSeverity = ""
     try:
         url = build['url'] + "cppcheckResult/api/json?tree=numberErrorSeverity"
-        r = urllib2.urlopen(url)
+        r = urlread(url, username, password)
         root = json.loads(r.read())
         numberErrorSeverity = root['numberErrorSeverity']
     except:
@@ -130,7 +139,7 @@ for build in builds:
     changes = ""
     try:
         url = build['url'] + "artifact/changes.txt"
-        r = urllib2.urlopen(url)
+        r = urlread(url, username, password)
         line = r.readline()
         while line:
             line = line.strip()
@@ -153,7 +162,7 @@ for build in builds:
     uploads = ""
     try:
         url = build['url'] + "artifact/uploads.txt"
-        r = urllib2.urlopen(url)
+        r = urlread(url, username, password)
         line = r.readline()
         while line:
             line = line.strip()
@@ -175,7 +184,7 @@ for build in builds:
     slave = ""
     try:
         url = build['url'] + "artifact/env.txt"
-        r = urllib2.urlopen(url)
+        r = urlread(url, username, password)
         line = r.readline()
         slave = line[0:len(line)-1]
     except:
@@ -189,7 +198,7 @@ for build in builds:
     memory_change = ""
     try:
         url = build['url'] + "artifact/choreonoid.csv"
-        r = urllib2.urlopen(url)
+        r = urlread(url, username, password)
         line = r.readline()
         line = r.readline()
         line = line.strip()
