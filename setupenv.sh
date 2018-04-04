@@ -96,7 +96,7 @@ setupenv_sch-core() {
 }
     
 setupenv_state-observation() {
-    sudo apt-get -y install libboost-test-dev
+    sudo apt-get -y install libboost-test-dev libboost-timer-dev
 }
 
 setupenv_hmc2() {
