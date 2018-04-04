@@ -32,3 +32,4 @@
 @/usr/lib/x86_64-linux-gnu/libavutil-ffmpeg.so.54
 @/usr/lib/x86_64-linux-gnu/libswscale-ffmpeg.so.3
 @/usr/lib/x86_64-linux-gnu/libmp3lame.so.0
+@/usr/lib/x86_64-linux-gnu/libQt5XcbQpa.so.5
