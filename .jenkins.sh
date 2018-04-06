@@ -10,7 +10,7 @@ rm -f $WORKSPACE/*.qRef
 rm -f $WORKSPACE/core*.bz2
 
 upload() {
-    wget -q -O $WORKSPACE/console.log $BUILD_URL/consoleText || true
+    curl --user $JENKINS_USER:$JENKINS_PASSWD $BUILD_URL/consoleText > $WORKSPACE/console.log 
     bash -e ./upload.sh || true
     awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/artifacts.txt > $WORKSPACE/artifacts_email.txt
     awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/uploads.txt > $WORKSPACE/uploads_email.txt
