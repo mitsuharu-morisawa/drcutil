@@ -3,9 +3,10 @@ source config.sh.defaults
 ######## Please edit from here ########
 export PREFIX=$HOME/usr
 export SUDO=
-export MAKE_THREADS_NUMBER=8
+export MAKE_THREADS_NUMBER=4
 export BUILD_TYPE=RelWithDebInfo
-export PACKAGES="OpenRTM-aist openhrp3 hrpsys-base"
+export ROBOT_HOSTNAME=hrp5p01c.local
+export PACKAGES="OpenRTM-aist openhrp3 hrpsys-base HRP5P hmc2 hrpsys-humanoid"
 
 ######## Please don't edit from here ########
 source definitions.sh
