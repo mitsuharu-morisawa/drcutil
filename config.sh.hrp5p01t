@@ -4,7 +4,7 @@ source config.sh.defaults
 export PREFIX=$HOME/usr
 export MAKE_THREADS_NUMBER=8
 export BUILD_TYPE=RelWithDebInfo
-export ROBOT_HOSTNAME=hrp5p01c
+export ROBOT_HOSTNAME=hrp5p01c.local
 export PACKAGES="OpenRTM-aist openhrp3 pcl octomap hrpsys-base HRP5P sch-core state-observation hmc2 hrpsys-humanoid choreonoid"
 
 ######## Please don't edit from here ########
