@@ -72,7 +72,7 @@ def upload_file(service, parent_id, title, file_mimetype, filename):
 	body = {
 		'title': title,
                 'labels': {
-                    'restricted': True
+                    'restricted': False
                 },
 		'mimeType': file_mimetype,
                 'parents': [{
