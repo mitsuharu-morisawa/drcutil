@@ -172,7 +172,9 @@ for build in builds:
             if label == "BUILD":
                 build_files += "[" + filename + "](" + googleurl + ")" + "<br>"
             elif label == "IMAGE":
-                image_files += "[" + filename + "](" + googleurl + ")" + "<br>"
+                tokens = googleurl.split("/")
+                fileid = tokens[5]
+                image_files += "<a href=\""+googleurl+"\"><img src=\"http://drive.google.com/uc?export=view&id="+fileid+"\" alt=\"task.png\" title=\"task.png\" width=400></a>"
             elif label == "VIDEO":
                 video_files += "[" + filename + "](" + googleurl + ")" + "<br>"
             line = r.readline()
