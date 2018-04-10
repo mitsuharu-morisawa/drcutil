@@ -137,7 +137,7 @@ fi
 gnome-screenshot -w -f ${WORKSPACE}/task.png
 kill -2 $RECORDMYDESKTOP || true
 
-
+RESULT="OK"
 python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
 if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py ]; then
     RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
