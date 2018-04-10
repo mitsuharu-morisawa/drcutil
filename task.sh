@@ -137,18 +137,15 @@ fi
 gnome-screenshot -w -f ${WORKSPACE}/task.png
 kill -2 $RECORDMYDESKTOP || true
 
-if [ ! -e task_result.txt ]; then
-    RESULT="TIMEOUT"
-else
-    RESULT="OK"
+
+python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
+if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py ]; then
+    RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
+    echo "Robot: ${RESULT}"
 fi
 
-if [ "${RESULT}" = "OK" ]; then 
-    python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
-    if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py ]; then
-        RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
-        echo "Robot: ${RESULT}"
-    fi
+if [ "${RESULT}" = "OK" ] && [ ! -e task_result.txt ]; then
+    RESULT="TIMEOUT"
 fi
 
 if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
