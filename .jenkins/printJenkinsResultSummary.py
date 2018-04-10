@@ -4,14 +4,17 @@
 import sys, urllib2, json, base64
 from datetime import datetime
 
+def urlread(url, username, password):
+    request = urllib2.Request(url)
+    base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
+    request.add_header("Authorization", "Basic %s" % base64string) 
+    return urllib2.urlopen(request)
+
 def printLatestResults(url, username, passowrd, job, n):
     print "|[[" + job + "]]|",
     try:
         url = url + 'job/' + job + '/api/json?tree=builds[building,duration,number,result,timestamp,url]'
-        request = urllib2.Request(url)
-        base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
-        request.add_header("Authorization", "Basic %s" % base64string) 
-        r = urllib2.urlopen(request)
+        r = urlread(url, username, password)
         root = json.loads(r.read())
         builds = root['builds']
     except:
@@ -27,7 +30,7 @@ def printLatestResults(url, username, passowrd, job, n):
             elif result == "UNSTABLE":
                 color = "yellow"
                 try:
-                    r = urllib2.urlopen(builds[i]['url'] + "artifact/task_result.txt")
+                    r = urlread(builds[i]['url'] + "artifact/task_result.txt", username, password)
                     line = r.readline()
                     text = line[0:len(line)-1]
                 except:
@@ -54,10 +57,7 @@ else:
 
 try:
     url = topurl + 'api/json?tree=jobs[name,lastStableBuild]'
-    request = urllib2.Request(url)
-    base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
-    request.add_header("Authorization", "Basic %s" % base64string) 
-    r = urllib2.urlopen(request)
+    r = urlread(url, username, passowrd)
     root = json.loads(r.read())
     jobs = root['jobs']
 except:
