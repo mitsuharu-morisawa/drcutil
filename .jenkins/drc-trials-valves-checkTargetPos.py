@@ -7,7 +7,7 @@ for line in sys.stdin:
     if num == 2:
         radian = eval(line)
 
-if math.fabs(radian[0] + math.pi) < 0.3:
+if radian[0] > 1.4:
     print "OK"
 else:
     print "NG"
