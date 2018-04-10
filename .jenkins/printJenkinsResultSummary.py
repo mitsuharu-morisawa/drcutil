@@ -57,7 +57,7 @@ else:
 
 try:
     url = topurl + 'api/json?tree=jobs[name,lastStableBuild]'
-    r = urlread(url, username, passowrd)
+    r = urlread(url, username, password)
     root = json.loads(r.read())
     jobs = root['jobs']
 except:
