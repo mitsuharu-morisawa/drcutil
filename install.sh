@@ -50,9 +50,9 @@ cmake_install_with_option() {
 
     COMMON_OPTIONS=(-DCMAKE_C_COMPILER="$CMAKE_C_COMPILER_OPT" -DCMAKE_C_FLAGS="$CMAKE_C_FLAGS_OPT" -DCMAKE_CXX_COMPILER="$CMAKE_CXX_COMPILER_OPT" -DCMAKE_CXX_FLAGS="$CMAKE_CXX_FLAGS_OPT" -DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON )
 
-    echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}") .. | tee config.log
+    echo cmake $(printf "'%s' " "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}") .. | tee cmake.log
 
-    cmake "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}" ..  2>&1 | tee -a config.log
+    cmake "${COMMON_OPTIONS[@]}" "$@" "${CMAKE_ADDITIONAL_OPTIONS[@]}" ..  2>&1 | tee -a cmake.log
 
     $SUDO make -j$MAKE_THREADS_NUMBER install 2>&1 | tee $SRC_DIR/$SUBDIR.log
 
