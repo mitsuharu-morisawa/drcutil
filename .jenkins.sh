@@ -99,7 +99,7 @@ if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
 else #update
     if [ -s $WORKSPACE/changes.txt ]; then
 	bash -e ./checkout.sh
-	VERBOSE=1 bash -e ./build.sh
+	VERBOSE=1 bash -e ./build.sh 2>&1 $WORKSPACE/build.log
     fi
 fi
 
@@ -116,6 +116,6 @@ if [ -n "$DISPLAY" ]; then
     cp $WORKSPACE/drcutil/.config/Choreonoid.conf $HOME/.config/Choreonoid
     sed -i -e "s/vagrant\/src/$USER\/src/g" $HOME/.config/Choreonoid/Choreonoid.conf
     sed -i -e "s/vagrant\/openrtp/$USER\/openrtp/g" $HOME/.config/Choreonoid/Choreonoid.conf
-    bash -e ./task.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
+    bash -e ./task.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10} 2>&1 $WORKSPACE/choreonoid.log
 fi
 fi
