@@ -116,6 +116,6 @@ if [ -n "$DISPLAY" ]; then
     cp $WORKSPACE/drcutil/.config/Choreonoid.conf $HOME/.config/Choreonoid
     sed -i -e "s/vagrant\/src/$USER\/src/g" $HOME/.config/Choreonoid/Choreonoid.conf
     sed -i -e "s/vagrant\/openrtp/$USER\/openrtp/g" $HOME/.config/Choreonoid/Choreonoid.conf
-    bash -e ./task.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10} 2>&1 $WORKSPACE/choreonoid.log
+    bash -e ./task.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
 fi
 fi

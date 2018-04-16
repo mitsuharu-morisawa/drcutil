@@ -24,7 +24,6 @@ upload() {
 
 upload "BUILD" "console.log" "text/plain"
 upload "BUILD" "build.log" "text/plain"
-upload "BUILD" "choreonoid.log" "text/plain"
 upload "BUILD" "SelfCollision.txt" "text/plain"
 upload "IMAGE" "task.png" "image/png"
 upload "VIDEO" "task.ogv" "video/ogg"
