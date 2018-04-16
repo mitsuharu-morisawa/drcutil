@@ -23,6 +23,8 @@ upload() {
 }
 
 upload "BUILD" "console.log" "text/plain"
+upload "BUILD" "setupenv.log" "text/plain"
+upload "BUILD" "install.log" "text/plain"
 upload "BUILD" "build.log" "text/plain"
 upload "BUILD" "SelfCollision.txt" "text/plain"
 upload "IMAGE" "task.png" "image/png"

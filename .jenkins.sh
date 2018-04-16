@@ -93,9 +93,9 @@ if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
     if [ -s $WORKSPACE/changes.txt ]; then
 	bash -e ./checkout.sh
     fi
-    bash -e ./setupenv.sh
+    bash -e ./setupenv.sh 2>&1 $WORKSPACE/setupenv.log
     mkdir -p $PREFIX
-    bash -e ./install.sh
+    bash -e ./install.sh 2>&1 $WORKSPACE/install.log
 else #update
     if [ -s $WORKSPACE/changes.txt ]; then
 	bash -e ./checkout.sh
