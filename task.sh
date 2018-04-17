@@ -52,6 +52,8 @@ then
 else
     SAVEDBG_HRP=
 fi
+# disable savedbg temporarily
+SAVEDBG_HRP=
 
 $SAVEDBG_HRP LD_PRELOAD="${ASAN_LIB}:${PREFIX}/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
