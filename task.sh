@@ -63,8 +63,8 @@ for ((i=0; i<900; i++)); do
 	echo "beginning of drc.py is detected at $i[s]"
 	break
     fi
-    pidof choreonoid
-    if [ $? != 0 ]; then
+    c=`ps -ef | grep choreonoid | grep -v grep | wc -l`
+    if [ $c != 0 ]; then
         echo "choreonoid died"
         exit 1
     fi
@@ -86,7 +86,8 @@ for ((i=0; i<900; i++)); do
 	echo "ending of drc.py is detected at $i[s]"
 	break
     fi
-    if [ $? != 0 ]; then
+    c=`ps -ef | grep choreonoid | grep -v grep | wc -l`
+    if [ $c != 0 ]; then
         echo "choreonoid died"
         exit 1
     fi
@@ -120,7 +121,8 @@ for ((i=0; i<${WAIT}; i++)); do
 	mv *.tau *.q *.qRef ${WORKSPACE} || true
 	break
     fi
-    if [ $? != 0 ]; then
+    c=`ps -ef | grep choreonoid | grep -v grep | wc -l`
+    if [ $c != 0 ]; then
         echo "choreonoid died"
         exit 1
     fi
