@@ -62,7 +62,7 @@ for ((i=0; i<900; i++)); do
 	break
     fi
     c=`ps -ef | grep choreonoid | grep -v grep | wc -l`
-    if [ $c  0 ]; then
+    if [ $c = 0 ]; then
         echo "choreonoid died"
         exit 1
     fi
