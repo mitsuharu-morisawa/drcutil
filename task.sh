@@ -185,7 +185,7 @@ fi
 
 RED=$(convert ${WORKSPACE}/task.png -format %c histogram:info: | grep red | cut -d: -f 1 | sed -e "s/ //g")
 echo "Red: ${RED}"
-if [ ${RED} -gt 300000 ]; then
+if [ -n "${RED}" ] && [ ${RED} -gt 300000 ]; then
     EMA="EMERGENCY"
 else
     EMA="NORMAL"
