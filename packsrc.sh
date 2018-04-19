@@ -31,7 +31,7 @@ packsrc () {
     echo "packing source trees"
     cd $SRC_DIR
     revs "$@" > revisions 2>&1
-    { find $@  \(  \! \( -iwholename "*/.git*" -prune  -o  -iwholename "*/.svn*" -prune  -o -iwholename "./$BUILD_SUBDIR/" -prune -o  -exec test -e '{}/CMakeCache.txt' \; -prune -o  -name '*.o' \
+    { find $@  \(  \! \( -iwholename "*/.git*" -prune  -o  -iwholename "*/.svn*" -prune  -o -iwholename "./$BUILD_SUBDIR" -prune -o  -exec test -e '{}/CMakeCache.txt' \; -prune -o  -name '*.o' \
       -o -name '*.lo' -o -name '*.a' -o -name '*.la' \) -a -type f \) -print0;
     for d in $*; do \
               [ -f "$d/config.log" ] \
