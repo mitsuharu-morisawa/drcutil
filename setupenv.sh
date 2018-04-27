@@ -40,7 +40,7 @@ fi
 
 setupenv_OpenRTM-aist() {
     sudo apt-get -y install autoconf
-    if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ]; then
+    if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ] || [ "$DIST_VER" = "18.04" ]; then
         sudo apt-get -y install libtool-bin
     else
         sudo apt-get -y install libtool
@@ -70,13 +70,16 @@ setupenv_pcl() {
 }
 
 setupenv_octomap() {
-    if [ "$DIST_VER" = "16.04" ]; then
+    if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "18.04" ]; then
 	sudo apt-get -y install liboctomap-dev
     fi
 }
 
 setupenv_hrpsys-base() {
-    sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libcvaux-dev libhighgui-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
+    sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
+    if [ "$DIST_VER" != "18.04" ]; then
+        sudo apt-get -y --force-yes install libcvaux-dev libhighgui-dev
+    fi
 }
 
 setupenv_HRP2() {
