@@ -78,7 +78,7 @@ install_OpenRTM-aist() {
 	export CC=clang
     fi
     CXXFLAGS+=" -g3" \
-    ./configure --prefix="$PREFIX" --without-doxygen $ENABLE_DEBUG
+    LIBPATH=/usr/lib/x86_64-linux-gnu ./configure --prefix="$PREFIX" --without-doxygen $ENABLE_DEBUG
 
     built_dirs="$built_dirs OpenRTM-aist"
 
