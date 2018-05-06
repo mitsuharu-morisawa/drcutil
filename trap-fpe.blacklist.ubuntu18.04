@@ -27,9 +27,9 @@
 @/usr/lib/x86_64-linux-gnu/libjpeg.so.8
 @/usr/lib/x86_64-linux-gnu/libogg.so.0
 @/usr/lib/x86_64-linux-gnu/libvorbis.so.0
-@/usr/lib/x86_64-linux-gnu/libavcodec-ffmpeg.so.56
-@/usr/lib/x86_64-linux-gnu/libavformat-ffmpeg.so.56
-@/usr/lib/x86_64-linux-gnu/libavutil-ffmpeg.so.54
-@/usr/lib/x86_64-linux-gnu/libswscale-ffmpeg.so.3
+@/usr/lib/x86_64-linux-gnu/libavcodec.so
+@/usr/lib/x86_64-linux-gnu/libavformat.so
+@/usr/lib/x86_64-linux-gnu/libavutil.so
+@/usr/lib/x86_64-linux-gnu/libswscale.so
 @/usr/lib/x86_64-linux-gnu/libmp3lame.so.0
 @/usr/lib/x86_64-linux-gnu/libQt5XcbQpa.so.5
