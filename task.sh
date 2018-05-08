@@ -29,10 +29,12 @@ PORT=${9}
 export ASAN_OPTIONS="disable_coredump=0:unmap_shadow_on_exit=1:abort_on_error=1"
 # Report, but don't fail on, leaks in program samples during test.
 export LSAN_OPTIONS="exitcode=0"
-if [ "$(lsb_release -rs)" != "16.04" ]; then
+if [ "$(lsb_release -rs)" = "14.04" ]; then
     ASAN_LIB=/usr/lib/x86_64-linux-gnu/libasan.so.0
-else
+elif [ "$(lsb_release -rs)" = "16.04" ]; then
     ASAN_LIB=/usr/lib/x86_64-linux-gnu/libasan.so.2
+else
+    ASAN_LIB=/usr/lib/x86_64-linux-gnu/libasan.so.4
 fi
 ulimit -c unlimited
 killall -9 openhrp-model-loader || true
