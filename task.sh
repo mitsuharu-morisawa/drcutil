@@ -47,6 +47,7 @@ rm -rf PointCloud
 rm -f *.tau
 rm -f *.qRef
 rm -f *.log
+rm -f /tmp/emg-hmc_*.log /tmp/motion-command-solver_*.log /tmp/walking-command-solver_*.log
 
 if type savedbg-hrp > /dev/null 2>&1
 then
@@ -129,7 +130,11 @@ for ((i=0; i<${WAIT}; i++)); do
     fi
     sleep 1
 done
-mv *.log ${WORKSPACE} || true
+HMC_LOGS=`ls /tmp/emg-hmc_*.log /tmp/motion-command-solver_*.log /tmp/walking-command-solver_*.log || true`
+if [ "$HMC_LOGS" != "" ]; then
+    tar jcf ${WORKSPACE}/hmc_log.tar.bz2 $HMC_LOGS
+fi
+mv *.log  ${WORKSPACE} || true
 
 PS_AFTER=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
 echo "PS_AFTER=$PS_AFTER"
@@ -156,14 +161,23 @@ gnome-screenshot -w -f ${WORKSPACE}/task.png
 kill -2 $RECORDMYDESKTOP || true
 
 RESULT="OK"
-python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
-if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py ]; then
-    RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
-    echo "Robot: ${RESULT}"
+
+if [ -e task_result.txt ]; then
+    ret=`cat task_result.txt`
+    if [ "${ret}" = "interrupted" ];then
+        RESULT="STOP"
+    fi
+else
+    RESULT="TIMEOUT"
 fi
 
-if [ "${RESULT}" = "OK" ] && [ ! -e task_result.txt ]; then
-    RESULT="TIMEOUT"
+if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py ]; then
+    python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
+    ROBOT_POS=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
+    echo "Robot: ${ROBOT_POS}"
+    if [ "${ROBOT_POS}" = "FALL" ]; then
+        RESULT=${ROBOT_POS}
+    fi
 fi
 
 if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
