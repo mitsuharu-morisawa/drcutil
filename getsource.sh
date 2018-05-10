@@ -108,6 +108,16 @@ get_source_rtchokuyoaist() {
     get_source "git clone https://github.com/fkanehiro/rtchokuyoaist" rtchokuyoaist
 }
 
+get_source_is-jaxa() {
+    get_source "git clone https://github.com/isri-aist/is-jaxa" is-jaxa
+}
+
+get_source_takenaka() {
+    cd choreonoid/ext
+    get_source "git clone https://github.com/isri-aist/takenaka" takenaka
+    cd ../..
+}
+
 if [ ! $# -eq 0 ]; then
     PACKAGES=$@
 fi

@@ -140,6 +140,14 @@ setupenv_choreonoid() {
     sudo apt-get -y install libzbar-dev python-matplotlib
 }
 
+setupenv_is-jaxa() {
+    :
+}
+
+setupenv_takenaka() {
+    :
+}
+
 if [ ! $# -eq 0 ]; then
     PACKAGES=$@
 fi

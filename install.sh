@@ -224,6 +224,14 @@ install_setup.bash() {
     echo "source $DRCUTIL/setup.bash"
 }
 
+install_is-jaxa() {
+    cmake_install_with_option is-jaxa
+}
+
+install_takenaka() {
+    :
+}
+
 if [ ! $# -eq 0 ]; then
     PACKAGES=$@
 fi
