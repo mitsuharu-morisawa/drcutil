@@ -26,6 +26,9 @@ pull_source() {
 pull_source_choreonoid() {
     GIT_SSL_NO_VERIFY=1 pull_source choreonoid
     pull_source choreonoid/ext/hrpcnoid
+    if [ -e $SRC_DIR/choreonoid/ext/takenaka ]; then
+        pull_source choreonoid/ext/takenaka
+    fi
 }
 
 cd $SRC_DIR
