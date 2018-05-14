@@ -12,7 +12,7 @@ for line in sys.stdin:
         rotation = eval(line)
 
 if rotation[0] > -0.1 and rotation[0] < 0.1 and \
-   rotation[1] > -0.1 and rotation[1] < 0.1 and \
+   rotation[1] > -0.4 and rotation[1] < 0.4 and \
    rotation[2] > -2.0 and rotation[2] < 2.0:
     print "OK"
 else:
