@@ -30,7 +30,11 @@ if [ -e $WORKSPACE/drcutil.rev ];then
     fi
 fi
 echo $CURRENT_REVISION > $WORKSPACE/drcutil.rev
-echo "`hostname`(`lsb_release -ds`)" > $WORKSPACE/env.txt
+CPU=`cat /proc/cpuinfo | grep model\ name | head -1 | cut -d':' -f 2`
+NCPU=`cat /proc/cpuinfo | grep model\ name | wc -l`
+MEMB=`cat /proc/meminfo | grep MemTotal | awk 'NR==1 { print $2 }'`
+MEMGB=$((MEMB/1024/1024))
+echo "`hostname`(`lsb_release -ds`, $CPU x $NCPU, ${MEMGB}GB)" > $WORKSPACE/env.txt
 
 source definitions.sh # for $DIST_KIND
 
