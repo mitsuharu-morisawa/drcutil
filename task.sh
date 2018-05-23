@@ -161,7 +161,7 @@ if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py ]; then
 fi
 
 if [ "${RESULT}" = "OK" ] && [ ! -e task_result.txt ]; then
-    RESULT="TIMEOUT"
+    RESULT="STOP"
 fi
 
 if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
