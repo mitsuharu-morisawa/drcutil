@@ -154,14 +154,20 @@ gnome-screenshot -w -f ${WORKSPACE}/task.png
 kill -2 $RECORDMYDESKTOP || true
 
 RESULT="OK"
+
+if [ -e task_result.txt ]; then
+    ret=`cat task_result.txt`
+    if [ "${ret}" = "interrupted" ];then
+        RESULT="STOP"
+    fi
+else
+    RESULT="TIMEOUT"
+fi
+
 python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
 if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py ]; then
     RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
     echo "Robot: ${RESULT}"
-fi
-
-if [ "${RESULT}" = "OK" ] && [ ! -e task_result.txt ]; then
-    RESULT="STOP"
 fi
 
 if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
