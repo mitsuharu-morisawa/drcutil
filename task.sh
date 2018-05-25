@@ -164,11 +164,12 @@ else
     RESULT="TIMEOUT"
 fi
 
-if [ "${RESULT}" = "OK" ]; then
+if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py ]; then
     python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
-    if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py ]; then
-        RESULT=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
-        echo "Robot: ${RESULT}"
+    ROBOT_POS=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
+    echo "Robot: ${ROBOT_POS}"
+    if [ "${ROBOT_POS}" = "FALL" ]; then
+        RESULT=${ROBOT_POS}
     fi
 fi
 
