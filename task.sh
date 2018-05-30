@@ -45,6 +45,7 @@ rm -rf PointCloud
 rm -f *.tau
 rm -f *.qRef
 rm -f *.log
+rm -f /tmp/emg-hmc_*.log /tmp/motion-command-solver_*.log /tmp/walking-command-solver_*.log
 
 if type savedbg-hrp > /dev/null 2>&1
 then
@@ -127,7 +128,7 @@ for ((i=0; i<${WAIT}; i++)); do
     fi
     sleep 1
 done
-mv *.log ${WORKSPACE} || true
+mv *.log /tmp/emg-hmc_*.log /tmp/motion-command-solver_*.log /tmp/walking-command-solver_*.log ${WORKSPACE} || true
 
 PS_AFTER=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
 echo "PS_AFTER=$PS_AFTER"
