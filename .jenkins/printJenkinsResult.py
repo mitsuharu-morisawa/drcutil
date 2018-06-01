@@ -211,5 +211,5 @@ for build in builds:
     finally:
         r.close()
     notes = memory_used + memory_change
-    print "|[" + number + "]("+build['url']+")|" + "![Jenkins Icon](images/"+ color + ".png)" + result + "|" + str(datetime.fromtimestamp(build['timestamp'] / 1000).strftime("%Y/%m/%d %H:%M")) + "|" + str(build['duration'] / 60 / 1000) + " min." + "|" + slave + "|" + numberErrorSeverity + "|" + failCount + "|" + ratio + "|" + changes + "|" + uploads + "|" + notes + "|"
+    print "|[" + number + "]("+build['url']+"artifact/)|" + "![Jenkins Icon](images/"+ color + ".png)" + result + "|" + str(datetime.fromtimestamp(build['timestamp'] / 1000).strftime("%Y/%m/%d %H:%M")) + "|" + str(build['duration'] / 60 / 1000) + " min." + "|" + slave + "|" + numberErrorSeverity + "|" + failCount + "|" + ratio + "|" + changes + "|" + uploads + "|" + notes + "|"
 print ""
