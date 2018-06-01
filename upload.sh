@@ -22,12 +22,9 @@ upload() {
   fi
 }
 
-upload "BUILD" "console.log" "text/plain"
-upload "BUILD" "setupenv.log" "text/plain"
-upload "BUILD" "install.log" "text/plain"
-upload "BUILD" "build.log" "text/plain"
-upload "BUILD" "task.log" "text/plain"
+for file in $(ls *.log); do
+    upload "BUILD" $file "text/plain"
+done
 upload "BUILD" "SelfCollision.txt" "text/plain"
-upload "BUILD" operation*.log "text/plain"
 upload "IMAGE" "task.png" "image/png"
 upload "VIDEO" "task.ogv" "video/ogg"
