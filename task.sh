@@ -130,7 +130,7 @@ for ((i=0; i<${WAIT}; i++)); do
 done
 HMC_LOGS=`ls /tmp/emg-hmc_*.log /tmp/motion-command-solver_*.log /tmp/walking-command-solver_*.log || true`
 if [ "$HMC_LOGS" != "" ]; then
-    tar zcf ${WORKSPACE}/hmc_log.tgz $HMC_LOGS
+    tar jcf ${WORKSPACE}/hmc_log.tar.bz2 $HMC_LOGS
 fi
 mv *.log  ${WORKSPACE} || true
 
