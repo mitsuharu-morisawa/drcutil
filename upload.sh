@@ -25,6 +25,7 @@ upload() {
 for file in $(ls *.log); do
     upload "BUILD" $file "text/plain"
 done
+upload "BUILD" "hmc_log.tgz" "application/x-gzip"
 upload "BUILD" "SelfCollision.txt" "text/plain"
 upload "IMAGE" "task.png" "image/png"
 upload "VIDEO" "task.ogv" "video/ogg"

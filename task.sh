@@ -128,7 +128,11 @@ for ((i=0; i<${WAIT}; i++)); do
     fi
     sleep 1
 done
-mv *.log /tmp/emg-hmc_*.log /tmp/motion-command-solver_*.log /tmp/walking-command-solver_*.log ${WORKSPACE} || true
+HMC_LOGS=`ls /tmp/emg-hmc_*.log /tmp/motion-command-solver_*.log /tmp/walking-command-solver_*.log || true`
+if [ "$HMC_LOGS" != "" ]; then
+    tar zcf ${WORKSPACE}/hmc_log.tgz $HMC_LOGS
+fi
+mv *.log  ${WORKSPACE} || true
 
 PS_AFTER=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
 echo "PS_AFTER=$PS_AFTER"
