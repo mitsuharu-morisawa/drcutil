@@ -8,6 +8,7 @@ rm -f $WORKSPACE/*.tau
 rm -f $WORKSPACE/*.q
 rm -f $WORKSPACE/*.qRef
 rm -f $WORKSPACE/core*.bz2
+rm -f $WORKSPACE/hmc_log.tar.bz2
 
 upload() {
     curl --user $JENKINS_USER:$JENKINS_PASSWD $BUILD_URL/consoleText > $WORKSPACE/console.log 
