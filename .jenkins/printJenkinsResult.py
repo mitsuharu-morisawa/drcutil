@@ -239,9 +239,9 @@ for build in builds:
     ret = result['result']
     if ret == "SUCCESS":
         color = "blue"
-    elif result == "FAILURE":
+    elif ret == "FAILURE":
         color = "red"
-    elif result == "ABORTED":
+    elif ret == "ABORTED":
         color = "aborted"
     else:
         color = "yellow"
