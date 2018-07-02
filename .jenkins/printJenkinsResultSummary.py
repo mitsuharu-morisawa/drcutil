@@ -41,7 +41,7 @@ def printLatestResults(url, username, passowrd, job, n):
                 color = "red"
             else:
                 color = "aborted"
-            print "!["+color+"](images/"+ color + ".png)"+text,
+            print "<a href=\""+builds[i]['url']+"artifact/\"><img src=\"https://github.com/isri-aist/hrg-ci-results/wiki/images/"+color+".png\" alt=\""+color+".png\" title=\""+color+".png\"></a>",
         print "|",
     print 
 
