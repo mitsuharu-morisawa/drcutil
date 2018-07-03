@@ -36,8 +36,6 @@ def getResultFromMasterServer(build):
         failCount = root['failCount']
     except:
         pass
-    finally:
-        r.close()
     if failCount != "":
         failCount = str(failCount) + " err."
     ratio = ""
@@ -53,8 +51,6 @@ def getResultFromMasterServer(build):
             n += 1;
     except:
         pass
-    finally:
-        r.close()
     result['failCount'] = failCount
     ratio = ""
     try:
@@ -69,8 +65,6 @@ def getResultFromMasterServer(build):
             n += 1;
     except:
         pass
-    finally:
-        r.close()
     if ratio != "":
         ratio = str(ratio) + " %"
     result['ratio'] = ratio
@@ -82,8 +76,6 @@ def getResultFromMasterServer(build):
         numberErrorSeverity = root['numberErrorSeverity']
     except:
         pass
-    finally:
-        r.close()
     if numberErrorSeverity != "":
         numberErrorSeverity = str(numberErrorSeverity) + " err."
     result['numberErrorSeverity'] = numberErrorSeverity
@@ -105,8 +97,6 @@ def getResultFromMasterServer(build):
             line = r.readline()
     except:
         pass
-    finally:
-        r.close()
     result['changes'] = changes
     build_files = ""
     image_files = ""
@@ -132,8 +122,6 @@ def getResultFromMasterServer(build):
             line = r.readline()
     except:
         pass
-    finally:
-        r.close()
     uploads = build_files + image_files + video_files
     result['uploads'] = uploads
     slave = ""
@@ -144,8 +132,6 @@ def getResultFromMasterServer(build):
         slave = line[0:len(line)-1]
     except:
         pass
-    finally:
-        r.close()
     result['slave'] = slave
     notes = ""
     memory_used = ""
@@ -160,8 +146,6 @@ def getResultFromMasterServer(build):
         memory_change = line.split(",")[1] + "KB change" + "<br>"
     except:
         pass
-    finally:
-        r.close()
     notes = memory_used + memory_change
     result['notes'] = notes
     return result
