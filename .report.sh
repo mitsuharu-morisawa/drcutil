@@ -13,7 +13,7 @@ do
     python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResult.py ${REPORT_JOB} ${JENKINS_URL} $1 $2 > ${REPORT_JOB}.md
 done
 
-python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResultSummary.py ${JENKINS_URL} $1 $2 > index.md
+python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResultSummary.py ${REPORT_JOBS} > index.md
 
 git checkout --orphan report-new
 git add --all
