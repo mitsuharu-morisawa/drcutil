@@ -231,11 +231,10 @@ print "|---|------|----|--------|----|----------|----|--------|-------|----|----
 
 for build in builds:
     number = str(build['number'])
-    result = results[number]
-
-    building = result['building']
-    if building == True:
+    if not number in results:
         continue
+
+    result = results[number]
     ret = result['result']
     if ret == "SUCCESS":
         color = "blue"
