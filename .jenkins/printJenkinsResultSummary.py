@@ -27,7 +27,7 @@ def printLatestResults(job, n):
             else:
                 color = "yellow"
                 text = ret
-            print "<a href=\""+result['url']+"artifact/\"><img src=\"https://github.com/isri-aist/hrg-ci-results/wiki/images/"+color+".png\" alt=\""+color+".png\" title=\""+color+".png\"></a>"+text,
+            print "<a href=\""+result['url']+"\"><img src=\"https://github.com/isri-aist/hrg-ci-results/wiki/images/"+color+".png\" alt=\""+color+".png\" title=\""+color+".png\"></a>"+text,
         print "|",
     print 
 
