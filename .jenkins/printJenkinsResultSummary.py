@@ -26,7 +26,8 @@ def printLatestResults(job, n):
                 color = "aborted"
             else:
                 color = "yellow"
-            print "<a href=\""+result['url']+"artifact/\"><img src=\"https://github.com/isri-aist/hrg-ci-results/wiki/images/"+color+".png\" alt=\""+color+".png\" title=\""+color+".png\"></a>"+ret,
+                text = ret
+            print "<a href=\""+result['url']+"artifact/\"><img src=\"https://github.com/isri-aist/hrg-ci-results/wiki/images/"+color+".png\" alt=\""+color+".png\" title=\""+color+".png\"></a>"+text,
         print "|",
     print 
 
