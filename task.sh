@@ -9,6 +9,10 @@ trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 check_core(){
     if [ -e core ]; then
 	echo bt | gdb choreonoid core
+        size=$(stat -c %s core)
+        if [ $size -gt 10000000000 ]; then
+            rm -rf core
+        fi
     fi
     cp ${PREFIX}/share/robot-sources.tar.bz2 ${WORKSPACE} || true
     mv *.bz2 ${WORKSPACE} || true
@@ -56,8 +60,7 @@ else
     SAVEDBG_HRP=
 fi
 
-#$SAVEDBG_HRP LD_PRELOAD="${ASAN_LIB}:${PREFIX}/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
-LD_PRELOAD="${ASAN_LIB}:${PREFIX}/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
+$SAVEDBG_HRP LD_PRELOAD="${ASAN_LIB}:${PREFIX}/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
 for ((i=0; i<900; i++)); do
