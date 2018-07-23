@@ -16,7 +16,12 @@ upload() {
       if [ "$LABEL" = "VIDEO" ]; then
 	  URL=$(python ${WORKSPACE}/drcutil/.jenkins/upload_video.py --title=${TITLE} --file=${FILENAME} --privacyStatus=unlisted)
       else
-	  URL=$(python ${WORKSPACE}/drcutil/.jenkins/remoteBackup.py ${TITLE} ${MIMETYPE} ${FILENAME})
+          size=$(stat -c %s $FILENAME)
+          if [ $size -gt 100000000 ]; then
+              URL="too big"
+          else
+	      URL=$(python ${WORKSPACE}/drcutil/.jenkins/remoteBackup.py ${TITLE} ${MIMETYPE} ${FILENAME})
+          fi
       fi
       echo "${LABEL},${FILENAME},${URL}" >> uploads.txt
   fi
