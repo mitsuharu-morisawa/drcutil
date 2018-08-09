@@ -16,6 +16,7 @@ check_core(){
     fi
     cp ${PREFIX}/share/robot-sources.tar.bz2 ${WORKSPACE} || true
     mv *.bz2 ${WORKSPACE} || true
+    mv *.log  ${WORKSPACE} || true
 }
 
 trap check_core EXIT
@@ -137,7 +138,6 @@ HMC_LOGS=`ls /tmp/emg-hmc_*.log /tmp/motion-command-solver_*.log /tmp/walking-co
 if [ "$HMC_LOGS" != "" ]; then
     tar jcf ${WORKSPACE}/hmc_log.tar.bz2 $HMC_LOGS
 fi
-mv *.log  ${WORKSPACE} || true
 
 PS_AFTER=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
 echo "PS_AFTER=$PS_AFTER"
