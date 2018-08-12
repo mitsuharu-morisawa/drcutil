@@ -11,7 +11,7 @@ rm -f $WORKSPACE/core*.bz2
 rm -f $WORKSPACE/hmc_log.tar.bz2
 
 upload() {
-    curl --user $JENKINS_USER:$JENKINS_PASSWD $BUILD_URL/consoleText > $WORKSPACE/console.log 
+    curl --user $JENKINS_USER:$JENKINS_PASSWD $BUILD_URL/consoleText > $WORKSPACE/console.log > /dev/null 2>&1
     bash -e ./upload.sh || true
     awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/artifacts.txt > $WORKSPACE/artifacts_email.txt
     awk -F, '{print $2"\t"$3"\t"}' $WORKSPACE/uploads.txt > $WORKSPACE/uploads_email.txt
