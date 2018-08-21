@@ -136,7 +136,7 @@ for ((i=0; i<${WAIT}; i++)); do
 done
 HMC_LOGS=`ls /tmp/emg-hmc_*.log /tmp/motion-command-solver_*.log /tmp/walking-command-solver_*.log || true`
 if [ "$HMC_LOGS" != "" ]; then
-    tar jcf ${WORKSPACE}/hmc_log.tar.bz2 $HMC_LOGS
+    tar jcf ${WORKSPACE}/hmc_log.tar.bz2 $HMC_LOGS || true
 fi
 
 PS_AFTER=$(ps -F $CHOREONOID | awk 'NR==2 { print $6 }')
