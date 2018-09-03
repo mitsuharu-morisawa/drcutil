@@ -39,46 +39,72 @@ fi
 # fi
 
 setupenv_OpenRTM-aist() {
-    sudo apt-get -y install autoconf
-    if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ] || [ "$DIST_VER" = "18.04" ]; then
-        sudo apt-get -y install libtool-bin
+    if [ $OSNAME = "Darwin" ]; then
+	brew install autoconf
+	brew install automake
+	brew install libtool
+	brew install omniorb
     else
-        sudo apt-get -y install libtool
+	sudo apt-get -y install autoconf
+	if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ] || [ "$DIST_VER" = "18.04" ]; then
+            sudo apt-get -y install libtool-bin
+	else
+            sudo apt-get -y install libtool
+	fi
     fi
 }
 
 setupenv_openhrp3() {
-    cd $SRC_DIR/openhrp3/util
-    ./installPackages.sh packages.list.$DIST_KIND.$DIST_VER
-    sudo apt-get -y remove openrtm-aist-dev openrtm-aist # install from source
+    if [ $OSNAME = "Darwin" ]; then
+	brew install cmake
+	brew install eigen
+	brew install boost
+	brew install pkg-config
+	brew install jpeg
+	brew install libpng
+    else
+	cd $SRC_DIR/openhrp3/util
+	./installPackages.sh packages.list.$DIST_KIND.$DIST_VER
+	sudo apt-get -y remove openrtm-aist-dev openrtm-aist # install from source
 
-    sudo sed -i -e 's/giopMaxMsgSize = 2097152/giopMaxMsgSize = 2147483648/g' /etc/omniORB.cfg
+	sudo sed -i -e 's/giopMaxMsgSize = 2097152/giopMaxMsgSize = 2147483648/g' /etc/omniORB.cfg
 
-    if [ "$BUILD_GOOGLE_TEST" = "ON" ]; then
-        sudo apt-get -y install libgtest-dev
+	if [ "$BUILD_GOOGLE_TEST" = "ON" ]; then
+            sudo apt-get -y install libgtest-dev
+	fi
     fi
 }
 
 setupenv_pcl() {
-    if [ "$DIST_VER" = "14.04" ]; then
-	sudo add-apt-repository -y ppa:v-launchpad-jochen-sprickerhof-de/pcl
-	sudo apt-get update || true #ignore checksum error
-	sudo apt-get -y install libpcl-all
+    if [ $OSNAME = "Darwin" ]; then
+	brew install pcl
     else
-	sudo apt-get -y install libpcl-dev libproj-dev
+	if [ "$DIST_VER" = "14.04" ]; then
+	    sudo add-apt-repository -y ppa:v-launchpad-jochen-sprickerhof-de/pcl
+	    sudo apt-get update || true #ignore checksum error
+	    sudo apt-get -y install libpcl-all
+	else
+	    sudo apt-get -y install libpcl-dev libproj-dev
+	fi
     fi
 }
 
 setupenv_octomap() {
-    if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "18.04" ]; then
-	sudo apt-get -y install liboctomap-dev
+    if [ $OSNAME = "Darwin" ]; then
+	brew install octomap
+    else
+	if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "18.04" ]; then
+	    sudo apt-get -y install liboctomap-dev
+	fi
     fi
 }
 
 setupenv_hrpsys-base() {
-    sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
-    if [ "$DIST_VER" != "18.04" ]; then
-        sudo apt-get -y --force-yes install libcvaux-dev libhighgui-dev
+    if [ $OSNAME != "Darwin" ]; then
+	sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
+	if [ "$DIST_VER" != "18.04" ]; then
+            sudo apt-get -y --force-yes install libcvaux-dev libhighgui-dev
+	fi
     fi
 }
 
@@ -99,11 +125,15 @@ setupenv_sch-core() {
 }
     
 setupenv_state-observation() {
-    sudo apt-get -y install libboost-test-dev libboost-timer-dev
+    if [ $OSNAME != "Darwin" ]; then
+	sudo apt-get -y install libboost-test-dev libboost-timer-dev
+    fi
 }
 
 setupenv_hmc2() {
-    sudo apt-get -y install libyaml-dev libncurses5-dev
+    if [ $OSNAME != "Darwin" ]; then
+	sudo apt-get -y install libyaml-dev libncurses5-dev
+    fi
 }
 
 setupenv_hrpsys-private() {
@@ -111,7 +141,9 @@ setupenv_hrpsys-private() {
 }
 
 setupenv_hrpsys-humanoid() {
-    sudo apt-get -y install libusb-dev
+    if [ $OSNAME != "Darwin" ]; then
+	sudo apt-get -y install libusb-dev
+    fi
 }
 
 setupenv_hrpsys-state-observation() {
