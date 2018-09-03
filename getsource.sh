@@ -2,7 +2,9 @@
 
 source config.sh
 
-sudo apt-get -y install git subversion
+if [ $OSNAME != "Darwin" ]; then
+    sudo apt-get -y install git subversion
+fi
 
 get_source() {
     if [ ! -e $2 ]; then

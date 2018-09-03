@@ -1,20 +1,26 @@
 ######## Please don't edit from here ########
-case $(lsb_release -is) in
-    Debian)
-        DIST_KIND=debian
-	DIST_FULL_VER="$(lsb_release -rs)"
-	DIST_VER="${DIST_FULL_VER:0:1}"
-	INTERNAL_MACHINE=1
-        ;;
-    Ubuntu)
-        DIST_KIND=ubuntu
-	DIST_VER="$(lsb_release -rs)"
-        ;;
-    *)
-        echo 1>&2 "config.sh: error: unknown distribution: $(lsb_release -is)"
-        exit 1
-        ;;
-esac
+OSNAME="$(uname)"
+
+if [ "$OSNAME" = "Darwin" ]; then
+    DIST_KIND=darwin
+else
+    case $(lsb_release -is) in
+	Debian)
+            DIST_KIND=debian
+	    DIST_FULL_VER="$(lsb_release -rs)"
+	    DIST_VER="${DIST_FULL_VER:0:1}"
+	    INTERNAL_MACHINE=1
+            ;;
+	Ubuntu)
+            DIST_KIND=ubuntu
+	    DIST_VER="$(lsb_release -rs)"
+            ;;
+	*)
+            echo 1>&2 "config.sh: error: unknown distribution: $(lsb_release -is)"
+            exit 1
+            ;;
+    esac
+fi
 
 case $(uname -m) in
     x86_64)
