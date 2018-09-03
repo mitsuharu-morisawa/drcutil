@@ -35,8 +35,6 @@ case $(uname -m) in
         ;;
 esac
 
-BUILD_GOOGLE_TEST=ON
-
 err_report() {
     echo "Error on line $2:$1"
     echo "Stopping the script $(basename "$3")."
