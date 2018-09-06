@@ -40,10 +40,7 @@ fi
 
 setupenv_OpenRTM-aist() {
     if [ $OSNAME = "Darwin" ]; then
-	brew install autoconf
-	brew install automake
-	brew install libtool
-	brew install omniorb
+	brew install autoconf automake libtool omniorb
     else
 	sudo apt-get -y install autoconf
 	if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ] || [ "$DIST_VER" = "18.04" ]; then
@@ -56,12 +53,7 @@ setupenv_OpenRTM-aist() {
 
 setupenv_openhrp3() {
     if [ $OSNAME = "Darwin" ]; then
-	brew install cmake
-	brew install eigen
-	brew install boost
-	brew install pkg-config
-	brew install jpeg
-	brew install libpng
+	brew install cmake eigen boost pkg-config jpeg libpng
     else
 	cd $SRC_DIR/openhrp3/util
 	./installPackages.sh packages.list.$DIST_KIND.$DIST_VER
@@ -100,7 +92,9 @@ setupenv_octomap() {
 }
 
 setupenv_hrpsys-base() {
-    if [ $OSNAME != "Darwin" ]; then
+    if [ $OSNAME = "Darwin" ]; then
+	brew install opencv sdl boost-python
+    else
 	sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
 	if [ "$DIST_VER" != "18.04" ]; then
             sudo apt-get -y --force-yes install libcvaux-dev libhighgui-dev
@@ -125,7 +119,9 @@ setupenv_sch-core() {
 }
     
 setupenv_state-observation() {
-    if [ $OSNAME != "Darwin" ]; then
+    if [ $OSNAME = "Darwin" ]; then
+	brew install doxygen
+    else
 	sudo apt-get -y install libboost-test-dev libboost-timer-dev
     fi
 }
@@ -164,12 +160,16 @@ setupenv_savedbg() {
 }
 
 setupenv_choreonoid() {
-    #choreonoid
-    cd $SRC_DIR/choreonoid/misc/script
-    ./install-requisites-$DIST_KIND-$DIST_VER.sh
+    if [ $OSNAME = "Darwin" ]; then
+	brew install gettext qt
+    else
+	#choreonoid
+	cd $SRC_DIR/choreonoid/misc/script
+	./install-requisites-$DIST_KIND-$DIST_VER.sh
 
-    #hrpcnoid
-    sudo apt-get -y install libzbar-dev python-matplotlib
+	#hrpcnoid
+	sudo apt-get -y install libzbar-dev python-matplotlib
+    fi
 }
 
 setupenv_is-jaxa() {

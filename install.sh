@@ -219,12 +219,14 @@ install_setup.bash() {
     echo "export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig" >> $DRCUTIL/setup.bash
     echo "export PYTHONPATH=$PREFIX/lib/python2.7/dist-packages/hrpsys:\$PYTHONPATH" >> $DRCUTIL/setup.bash
     echo "export ASAN_OPTIONS=\"disable_coredump=0:unmap_shadow_on_exit=1:abort_on_error=1\"" >> $DRCUTIL/setup.bash
-    if [ "$(lsb_release -rs)" = "14.04" ]; then
-        echo "export ASAN_LIB=/usr/lib/x86_64-linux-gnu/libasan.so.0" >> $DRCUTIL/setup.bash
-    elif [ "$(lsb_release -rs)" = "16.04" ]; then
-        echo "export ASAN_LIB=/usr/lib/x86_64-linux-gnu/libasan.so.2" >> $DRCUTIL/setup.bash
-    else
-        echo "export ASAN_LIB=/usr/lib/x86_64-linux-gnu/libasan.so.4" >> $DRCUTIL/setup.bash
+    if [ $OSNAME != "Darwin" ]; then
+	if [ "$(lsb_release -rs)" = "14.04" ]; then
+            echo "export ASAN_LIB=/usr/lib/x86_64-linux-gnu/libasan.so.0" >> $DRCUTIL/setup.bash
+	elif [ "$(lsb_release -rs)" = "16.04" ]; then
+            echo "export ASAN_LIB=/usr/lib/x86_64-linux-gnu/libasan.so.2" >> $DRCUTIL/setup.bash
+	else
+            echo "export ASAN_LIB=/usr/lib/x86_64-linux-gnu/libasan.so.4" >> $DRCUTIL/setup.bash
+	fi
     fi
     
     echo "add the following line to your .bashrc"
