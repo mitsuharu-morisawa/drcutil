@@ -215,7 +215,11 @@ install_rtchokuyoaist() {
 
 install_setup.bash() {
     echo "export PATH=$PREFIX/bin:\$PATH" > $DRCUTIL/setup.bash
-    echo "export LD_LIBRARY_PATH=$PREFIX/lib:$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/ext/lib$ARCH_BITS/release:\$LD_LIBRARY_PATH" >> $DRCUTIL/setup.bash
+    if [ $OSNAME = "Darwin" ]; then
+	echo "export DYLD_LIBRARY_PATH=$PREFIX/lib:$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/ext/lib$ARCH_BITS/release:\$DYLD_LIBRARY_PATH" >> $DRCUTIL/setup.bash
+    else
+	echo "export LD_LIBRARY_PATH=$PREFIX/lib:$PREFIX/share/DynamoRIO-$DYNAMORIO_VERSION/ext/lib$ARCH_BITS/release:\$LD_LIBRARY_PATH" >> $DRCUTIL/setup.bash
+    fi
     echo "export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig" >> $DRCUTIL/setup.bash
     echo "export PYTHONPATH=$PREFIX/lib/python2.7/dist-packages/hrpsys:\$PYTHONPATH" >> $DRCUTIL/setup.bash
     echo "export ASAN_OPTIONS=\"disable_coredump=0:unmap_shadow_on_exit=1:abort_on_error=1\"" >> $DRCUTIL/setup.bash
