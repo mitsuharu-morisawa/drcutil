@@ -127,7 +127,9 @@ setupenv_state-observation() {
 }
 
 setupenv_hmc2() {
-    if [ $OSNAME != "Darwin" ]; then
+    if [ $OSNAME = "Darwin" ]; then
+	brew install libyaml
+    else
 	sudo apt-get -y install libyaml-dev libncurses5-dev
     fi
 }
@@ -161,7 +163,7 @@ setupenv_savedbg() {
 
 setupenv_choreonoid() {
     if [ $OSNAME = "Darwin" ]; then
-	brew install gettext qt
+	brew install gettext qt zbar
     else
 	#choreonoid
 	cd $SRC_DIR/choreonoid/misc/script
