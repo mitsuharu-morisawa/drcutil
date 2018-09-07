@@ -84,6 +84,9 @@ install_OpenRTM-aist() {
 
     $SUDO make -j$MAKE_THREADS_NUMBER install "${SAN_FLAGS[@]}" \
 	| tee $SRC_DIR/OpenRTM-aist.log
+    if [ $OSNAME = "Darwin" ]; then
+	$SUDO sed -i -e s/-export-dynamic//g $PREFIX/bin/rtm-config
+    fi
 }
 
 install_openhrp3() {
