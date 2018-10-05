@@ -13,7 +13,18 @@ cd $SRC_DIR
 
 build_install_OpenRTM-aist() {
     cd OpenRTM-aist
-    if [ `cat svn.log | wc -l` != 2 ]; then
+    must_rebuild=0
+    if [ -r svn.log ]; then
+        [ `cat svn.log | wc -l` != 2 ] && must_rebuild=1
+    elif [ -r last-built ]; then
+        cur=`git rev-parse HEAD`
+        [ x`cat last-built` != "x$cur" ] && must_rebuild=1
+        echo "$cur" > last-built
+    else
+        must_rebuild=1
+        git rev-parse HEAD > last-built
+    fi
+    if [ "$must_rebuild" = 1 ]; then
         echo -n "building OpenRTM-aist ... "
 	if [ "${VERBOSE-0}" -eq 0 ]; then
 	    $SUDO make -j$MAKE_THREADS_NUMBER "${SAN_FLAGS[@]}" install > $SRC_DIR/OpenRTM-aist.log 2>&1
