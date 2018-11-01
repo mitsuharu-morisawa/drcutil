@@ -176,7 +176,7 @@ fi
 
 if [ -e ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py ]; then
     python ${WORKSPACE}/drcutil/.jenkins/getRobotPos.py | tee ${WORKSPACE}/${TASK}-getRobotPos.txt
-    ROBOT_POS=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
+    ROBOT_POS=$(cat ${WORKSPACE}/${TASK}-getRobotPos.txt | tail -3 | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkRobotPos.py)
     echo "Robot: ${ROBOT_POS}"
     if [ "${ROBOT_POS}" = "FALL" ]; then
         RESULT=${ROBOT_POS}
@@ -185,7 +185,7 @@ fi
 
 if [ "${RESULT}" = "OK" ] && [ "${TARGET}" != "" ]; then
   python ${WORKSPACE}/drcutil/.jenkins/getTargetPos.py ${TARGET} ${PORT} | tee ${WORKSPACE}/${TASK}-getTargetPos.txt
-  RESULT=$(cat ${WORKSPACE}/${TASK}-getTargetPos.txt | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkTargetPos.py ${VR})
+  RESULT=$(cat ${WORKSPACE}/${TASK}-getTargetPos.txt | tail -2 | python ${WORKSPACE}/drcutil/.jenkins/${TASK}-checkTargetPos.py ${VR})
   echo "Target: ${RESULT}"
 fi
 
