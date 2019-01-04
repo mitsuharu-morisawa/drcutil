@@ -33,6 +33,10 @@ def printLatestResults(job, n):
 
 njob = 10
 
+print "---"
+print "layout: default"
+print "---"
+
 print "Last update : " + datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 print ""
 print "### Job Summary"

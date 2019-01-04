@@ -214,6 +214,10 @@ else:
     stability = 0
     iconUrl = "health-00to19.png"
 
+print "---"
+print "layout: default"
+print "---"
+
 print "Last update : " + datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 print ""
 
