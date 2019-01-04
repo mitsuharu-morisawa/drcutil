@@ -116,7 +116,7 @@ def getResultFromMasterServer(build):
             elif label == "IMAGE":
                 tokens = googleurl.split("/")
                 fileid = tokens[5]
-                image_files += "<a href=\""+googleurl+"\"><img src=\"http://drive.google.com/uc?export=view&id="+fileid+"\" alt=\"task.png\" title=\"task.png\" width=400></a>"
+                image_files += "<a href=\""+googleurl+"\"><img src=\"http://drive.google.com/uc?export=view&id="+fileid+"\" alt=\"task.png\" title=\"task.png\" width=\"400\"></a>"
             elif label == "VIDEO":
                 video_files += "[" + filename + "](" + googleurl + ")" + "<br>"
             line = r.readline()
