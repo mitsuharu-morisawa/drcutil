@@ -42,6 +42,7 @@ print ""
 print "### Job Summary"
 print "___"
 print ""
+print "{:class=\"table table-bordered\"}"
 print "|Name|Latest Results"+"|"*njob
 print "|---|"+"--|"*njob
 for job in sys.argv[1:]:
