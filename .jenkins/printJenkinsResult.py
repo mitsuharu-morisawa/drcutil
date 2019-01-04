@@ -230,6 +230,7 @@ print ""
 print "#### Build History"
 print ""
 
+print "{:class=\"table table-bordered\"}"
 print "|#|Status|Time|Duration|Slave|Inspection|Test|Coverage|Changes|Logs|Notes|"
 print "|---|------|----|--------|----|----------|----|--------|-------|----|-----|"
 
