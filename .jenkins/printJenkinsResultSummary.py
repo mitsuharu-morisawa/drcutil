@@ -5,7 +5,7 @@ import sys, json, os
 from datetime import datetime
 
 def printLatestResults(job, n):
-    print "|" + job + ".html|",
+    print "|<a href=" + job + ".html>"+job+"</a>|",
     cacheFile = job+".json"
     if not os.path.exists(cacheFile):
         print "|"*n
@@ -27,7 +27,7 @@ def printLatestResults(job, n):
             else:
                 color = "yellow"
                 text = ret
-            print "<a href=\""+result['url']+"\"><img src=images/24x24/"+color+".png\" alt=\""+color+".png\" title=\""+color+".png\"></a>"+text,
+            print "<a href=\""+result['url']+"\"><img src=\"images/24x24/"+color+".png\" alt=\""+color+".png\" title=\""+color+".png\"></a>"+text,
         print "|",
     print 
 

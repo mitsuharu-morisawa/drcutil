@@ -223,7 +223,7 @@ print ""
 
 print "#### Build Stability"
 
-print "![Jenkins Icon](images/" + iconUrl + ")"
+print "![Jenkins Icon](images/48x48/" + iconUrl + ")"
 print str(stability) + "%"
 print ""
 
@@ -255,7 +255,7 @@ for build in builds:
     uploads = result['uploads']
     slave = result['slave']
     notes = result['notes']
-    print "|[" + number + "]("+result['url']+")|" + "![Jenkins Icon](images/"+ color + ".png)" + ret + "|" + str(datetime.fromtimestamp(result['timestamp'] / 1000).strftime("%Y/%m/%d %H:%M")) + "|" + str(result['duration'] / 60 / 1000) + " min." + "|" + slave + "|" + numberErrorSeverity + "|" + failCount + "|" + ratio + "|" + changes + "|" + uploads + "|" + notes + "|"
+    print "|[" + number + "]("+result['url']+")|" + "![Jenkins Icon](images/24x24/"+ color + ".png)" + ret + "|" + str(datetime.fromtimestamp(result['timestamp'] / 1000).strftime("%Y/%m/%d %H:%M")) + "|" + str(result['duration'] / 60 / 1000) + " min." + "|" + slave + "|" + numberErrorSeverity + "|" + failCount + "|" + ratio + "|" + changes + "|" + uploads + "|" + notes + "|"
 print ""
 
 ### save results ###
