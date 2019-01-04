@@ -1,8 +1,8 @@
 cd ${WORKSPACE}
 
-rm -fr hrg-ci-results.wiki
-git clone https://github.com/isri-aist/hrg-ci-results.wiki.git
-cd hrg-ci-results.wiki
+rm -fr netlify-site
+git clone --branch master --single-branch git@bitbucket.org:jenkinshrg/netlify-site.git
+cd netlify-site
 
 JENKINS_URL=http://jenkinshrg.a01.aist.go.jp/
 
