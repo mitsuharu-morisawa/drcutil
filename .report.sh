@@ -1,7 +1,9 @@
 cd ${WORKSPACE}
 
-rm -fr netlify-site
-git clone --branch master --single-branch git@bitbucket.org:jenkinshrg/netlify-site.git
+if [ ! -e netlify-site ]; then
+    rm -fr netlify-site
+    git clone --branch master --single-branch git@bitbucket.org:jenkinshrg/netlify-site.git
+fi
 cd netlify-site
 
 JENKINS_URL=http://jenkinshrg.a01.aist.go.jp/
@@ -15,9 +17,12 @@ done
 
 python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResultSummary.py ${REPORT_JOBS} > index.md
 
-git checkout --orphan report-new
-git add --all
-git commit -m "update report"
-git branch -D master
-git branch -m master
-git push -f origin master
+#git checkout --orphan report-new
+#git add --all
+#git commit -m "update report"
+#git branch -D master
+#git branch -m master
+#git push -f origin master
+jekyll b
+scp -r _site/* jenkinshrg:/var/wwww/html/ci
+
