@@ -112,7 +112,7 @@ def getResultFromMasterServer(build):
             filename = line.split(",")[1]
             googleurl = line.split(",")[2]
             if label == "BUILD":
-                build_files += "[" + filename + "](" + googleurl + ")" + "<br>"
+                build_files += "[" + filename + "](" + build['url'] + filename + ")" + "<br>"
             elif label == "IMAGE":
                 tokens = googleurl.split("/")
                 fileid = tokens[5]
@@ -122,7 +122,7 @@ def getResultFromMasterServer(build):
             line = r.readline()
     except:
         pass
-    uploads = build_files + image_files + video_files
+    uploads = build_files + "<video src=\"" + build['url'] + "artifact/task.ogv\" poster=\"" + build['url'] + "artifact/task.png\" controls width=\"400\"></video>"
     result['uploads'] = uploads
     slave = ""
     try:
