@@ -76,7 +76,7 @@ setupenv_pcl() {
 	    sudo apt-get update || true #ignore checksum error
 	    sudo apt-get -y install libpcl-all
 	else
-	    sudo apt-get -y install libpcl-dev libproj-dev
+	    sudo apt-get -y --allow-unauthenticated install libpcl-dev libproj-dev
 	fi
     fi
 }
@@ -170,7 +170,7 @@ setupenv_choreonoid() {
 	./install-requisites-$DIST_KIND-$DIST_VER.sh
 
 	#hrpcnoid
-	sudo apt-get -y install libzbar-dev python-matplotlib
+	sudo apt-get -y --allow-unauthenticated install libzbar-dev python-matplotlib
     fi
 }
 
