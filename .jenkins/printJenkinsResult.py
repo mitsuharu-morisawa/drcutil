@@ -112,7 +112,7 @@ def getResultFromMasterServer(build):
             filename = line.split(",")[1]
             googleurl = line.split(",")[2]
             if label == "BUILD":
-                build_files += "[" + filename + "](" + build['url'] + filename + ")" + "<br>"
+                build_files += "[" + filename + "](" + build['url'] + "artifact/" + filename + ")" + "<br>"
             elif label == "IMAGE":
                 tokens = googleurl.split("/")
                 fileid = tokens[5]
