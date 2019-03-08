@@ -1,10 +1,10 @@
 cd ${WORKSPACE}
 
-if [ ! -e netlify-site ]; then
-    rm -fr netlify-site
-    git clone --branch master --single-branch git@bitbucket.org:jenkinshrg/netlify-site.git
-fi
-cd netlify-site
+# if [ ! -e netlify-site ]; then
+#     rm -fr netlify-site
+#     git clone --branch master --single-branch git@bitbucket.org:jenkinshrg/netlify-site.git
+# fi
+# cd netlify-site
 
 JENKINS_URL=http://jenkinshrg.a01.aist.go.jp/
 
