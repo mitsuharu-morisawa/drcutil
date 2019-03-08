@@ -44,11 +44,10 @@ if [ "$1" = "build" ]; then
     sed -i -e "s/HOME/WORKSPACE/g" config.sh
     sed -i -e "s/Release/Debug/g" config.sh
     sed -i -e "s/ENABLE_ASAN=1/ENABLE_ASAN=0/g" config.sh
+    sed -i -e "s/MAKE_THREADS_NUMBER=2/MAKE_THREADS_NUMBER=8/g" config.sh
 else
     sed -i -e "s/Release/RelWithDebInfo/g" config.sh
-    if [ `hostname` != "slave3" ]; then
-	sed -i -e "s/MAKE_THREADS_NUMBER=2/MAKE_THREADS_NUMBER=4/g" config.sh
-    fi
+    sed -i -e "s/MAKE_THREADS_NUMBER=2/MAKE_THREADS_NUMBER=4/g" config.sh
 fi
 
 source config.sh
