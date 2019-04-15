@@ -85,7 +85,7 @@ get_source_octomap() {
 }
 
 get_source_choreonoid() {
-    GIT_SSL_NO_VERIFY=1 get_source "git clone https://choreonoid.org/git/choreonoid.git" choreonoid
+    get_source "git clone https://github.com/s-nakaoka/choreonoid.git" choreonoid
     cd choreonoid/ext
     get_source "git clone https://github.com/jrl-umi3218/hrpcnoid" hrpcnoid
     cd ../..
