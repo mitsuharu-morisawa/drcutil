@@ -73,7 +73,7 @@ get_source_sch-core() {
 
 get_source_savedbg() {
     get_source "git clone https://github.com/isri-aist/savedbg" savedbg
-    cd savedgb
+    cd savedbg
     git checkout db25d9c9be98f0bce6348bdd425305c799980473
     cd ..
 }
