@@ -97,7 +97,7 @@ fetch_log_nolink_noverify() {
 fetch_log "openhrp3" "hrpsys-base" "state-observation" "sch-core" "HRP2" "HRP2KAI" "HRP5P" "hrpsys-private" "hrpsys-state-observation" "hmc2" "hrpsys-humanoid is-jaxa"
 
 if [ "$INTERNAL_MACHINE" -eq 0 ]; then
-    fetch_log_nolink_noverify "choreonoid"
+    fetch_log "choreonoid"
     fetch_log "trap-fpe"
 
     if [ -e choreonoid/ext/hrpcnoid ]; then
