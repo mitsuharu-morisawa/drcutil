@@ -197,7 +197,9 @@ install_choreonoid() {
 
     mkdir -p $HOME/.config/Choreonoid
     cp $DRCUTIL/.config/Choreonoid.conf $DRCUTIL
+    CHOREONOID_SHARE=`pkg-config --variable=sharedir choreonoid`
     sed -i -e "s#/home/vagrant/src#$SRC_DIR#g" $DRCUTIL/Choreonoid.conf
+    sed -i -e "s#/home/vagrant/openrtp/share/choreonoid-x.y#$CHOREONOID_SHARE#g" $DRCUTIL/Choreonoid.conf
     sed -i -e "s#/home/vagrant/openrtp#$PREFIX#g" $DRCUTIL/Choreonoid.conf
     if [ ! -e $HOME/.config/Choreonoid/Choreonoid.conf ];then
 	cp $DRCUTIL/Choreonoid.conf $HOME/.config/Choreonoid
