@@ -123,6 +123,6 @@ if [ -n "$DISPLAY" ]; then
     sed -i -e "s#/home/vagrant/openrtp/share/choreonoid-x.y#$CHOREONOID_SHARE#g" $HOME/.config/Choreonoid/Choreonoid.conf
     sed -i -e "s/vagrant\/src/$USER\/src/g" $HOME/.config/Choreonoid/Choreonoid.conf
     sed -i -e "s/vagrant\/openrtp/$USER\/openrtp/g" $HOME/.config/Choreonoid/Choreonoid.conf
-    bash -e ./task.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10} > $WORKSPACE/task.log 2>&1
+    bash -e ./task.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10} 2>&1 | tee $WORKSPACE/task.log
 fi
 fi
