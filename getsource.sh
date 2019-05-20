@@ -91,6 +91,9 @@ get_source_choreonoid() {
     get_source "git clone https://github.com/isri-aist/choreonoid.git" choreonoid
     cd choreonoid/ext
     get_source "git clone https://github.com/jrl-umi3218/hrpcnoid" hrpcnoid
+    get_source "git clone https://github.com/isri-aist/cnoid-boost-python" cnoid-boost-python
+    get_source "git clone https://github.com/isri-aist/grxui-plugin" grxui-plugin
+    get_source "git clone https://github.com/isri-aist/openhrp-plugin" openhrp-plugin
     cd ../..
 }
 

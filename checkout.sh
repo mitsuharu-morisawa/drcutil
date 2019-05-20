@@ -26,6 +26,9 @@ pull_source() {
 pull_source_choreonoid() {
     GIT_SSL_NO_VERIFY=1 pull_source choreonoid
     pull_source choreonoid/ext/hrpcnoid
+    pull_source choreonoid/ext/cnoid-boost-python
+    pull_source choreonoid/ext/openhrp-plugin
+    pull_source choreonoid/ext/grxui-plugin
     if [ -e $SRC_DIR/choreonoid/ext/takenaka ]; then
         pull_source choreonoid/ext/takenaka
     fi
