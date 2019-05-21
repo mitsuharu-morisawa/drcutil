@@ -56,7 +56,8 @@ rm -f /tmp/emg-hmc_*.log /tmp/motion-command-solver_*.log /tmp/walking-command-s
 
 if type savedbg-hrp > /dev/null 2>&1
 then
-    SAVEDBG_HRP=savedbg-hrp
+#    SAVEDBG_HRP=savedbg-hrp
+    SAVEDBG_HRP=
 else
     SAVEDBG_HRP=
 fi
