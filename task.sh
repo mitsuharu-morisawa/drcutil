@@ -1,3 +1,4 @@
+
 err_report() {
     echo "Error on line $2:$1"
     echo "Stopping the script $(basename "$3")."
@@ -56,13 +57,12 @@ rm -f /tmp/emg-hmc_*.log /tmp/motion-command-solver_*.log /tmp/walking-command-s
 
 if type savedbg-hrp > /dev/null 2>&1
 then
-#    SAVEDBG_HRP=savedbg-hrp
-    SAVEDBG_HRP=
+    SAVEDBG_HRP=savedbg-hrp
 else
     SAVEDBG_HRP=
 fi
 
-$SAVEDBG_HRP LD_PRELOAD="${ASAN_LIB}:${PREFIX}/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
+LD_PRELOAD="${ASAN_LIB}:${PREFIX}/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
 for ((i=0; i<900; i++)); do
