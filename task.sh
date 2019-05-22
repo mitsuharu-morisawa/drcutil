@@ -44,7 +44,7 @@ else
 fi
 ulimit -c unlimited
 killall -9 openhrp-model-loader || true
-killall -9 choreonoid || true
+kill -9 `pidof choreonoid` || true
 killall -9 recordmydesktop || true
 cd ${PREFIX}/share/hrpsys/samples/${PROJECT}
 rm -f core core*.bz2
@@ -62,7 +62,7 @@ else
     SAVEDBG_HRP=
 fi
 
-LD_PRELOAD="${ASAN_LIB}:${PREFIX}/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
+$SAVEDBG_HRP LD_PRELOAD="${ASAN_LIB}:${PREFIX}/lib/libtrap_fpe.so" CNOID_TASK_TRY_FULL_AUTO_MODE=1 choreonoid ${TASK}.cnoid --start-simulation &
 CHOREONOID=$(jobs -p %+)
 
 for ((i=0; i<900; i++)); do
