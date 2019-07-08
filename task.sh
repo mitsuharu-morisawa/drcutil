@@ -1,3 +1,4 @@
+
 err_report() {
     echo "Error on line $2:$1"
     echo "Stopping the script $(basename "$3")."
@@ -43,7 +44,7 @@ else
 fi
 ulimit -c unlimited
 killall -9 openhrp-model-loader || true
-killall -9 choreonoid || true
+kill -9 `pidof choreonoid` || true
 killall -9 recordmydesktop || true
 cd ${PREFIX}/share/hrpsys/samples/${PROJECT}
 rm -f core core*.bz2
