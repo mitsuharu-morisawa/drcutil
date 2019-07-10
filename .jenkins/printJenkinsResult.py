@@ -122,7 +122,7 @@ def getResultFromMasterServer(build):
             line = r.readline()
     except:
         pass
-    uploads = build_files + "<video src=\"" + build['url'] + "artifact/task.ogv\" poster=\"" + build['url'] + "artifact/task.png\" controls width=\"400\"></video>"
+    uploads = build_files + "<video src=\"" + build['url'] + "artifact/task.ogv\" poster=\"" + build['url'] + "artifact/task.png\" controls width=\"400\" preload=\"none\"></video>"
     result['uploads'] = uploads
     slave = ""
     try:
