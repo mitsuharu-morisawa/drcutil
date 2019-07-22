@@ -128,9 +128,9 @@ setupenv_state-observation() {
 
 setupenv_hmc2() {
     if [ $OSNAME = "Darwin" ]; then
-	brew install libyaml
+	brew install libyaml libglpk
     else
-	sudo apt-get -y install libyaml-dev libncurses5-dev
+	sudo apt-get -y install libglpk-dev libyaml-dev libncurses5-dev
     fi
 }
 
