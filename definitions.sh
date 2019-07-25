@@ -57,8 +57,15 @@ case $ENABLE_ASAN in
         else
             ASAN_WRITES_ONLY=
         fi
-        SAN_CXXFLAGS+=" -fsanitize=address $ASAN_WRITES_ONLY"
-        SAN_CFLAGS+=" -fsanitize=address $ASAN_WRITES_ONLY"
+        # Reportedly, older gcc and clang require this in order to
+        # detect some common errors.  This page:
+        # https://github.com/google/sanitizers/wiki/AddressSanitizer
+        # suggests also using several runtime options, but how
+        # necessary they are is unclear.
+        ASAN_EXTRAS=-fsanitize-address-use-after-scope
+
+        SAN_CXXFLAGS+=" -fsanitize=address $ASAN_EXTRAS $ASAN_WRITES_ONLY"
+        SAN_CFLAGS+=" -fsanitize=address $ASAN_EXTRAS $ASAN_WRITES_ONLY"
         SAN_LDFLAGS+=" -fsanitize=address"
         # Report, but don't fail on, leaks in program samples during build.
         export LSAN_OPTIONS="exitcode=0"
