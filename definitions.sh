@@ -62,7 +62,9 @@ case $ENABLE_ASAN in
         # https://github.com/google/sanitizers/wiki/AddressSanitizer
         # suggests also using several runtime options, but how
         # necessary they are is unclear.
-        ASAN_EXTRAS=-fsanitize-address-use-after-scope
+	if [ "$DIST_VER" = "18.04" ]; then
+            ASAN_EXTRAS=-fsanitize-address-use-after-scope
+	fi
 
         SAN_CXXFLAGS+=" -fsanitize=address $ASAN_EXTRAS $ASAN_WRITES_ONLY"
         SAN_CFLAGS+=" -fsanitize=address $ASAN_EXTRAS $ASAN_WRITES_ONLY"
