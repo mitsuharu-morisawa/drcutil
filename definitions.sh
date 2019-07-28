@@ -57,14 +57,18 @@ case $ENABLE_ASAN in
         else
             ASAN_WRITES_ONLY=
         fi
-        # Reportedly, older gcc and clang require this in order to
-        # detect some common errors.  This page:
+        # Reportedly, older gcc and clang require this flag in order
+        # to detect some common errors (but still older ones don't
+        # recognize the flag).  This page:
         # https://github.com/google/sanitizers/wiki/AddressSanitizer
         # suggests also using several runtime options, but how
         # necessary they are is unclear.
-	if [ "$DIST_VER" = "18.04" ]; then
-            ASAN_EXTRAS=-fsanitize-address-use-after-scope
-	fi
+        ASAN_EXTRAS=-fsanitize-address-use-after-scope
+        if ! echo | "${CXX:-c++}" -fsanitize=address $ASAN_EXTRAS \
+                                  -E -o /dev/null -
+        then
+            ASAN_EXTRAS=
+        fi
 
         SAN_CXXFLAGS+=" -fsanitize=address $ASAN_EXTRAS $ASAN_WRITES_ONLY"
         SAN_CFLAGS+=" -fsanitize=address $ASAN_EXTRAS $ASAN_WRITES_ONLY"
