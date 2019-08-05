@@ -65,7 +65,7 @@ case $ENABLE_ASAN in
         # necessary they are is unclear.
         ASAN_EXTRAS=-fsanitize-address-use-after-scope
         if ! echo | "${CXX:-c++}" -fsanitize=address $ASAN_EXTRAS \
-                                  -E -o /dev/null -
+                                  -E -o /dev/null - 2>/dev/null
         then
             ASAN_EXTRAS=
         fi
