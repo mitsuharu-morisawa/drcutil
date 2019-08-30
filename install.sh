@@ -13,9 +13,9 @@ if [ "$VERBOSE_SCRIPT" -eq 1 ]; then
 fi
 built_dirs=
 
-export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
+export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH
 export PATH=$PREFIX/bin:$PATH
-export LD_LIBRARY_PATH=$PREFIX/lib
+export LD_LIBRARY_PATH=$PREFIX/lib:$LD_LIBRARY_PATH
 export CMAKE_PREFIX_PATH=
 WARNINGS="-w -Wno-c++11-narrowing -Wno-return-type -Wno-error=vla"
 
