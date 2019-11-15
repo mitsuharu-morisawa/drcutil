@@ -9,6 +9,7 @@ rm -f $WORKSPACE/*.q
 rm -f $WORKSPACE/*.qRef
 rm -f $WORKSPACE/core*.bz2
 rm -f $WORKSPACE/hmc_log.tar.bz2
+sudo rm -rf /tmp/savedbg.tmp.*
 
 upload() {
     curl --user $JENKINS_USER:$JENKINS_PASSWD $BUILD_URL/consoleText > $WORKSPACE/console.log > /dev/null 2>&1
