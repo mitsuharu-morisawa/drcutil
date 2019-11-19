@@ -15,6 +15,15 @@ fi
 get_source() {
     if [ ! -e $2 ]; then
 	$1 $2
+    else
+        repo=`echo $1 | rev | cut -d' ' -f1 | rev`
+        cd $2
+        origin=`git remote get-url origin`
+        if [ $repo != $origin ]; then
+            echo "set url for origin: $repo"
+            git remote set-url origin $repo
+        fi
+        cd ..
     fi
 }
 
@@ -66,11 +75,11 @@ get_source_state-observation() {
 }
 
 get_source_hmc2() {
-    get_source "git clone ${GITHUB_LINK}jrl-umi3218/hmc2" hmc2
+    get_source "git clone ${GITHUB_LINK}isri-aist/hmc2" hmc2
 }
 
 get_source_hrpsys-humanoid() {
-    get_source "git clone ${GITHUB_LINK}jrl-umi3218/hrpsys-humanoid" hrpsys-humanoid
+    get_source "git clone ${GITHUB_LINK}isri-aist/hrpsys-humanoid" hrpsys-humanoid
 }
 
 get_source_sch-core() {
@@ -96,7 +105,7 @@ get_source_octomap() {
 get_source_choreonoid() {
     get_source "git clone ${GITHUB_LINK}isri-aist/choreonoid.git" choreonoid
     cd choreonoid/ext
-    get_source "git clone ${GITHUB_LINK}jrl-umi3218/hrpcnoid" hrpcnoid
+    get_source "git clone ${GITHUB_LINK}isri-aist/hrpcnoid" hrpcnoid
     get_source "git clone ${GITHUB_LINK}isri-aist/cnoid-boost-python" cnoid-boost-python
     get_source "git clone ${GITHUB_LINK}isri-aist/grxui-plugin" grxui-plugin
     get_source "git clone ${GITHUB_LINK}isri-aist/openhrp-plugin" openhrp-plugin
