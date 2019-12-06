@@ -76,7 +76,7 @@ for package in $PACKAGES; do
     fi
 done
 
-if [ $# = 0 ]; then
-    packsrc $built_dirs
-    $SUDO mv robot-sources.tar.bz2 $PREFIX/share/
-fi
+# if [ $# = 0 ]; then
+#     packsrc $built_dirs
+#     $SUDO mv robot-sources.tar.bz2 $PREFIX/share/
+# fi
