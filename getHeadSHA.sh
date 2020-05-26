@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+source config.sh
+source packsrc.sh
+FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOURCE"))"
+RUNNINGSCRIPT="$0"
+trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
+set -E -o pipefail
+
+export LSAN_OPTIONS="exitcode=0"
+
+cd $SRC_DIR
+
+echo "drcutil headSHA" | tee $SRC_DIR/headSHA.log
+
+getSHA() {
+    dir_name=$1
+    if [ -e $dir_name ]; then
+        cd "$dir_name/"
+	echo -n "Getting $dir_name ... " | tee -a $SRC_DIR/headSHA.log
+	git rev-parse HEAD | tee -a $SRC_DIR/headSHA.log
+        cd ../
+    fi
+}
+
+built_dirs=
+if [ ! $# -eq 0 ]; then
+    PACKAGES=$@
+fi
+
+for package in $PACKAGES; do
+    getSHA $package
+done
+
+# if [ $# = 0 ]; then
+#     packsrc $built_dirs
+#     $SUDO mv robot-sources.tar.bz2 $PREFIX/share/
+# fi
