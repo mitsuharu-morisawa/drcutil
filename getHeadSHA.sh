@@ -17,7 +17,7 @@ getSHA() {
     dir_name=$1
     if [ -e $dir_name ]; then
         cd "$dir_name/"
-	echo -n "Getting $dir_name ... " | tee -a $SRC_DIR/headSHA.log
+	echo -n "$dir_name ... " | tee -a $SRC_DIR/headSHA.log
 	sha=$(git show -s --format=%H)
 	 
 	echo -n "$sha" | tee -a $SRC_DIR/headSHA.log
