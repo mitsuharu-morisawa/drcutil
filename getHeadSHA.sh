@@ -18,7 +18,15 @@ getSHA() {
     if [ -e $dir_name ]; then
         cd "$dir_name/"
 	echo -n "Getting $dir_name ... " | tee -a $SRC_DIR/headSHA.log
-	git rev-parse HEAD | tee -a $SRC_DIR/headSHA.log
+	sha=$(git show -s --format=%H)
+	 
+	echo -n "$sha" | tee -a $SRC_DIR/headSHA.log
+	
+	if [[ $(git diff --stat) != '' ]]; then
+          echo -n ' ... dirty' | tee -a $SRC_DIR/headSHA.log
+        fi
+        #insert new line
+        echo  | tee -a $SRC_DIR/headSHA.log 
         cd ../
     fi
 }
