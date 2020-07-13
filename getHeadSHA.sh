@@ -27,6 +27,15 @@ getSHA() {
         fi
         #insert new line
         echo  | tee -a $SRC_DIR/headSHA.log 
+        
+        if [ $dir_name == "choreonoid" ]; then
+            cd  ext
+            getSHA hrpcnoid
+            getSHA cnoid-boost-python
+            getSHA grxui-plugin
+            getSHA openhrp-plugin
+            cd ../
+        fi
         cd ../
     fi
 }
