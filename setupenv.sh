@@ -5,39 +5,6 @@ FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOU
 RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 
-if [ "$DIST_KIND" = "debian" ]; then
-    sudo rm -rf cmake-2.8.12
-    wget https://cmake.org/files/v2.8/cmake-2.8.12.tar.gz
-    tar zxvf cmake-2.8.12.tar.gz
-    cd cmake-2.8.12
-    ./bootstrap
-    make -j$MAKE_THREADS_NUMBER
-    sudo make install
-    cd ../
-
-    wget https://github.com/eigenteam/eigen-git-mirror/archive/3.2.5.tar.gz
-    tar zxvf 3.2.5.tar.gz
-    cd eigen-git-mirror-3.2.5
-    mkdir build
-    cd build
-    cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
-    sudo make install
-    cd ../../
-fi
-
-# if [ "$DIST_KIND" = "ubuntu" ] && [ "$DIST_VER" = "14.04" ]; then
-#     sudo rm -rf gcc-7.3.0
-#     wget http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-7.3.0/gcc-7.3.0.tar.gz
-#     tar zxvf gcc-7.3.0.tar.gz
-#     cd gcc-7.3.0
-#     ./contrib/download_prerequisites
-#     mkdir build
-#     cd build
-#     ../configure --enable-languages=c,c++ --prefix=$PREFIX --disable-bootstrap --disable-multilib
-#     make -j$MAKE_THREADS_NUMBER
-#     $SUDO make -j$MAKE_THREADS_NUMBER install
-# fi
-
 setupenv_OpenRTM-aist() {
     if [ $OSNAME = "Darwin" ]; then
 	brew install autoconf automake libtool omniorb
