@@ -63,7 +63,7 @@ setupenv_hrpsys-base() {
 	brew install opencv sdl boost-python
     else
 	sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
-	if [ "$DIST_KIND" = "ubuntu" && "$DIST_VER" != "18.04" ]; then
+	if [ "$DIST_KIND" = "ubuntu" ] && [ "$DIST_VER" != "18.04" ]; then
             sudo apt-get -y --force-yes install libcvaux-dev libhighgui-dev
 	fi
     fi
