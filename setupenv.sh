@@ -182,6 +182,19 @@ setupenv_takenaka() {
     :
 }
 
+setupenv_flexiport() {
+    :
+}
+
+setupenv_hokuyoaist() {
+    :
+}
+
+setupenv_rtchokuyoaist() {
+    :
+}
+
+
 if [ ! $# -eq 0 ]; then
     PACKAGES=$@
 fi

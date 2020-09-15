@@ -96,7 +96,7 @@ get_source_savedbg() {
 get_source_octomap() {
     if [ "$DIST_VER" != "16.04" ] && [ "$DIST_VER" != "18.04" ]; then
 	if [ ! -e octomap-$OCTOMAP_VERSION ]; then
-	    wget ${GITHUB_LINK}OctoMap/octomap/archive/v$OCTOMAP_VERSION.tar.gz
+	    wget https://github.com/OctoMap/octomap/archive/v$OCTOMAP_VERSION.tar.gz
 	    tar zxvf v$OCTOMAP_VERSION.tar.gz
 	fi
     fi
