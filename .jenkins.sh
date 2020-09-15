@@ -84,13 +84,9 @@ if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
     sudo pip install lcov_cobertura
     sudo apt-get -y install cppcheck
     # for add-apt-repository
-    if [ "$DIST_KIND" = "ubuntu" ]; then
-	sudo apt-get -y install software-properties-common
-	if [ -n "$DISPLAY" ]; then
-	    sudo apt-get -y install xautomation imagemagick recordmydesktop
-	fi
-    else
-	sudo apt-get -y install python-software-properties
+    sudo apt-get -y install software-properties-common
+    if [ -n "$DISPLAY" ]; then
+        sudo apt-get -y install xautomation imagemagick recordmydesktop
     fi
     mkdir -p $SRC_DIR
     bash -e ./getsource.sh
