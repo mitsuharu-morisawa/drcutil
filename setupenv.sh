@@ -10,7 +10,7 @@ setupenv_OpenRTM-aist() {
 	brew install autoconf automake libtool omniorb
     else
 	sudo apt-get -y install autoconf
-	if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ] || [ "$DIST_VER" = "18.04" ]; then
+	if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ] || [ "$DIST_VER" = "18.04" ] || [ "$DIST_VER" = "10" ]; then
             sudo apt-get -y install libtool-bin
 	else
             sudo apt-get -y install libtool
