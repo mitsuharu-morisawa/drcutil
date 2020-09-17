@@ -62,7 +62,7 @@ setupenv_hrpsys-base() {
     if [ $OSNAME = "Darwin" ]; then
 	brew install opencv sdl boost-python
     else
-	sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
+	sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python || true
 	if [ "$DIST_KIND" = "ubuntu" ] && [ "$DIST_VER" != "18.04" ]; then
             sudo apt-get -y --force-yes install libcvaux-dev libhighgui-dev
 	fi
