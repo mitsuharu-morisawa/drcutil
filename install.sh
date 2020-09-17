@@ -90,7 +90,12 @@ install_OpenRTM-aist() {
 }
 
 install_openhrp3() {
-    cmake_install_with_option "openhrp3" -DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST="$BUILD_GOOGLE_TEST" -DOPENRTM_DIR="$PREFIX"
+    if [ "$INTERNAL_MACHINE" -eq 0 ]; then
+	EXTRA_OPTION=(-DCOMPILE_PYTHON_STUFF=ON)
+    else
+	EXTRA_OPTION=(-DCOMPILE_PYTHON_STUFF=OFF)
+    fi
+    cmake_install_with_option "openhrp3" -DCOMPILE_JAVA_STUFF=OFF -DBUILD_GOOGLE_TEST="$BUILD_GOOGLE_TEST" -DOPENRTM_DIR="$PREFIX" "${EXTRA_OPTION[@]}" 
 }
 
 install_octomap() {
