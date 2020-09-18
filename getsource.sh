@@ -83,7 +83,7 @@ get_source_hrpsys-humanoid() {
 }
 
 get_source_sch-core() {
-    get_source "git clone --recursive ${GITHUB_LINK}mehdi-benallegue/sch-core" sch-core
+    get_source "git clone --recursive ${GITHUB_LINK}jrl-umi3218/sch-core" sch-core
 }
 
 get_source_savedbg() {
