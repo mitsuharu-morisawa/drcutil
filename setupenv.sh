@@ -10,7 +10,7 @@ setupenv_OpenRTM-aist() {
 	brew install autoconf automake libtool omniorb
     else
 	sudo apt-get -y install autoconf
-	if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ] || [ "$DIST_VER" = "18.04" ] || [ "$DIST_VER" = "10" ]; then
+	if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ] || [ "$DIST_VER" = "18.04" ] || [ "$DIST_VER" = "10" ] || [ "$DIST_VER" = "20.04" ]; then
             sudo apt-get -y install libtool-bin
 	else
             sudo apt-get -y install libtool
@@ -64,7 +64,7 @@ setupenv_hrpsys-base() {
     else
 	sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython
         sudo apt-get -y --force-yes install openrtm-aist-python || true
-	if [ "$DIST_KIND" = "ubuntu" ] && [ "$DIST_VER" != "18.04" ]; then
+	if [ "$DIST_KIND" = "ubuntu" ] && [ "$DIST_VER" != "18.04" ] && [ "$DIST_VER" != "20.04" ]; then
             sudo apt-get -y --force-yes install libcvaux-dev libhighgui-dev
 	fi
     fi
