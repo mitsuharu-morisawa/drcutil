@@ -148,7 +148,7 @@ install_hmc2() {
     else
 	EXTRA_OPTION=(-DGENERATE_FILES_FOR_SIMULATION=OFF)
     fi
-    cmake_install_with_option hmc2 -DCOMPILE_JAVA_STUFF=OFF "${EXTRA_OPTION[@]}"
+    cmake_install_with_option hmc2 -DCOMPILE_JAVA_STUFF=OFF -DENABLE_OPENRTM=ON "${EXTRA_OPTION[@]}"
 }
 
 install_hrpsys-humanoid() { 
