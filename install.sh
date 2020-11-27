@@ -134,6 +134,10 @@ install_HRP5P() {
     cmake_install_with_option HRP5P
 }
 
+install_HRP4CR() {
+    cmake_install_with_option HRP4CR
+}
+
 install_sch-core() {
     cmake_install_with_option sch-core
 }

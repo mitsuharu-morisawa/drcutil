@@ -58,6 +58,10 @@ get_source_HRP5P() {
     get_source "git clone ${GITHUB_LINK}isri-aist/hrp5p" HRP5P
 }
 
+get_source_HRP4CR() {
+    get_source "git clone --recursive ${GITHUB_LINK}isri-aist/hrp4cr" HRP4CR
+}
+
 get_source_hrpsys-private() {
     get_source "git clone ${GITHUB_LINK}isri-aist/hrpsys-private" hrpsys-private
 }

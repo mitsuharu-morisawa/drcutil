@@ -82,6 +82,10 @@ setupenv_HRP5P() {
     :
 }
 
+setupenv_HRP4CR() {
+    :
+}
+
 setupenv_sch-core() {
     :
 }

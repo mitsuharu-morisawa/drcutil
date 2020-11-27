@@ -1,0 +1,13 @@
+source config.sh.defaults
+
+######## Please edit from here ########
+export PREFIX=/home/hrp4cruser/openrtp
+export SUDO=
+export MAKE_THREADS_NUMBER=8
+export BUILD_TYPE=RelWithDebInfo
+export INTERNAL_MACHINE=1
+export ROBOT_IOB_VERSION=2
+export PACKAGES="OpenRTM-aist openhrp3 hrpsys-base HRP4CR"
+
+######## Please don't edit from here ########
+source definitions.sh
