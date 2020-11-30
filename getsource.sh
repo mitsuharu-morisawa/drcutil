@@ -75,7 +75,7 @@ get_source_hrpsys-base() {
 }
 
 get_source_state-observation() {
-    get_source "git clone --recursive ${GITHUB_LINK}mehdi-benallegue/state-observation" state-observation
+    get_source "git clone --recursive ${GITHUB_LINK}jrl-umi3218/state-observation" state-observation
 }
 
 get_source_hmc2() {
