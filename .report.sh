@@ -6,7 +6,7 @@ cd ${WORKSPACE}
 # fi
 # cd netlify-site
 
-JENKINS_URL=http://jenkinshrg.a01.aist.go.jp/
+JENKINS_URL=http://jenkinshrg.s.aist.go.jp/
 
 REPORT_JOBS="$(python ${WORKSPACE}/drcutil/.jenkins/getJobs.py ${JENKINS_URL}  $1 $2)"
 
