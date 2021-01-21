@@ -5,45 +5,12 @@ FILENAME="$(echo $(cd $(dirname "$BASH_SOURCE") && pwd -P)/$(basename "$BASH_SOU
 RUNNINGSCRIPT="$0"
 trap 'err_report $LINENO $FILENAME $RUNNINGSCRIPT; exit 1' ERR
 
-if [ "$DIST_KIND" = "debian" ]; then
-    sudo rm -rf cmake-2.8.12
-    wget https://cmake.org/files/v2.8/cmake-2.8.12.tar.gz
-    tar zxvf cmake-2.8.12.tar.gz
-    cd cmake-2.8.12
-    ./bootstrap
-    make -j$MAKE_THREADS_NUMBER
-    sudo make install
-    cd ../
-
-    wget https://github.com/eigenteam/eigen-git-mirror/archive/3.2.5.tar.gz
-    tar zxvf 3.2.5.tar.gz
-    cd eigen-git-mirror-3.2.5
-    mkdir build
-    cd build
-    cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
-    sudo make install
-    cd ../../
-fi
-
-# if [ "$DIST_KIND" = "ubuntu" ] && [ "$DIST_VER" = "14.04" ]; then
-#     sudo rm -rf gcc-7.3.0
-#     wget http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-7.3.0/gcc-7.3.0.tar.gz
-#     tar zxvf gcc-7.3.0.tar.gz
-#     cd gcc-7.3.0
-#     ./contrib/download_prerequisites
-#     mkdir build
-#     cd build
-#     ../configure --enable-languages=c,c++ --prefix=$PREFIX --disable-bootstrap --disable-multilib
-#     make -j$MAKE_THREADS_NUMBER
-#     $SUDO make -j$MAKE_THREADS_NUMBER install
-# fi
-
 setupenv_OpenRTM-aist() {
     if [ $OSNAME = "Darwin" ]; then
 	brew install autoconf automake libtool omniorb
     else
 	sudo apt-get -y install autoconf
-	if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ] || [ "$DIST_VER" = "18.04" ]; then
+	if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "8" ] || [ "$DIST_VER" = "18.04" ] || [ "$DIST_VER" = "10" ] || [ "$DIST_VER" = "20.04" ]; then
             sudo apt-get -y install libtool-bin
 	else
             sudo apt-get -y install libtool
@@ -57,7 +24,7 @@ setupenv_openhrp3() {
     else
 	cd $SRC_DIR/openhrp3/util
 	./installPackages.sh packages.list.$DIST_KIND.$DIST_VER
-	sudo apt-get -y remove openrtm-aist-dev openrtm-aist # install from source
+	sudo apt-get -y remove openrtm-aist-dev openrtm-aist || true # install from source
 
 	sudo sed -i -e 's/giopMaxMsgSize = 2097152/giopMaxMsgSize = 2147483648/g' /etc/omniORB.cfg
 
@@ -95,8 +62,9 @@ setupenv_hrpsys-base() {
     if [ $OSNAME = "Darwin" ]; then
 	brew install opencv sdl boost-python
     else
-	sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython openrtm-aist-python
-	if [ "$DIST_VER" != "18.04" ]; then
+	sudo apt-get -y --force-yes install libxml2-dev libsdl-dev libglew-dev libopencv-dev libqhull-dev freeglut3-dev libxmu-dev python-dev libboost-python-dev ipython
+        sudo apt-get -y --force-yes install openrtm-aist-python || true
+	if [ "$DIST_KIND" = "ubuntu" ] && [ "$DIST_VER" != "18.04" ] && [ "$DIST_VER" != "20.04" ]; then
             sudo apt-get -y --force-yes install libcvaux-dev libhighgui-dev
 	fi
     fi
@@ -111,6 +79,10 @@ setupenv_HRP2KAI() {
 }
 
 setupenv_HRP5P() {
+    :
+}
+
+setupenv_HRP4CR() {
     :
 }
 
@@ -181,6 +153,19 @@ setupenv_is-jaxa() {
 setupenv_takenaka() {
     :
 }
+
+setupenv_flexiport() {
+    :
+}
+
+setupenv_hokuyoaist() {
+    :
+}
+
+setupenv_rtchokuyoaist() {
+    :
+}
+
 
 if [ ! $# -eq 0 ]; then
     PACKAGES=$@

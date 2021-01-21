@@ -58,6 +58,10 @@ get_source_HRP5P() {
     get_source "git clone ${GITHUB_LINK}isri-aist/hrp5p" HRP5P
 }
 
+get_source_HRP4CR() {
+    get_source "git clone --recursive ${GITHUB_LINK}isri-aist/hrp4cr" HRP4CR
+}
+
 get_source_hrpsys-private() {
     get_source "git clone ${GITHUB_LINK}isri-aist/hrpsys-private" hrpsys-private
 }
@@ -71,7 +75,7 @@ get_source_hrpsys-base() {
 }
 
 get_source_state-observation() {
-    get_source "git clone --recursive ${GITHUB_LINK}mehdi-benallegue/state-observation" state-observation
+    get_source "git clone --recursive ${GITHUB_LINK}jrl-umi3218/state-observation" state-observation
 }
 
 get_source_hmc2() {
@@ -83,7 +87,7 @@ get_source_hrpsys-humanoid() {
 }
 
 get_source_sch-core() {
-    get_source "git clone --recursive ${GITHUB_LINK}mehdi-benallegue/sch-core" sch-core
+    get_source "git clone --recursive ${GITHUB_LINK}jrl-umi3218/sch-core" sch-core
 }
 
 get_source_savedbg() {
@@ -96,7 +100,7 @@ get_source_savedbg() {
 get_source_octomap() {
     if [ "$DIST_VER" != "16.04" ] && [ "$DIST_VER" != "18.04" ]; then
 	if [ ! -e octomap-$OCTOMAP_VERSION ]; then
-	    wget ${GITHUB_LINK}OctoMap/octomap/archive/v$OCTOMAP_VERSION.tar.gz
+	    wget https://github.com/OctoMap/octomap/archive/v$OCTOMAP_VERSION.tar.gz
 	    tar zxvf v$OCTOMAP_VERSION.tar.gz
 	fi
     fi
