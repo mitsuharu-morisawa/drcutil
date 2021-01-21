@@ -24,5 +24,5 @@ python ${WORKSPACE}/drcutil/.jenkins/printJenkinsResultSummary.py ${REPORT_JOBS}
 #git branch -m master
 #git push -f origin master
 jekyll build
-scp -r _site/* jenkinshrg:/var/www/html/ci
+scp -r _site/* jenkinshrg.s.aist.go.jp:/var/www/html/ci
 
