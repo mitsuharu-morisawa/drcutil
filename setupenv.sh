@@ -52,7 +52,7 @@ setupenv_octomap() {
     if [ $OSNAME = "Darwin" ]; then
 	brew install octomap
     else
-	if [ "$DIST_VER" = "16.04" ] || [ "$DIST_VER" = "18.04" ]; then
+        if ([ "$DIST_KIND" == "ubuntu" ] && [ "$DIST_VER" != "14.04" ]) || ([ "$DIST_KIND" == "debian" ] && [ "$DIST_VER" == "10" ]); then
 	    sudo apt-get -y install liboctomap-dev
 	fi
     fi

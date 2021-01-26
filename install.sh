@@ -99,7 +99,7 @@ install_openhrp3() {
 }
 
 install_octomap() {
-    if [ "$DIST_VER" = "14.04" ]; then
+    if ([ "$DIST_KIND" == "ubuntu" ] && [ "$DIST_VER" == "14.04" ]) || ([ "$DIST_KIND" == "debian" ] && [ "$DIST_VER" != "10" ]); then
         cmake_install_with_option "octomap-$OCTOMAP_VERSION"
     fi
 }

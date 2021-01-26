@@ -71,12 +71,7 @@ source .bashrc
 
 if [ ! -e $SRC_DIR ] || [ $DRCUTIL_UPDATED == 1 ]; then #install from scratch
     sudo apt-get -y install python-dev
-    if [ "$DIST_KIND" = "debian" ]; then
-        wget https://bootstrap.pypa.io/get-pip.py
-        sudo python get-pip.py
-    else
-        sudo apt-get -y install python-pip
-    fi
+    sudo apt-get -y install python-pip
     #sudo pip install google-api-python-client
     sudo pip install oauth2client
     sudo apt-get -y install lcov
