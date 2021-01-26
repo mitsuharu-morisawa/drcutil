@@ -4,14 +4,15 @@ OSNAME="$(uname)"
 if [ "$OSNAME" = "Darwin" ]; then
     DIST_KIND=darwin
 else
-    DIST_VER="$(lsb_release -rs)"
     case $(lsb_release -is) in
 	Debian)
             DIST_KIND=debian
+            DIST_VER="$(lsb_release -rs | cut -f 1 -d .)"
 	    INTERNAL_MACHINE=1
             ;;
 	Ubuntu)
             DIST_KIND=ubuntu
+            DIST_VER="$(lsb_release -rs)"
             ;;
 	*)
             echo 1>&2 "config.sh: error: unknown distribution: $(lsb_release -is)"
