@@ -12,7 +12,7 @@
 @/usr/lib/x86_64-linux-gnu/libpcl_segmentation.so.1.8
 @/usr/lib/x86_64-linux-gnu/libpcl_filters.so.1.8
 @/usr/lib/x86_64-linux-gnu/libpcl_sample_consensus.so.1.8
-@/usr/lib/x86_64-linux-gnu/libpcl_recognition.so.1.8
+#@/usr/lib/x86_64-linux-gnu/libpcl_recognition.so.1.8
 @/usr/lib/liboctomap.so.1.8
 @/usr/lib/liboctomath.so.1.8
 @/usr/lib/x86_64-linux-gnu/libGLU.so.1
@@ -33,3 +33,4 @@
 @/usr/lib/x86_64-linux-gnu/libswscale.so
 @/usr/lib/x86_64-linux-gnu/libmp3lame.so.0
 @/usr/lib/x86_64-linux-gnu/libQt5XcbQpa.so.5
+@/usr/lib/x86_64-linux-gnu/libpython2.7.so.1.0
