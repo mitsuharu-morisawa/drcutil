@@ -6,7 +6,7 @@ export MAKE_THREADS_NUMBER=2
 export BUILD_TYPE=Release
 export ENABLE_ASAN=1
 export USE_CLANG=0
-export PACKAGES="OpenRTM-aist openhrp3 pcl octomap hrpsys-base HRP2 HRP2KAI HRP5P sch-core state-observation hmc2 hrpsys-humanoid hrpsys-private hrpsys-state-observation choreonoid savedbg trap-fpe is-jaxa takenaka"
+export PACKAGES="OpenRTM-aist openhrp3 hrpsys-base HRP2 HRP2KAI HRP5P sch-core state-observation hmc2 hrpsys-humanoid hrpsys-private hrpsys-state-observation"
 
 ######## Please don't edit from here ########
 source definitions.sh
