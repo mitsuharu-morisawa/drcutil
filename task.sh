@@ -44,7 +44,7 @@ else
 fi
 ulimit -c unlimited
 killall -9 openhrp-model-loader || true
-pkill -9 choreonoid || true
+kill -9 `pidof choreonoid` &> /dev/null || true
 killall -9 recordmydesktop || true
 cd ${PREFIX}/share/hrpsys/samples/${PROJECT}
 rm -f core core*.bz2
